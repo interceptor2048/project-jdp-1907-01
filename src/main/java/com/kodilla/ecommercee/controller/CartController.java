@@ -1,17 +1,14 @@
 package com.kodilla.ecommercee.controller;
 
-<<<<<<< HEAD
-public class CartController {
-}
-=======
 import com.kodilla.ecommercee.dto.CartDto;
+import com.kodilla.ecommercee.dto.OrderDto;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 
 @CrossOrigin(origins = "*")
 @RestController
-@RequestMapping("/user")
+@RequestMapping("v1/ecommercee/")
 public class CartController {
 
     @PostMapping(value = "{userId}/cart")
@@ -36,8 +33,9 @@ public class CartController {
     public void removeItemFromCard(@PathVariable Long userId,@PathVariable  @RequestParam Long itemId) {
     }
 
-
-
+    @PostMapping(value = "{userId}/order/{cartId}")
+    public OrderDto createOrder(@PathVariable Long userId, @PathVariable  @RequestParam Long cartId) {
+       return new OrderDto();
+    }
 
 }
->>>>>>> origin/JDP190701-3
