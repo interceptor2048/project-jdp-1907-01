@@ -8,11 +8,12 @@ import java.util.ArrayList;
 
 @CrossOrigin(origins = "*")
 @RestController
-@RequestMapping("v1/ecommercee/cart")
+@RequestMapping("v1/ecommercee/cart/")
 public class CartController {
 
     @PostMapping(value = "createCart")
-    public  void createCart(@RequestParam long userId) {
+    public  CartDto createCart(@RequestParam long userId) {
+        return new CartDto();
     }
 
     @GetMapping(value = "getCart")
@@ -21,7 +22,8 @@ public class CartController {
     }
 
     @PostMapping(value = "addItem")
-    public  void addItemToCard(@PathVariable long userId, @PathVariable long itemId) {
+    public  CartDto addItemToCard(@RequestParam long userId, @RequestParam long itemId) {
+        return new CartDto();
     }
 
     @DeleteMapping(value = "removeItem")
