@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @RestController
-@RequestMapping("productGroup")
+@RequestMapping("/v1/ecommercee/productGroup")
 public class GroupController {
 
     @GetMapping(value = "getProductGroups")

@@ -8,9 +8,9 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class ProductDto {
-    private  int id;
+    private  Long id;
     private String name;
     private String description;
     private double price;
-    private int groupId;
+    private Long groupId;
 }

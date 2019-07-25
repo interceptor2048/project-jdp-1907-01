@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @RestController
-@RequestMapping("product")
+@RequestMapping("/v1/ecommercee/product")
 public class ProductController {
 
     @GetMapping(value = "getAllProducts")
@@ -33,4 +33,5 @@ public class ProductController {
     public void deleteProduct(@RequestParam int id) {
         //Execute productDao interface to delete object from database
     }
+
 }
