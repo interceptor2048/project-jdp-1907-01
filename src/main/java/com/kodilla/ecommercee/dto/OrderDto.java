@@ -6,7 +6,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 
 import java.time.LocalDate;
-import java.util.LinkedHashMap;
+import java.util.LinkedList;
 
 @AllArgsConstructor
 @Getter
@@ -14,7 +14,7 @@ public class OrderDto {
 
     private Long id;
     private LocalDate date;
-    private LinkedHashMap<Product, Long> productMap;
+    private LinkedList<Product> productList;
     private Long userId;
 
 
