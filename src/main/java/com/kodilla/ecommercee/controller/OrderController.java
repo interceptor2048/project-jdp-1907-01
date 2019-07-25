@@ -12,7 +12,7 @@ import java.util.HashMap;
 import java.util.List;
 
 @RestController
-@RequestMapping("/order")
+@RequestMapping("/v1/ecommercee/order")
 public class OrderController {
 
     @GetMapping("getOrders")
