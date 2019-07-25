@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.LinkedHashMap;
+import java.util.LinkedList;
 import java.util.List;
 
 @RestController
@@ -21,7 +21,7 @@ public class OrderController {
 
     @GetMapping("getOrder")
     public OrderDto getOrder(@RequestParam Long id) {
-        return new OrderDto(id, LocalDate.now(), new LinkedHashMap<Product, Long>(), 1L);
+        return new OrderDto(id, LocalDate.now(), new LinkedList<Product>(), 1L);
     }
 
     @PostMapping("createOrder")
