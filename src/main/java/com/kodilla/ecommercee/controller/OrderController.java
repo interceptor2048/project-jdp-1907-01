@@ -1,14 +1,13 @@
 package com.kodilla.ecommercee.controller;
 
 import com.kodilla.ecommercee.domain.Product;
-import com.kodilla.ecommercee.domain.User;
 import com.kodilla.ecommercee.dto.OrderDto;
 import org.springframework.web.bind.annotation.*;
 
 
 import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
 
 @RestController
@@ -22,7 +21,7 @@ public class OrderController {
 
     @GetMapping("getOrder")
     public OrderDto getOrder(@RequestParam Long id) {
-        return new OrderDto(id, LocalDate.now(), new HashMap<Product, Long>(), new User());
+        return new OrderDto(id, LocalDate.now(), new LinkedHashMap<Product, Long>(), 1L);
     }
 
     @PostMapping("createOrder")
