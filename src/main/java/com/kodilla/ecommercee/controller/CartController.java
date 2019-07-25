@@ -21,7 +21,7 @@ public class CartController {
     }
 
     @PostMapping(value = "addItem")
-    public  void addItemToCard(@PathVariable long userId, @PathVariable long itemId,  @RequestParam long itemQuantity) {
+    public  void addItemToCard(@PathVariable long userId, @PathVariable long itemId) {
     }
 
     @DeleteMapping(value = "removeItem")
