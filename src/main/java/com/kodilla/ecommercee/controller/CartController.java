@@ -8,33 +8,28 @@ import java.util.ArrayList;
 
 @CrossOrigin(origins = "*")
 @RestController
-@RequestMapping("v1/ecommercee/")
+@RequestMapping("v1/ecommercee/cart")
 public class CartController {
 
-    @PostMapping(value = "{userId}/cart")
-    public  void createCart(@PathVariable Long userId) {
+    @PostMapping(value = "createCart")
+    public  void createCart(@RequestParam long userId) {
     }
 
-    @GetMapping(value = "{userId}/cart")
-    public CartDto getCart(@PathVariable Long userId) {
-        return new CartDto(1L,userId,new ArrayList<>());
+    @GetMapping(value = "getCart")
+    public CartDto getCart(@RequestParam long userId) {
+        return new CartDto(new ArrayList<>());
     }
 
-    @PostMapping(value = "{userId}/cart/{itemId}")
-    public  void addItemToCard(@PathVariable Long userId, @PathVariable Long itemId,  @RequestParam Long itemQuantity) {
+    @PostMapping(value = "addItem")
+    public  void addItemToCard(@PathVariable long userId, @PathVariable long itemId,  @RequestParam long itemQuantity) {
     }
 
-    @PutMapping(value = "{userId}/cart/{itemId}")
-    public CartDto updateCartItem(@PathVariable Long userId, @PathVariable Long itemId, @RequestParam Long itemQuantity) {
-        return new CartDto(1L,userId,new ArrayList<>());
+    @DeleteMapping(value = "removeItem")
+    public void removeItemFromCard(@RequestParam  long userId, @RequestParam long itemId) {
     }
 
-    @DeleteMapping(value = "{userId}/cart/{itemId}")
-    public void removeItemFromCard(@PathVariable Long userId,@PathVariable  @RequestParam Long itemId) {
-    }
-
-    @PostMapping(value = "{userId}/order/{cartId}")
-    public OrderDto createOrder(@PathVariable Long userId, @PathVariable  @RequestParam Long cartId) {
+    @PostMapping(value = "createOrder")
+    public OrderDto createOrder(@RequestParam  long userId) {
        return new OrderDto();
     }
 
