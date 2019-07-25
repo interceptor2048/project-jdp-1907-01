@@ -18,7 +18,7 @@ public class GroupController {
     }
 
     @GetMapping(value = "getProductGroupById")
-    public ProductGroupDto getProductGroupById(@RequestParam Long id) {
+    public ProductGroupDto getProductGroupById(@RequestParam long id) {
         return new ProductGroupDto();
     }
 

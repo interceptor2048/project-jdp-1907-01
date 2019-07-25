@@ -13,7 +13,7 @@ public class ProductController {
     }
 
     @GetMapping(value = "getProductById")
-    public ProductDto getProductById(@RequestParam Long id) {
+    public ProductDto getProductById(@RequestParam long id) {
         return new ProductDto();
     }
 
@@ -28,7 +28,7 @@ public class ProductController {
     }
 
     @DeleteMapping(value = "deleteProduct")
-    public void deleteProduct(@RequestParam Long id) {
+    public void deleteProduct(@RequestParam long id) {
         //Execute productDao interface to delete object from database
     }
 }
