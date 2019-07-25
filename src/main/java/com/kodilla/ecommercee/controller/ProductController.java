@@ -1,5 +1,4 @@
 package com.kodilla.ecommercee.controller;
-
 import com.kodilla.ecommercee.dto.ProductDto;
 import org.springframework.web.bind.annotation.*;
 import java.util.ArrayList;
@@ -8,7 +7,6 @@ import java.util.List;
 @RestController
 @RequestMapping("/v1/ecommercee/product/")
 public class ProductController {
-
     @GetMapping(value = "getAllProducts")
     public List<ProductDto> getAllProduct() {
         return new ArrayList<>();
@@ -33,5 +31,4 @@ public class ProductController {
     public void deleteProduct(@RequestParam Long id) {
         //Execute productDao interface to delete object from database
     }
-
 }
