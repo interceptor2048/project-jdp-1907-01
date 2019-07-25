@@ -11,11 +11,9 @@ public interface GroupRepository extends CrudRepository <Group, Long> {
     List<Group> findAll();
 
     @Override
-    Group save(Group group);
-
-    @Override
     Optional<Group> findById(Long id);
 
-    Group updateGroup(Long id);
+    @Override
+    Group save(Group group);
 }
 
