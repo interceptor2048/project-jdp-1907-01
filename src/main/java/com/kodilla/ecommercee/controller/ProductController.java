@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @RestController
-@RequestMapping("/v1/ecommercee/product")
+@RequestMapping("/v1/ecommercee/product/")
 public class ProductController {
 
     @GetMapping(value = "getAllProducts")
@@ -15,7 +15,7 @@ public class ProductController {
     }
 
     @GetMapping(value = "getProductById")
-    public ProductDto getProductById(@RequestParam int id) {
+    public ProductDto getProductById(@RequestParam Long id) {
         return new ProductDto();
     }
 
@@ -30,7 +30,7 @@ public class ProductController {
     }
 
     @DeleteMapping(value = "deleteProduct")
-    public void deleteProduct(@RequestParam int id) {
+    public void deleteProduct(@RequestParam Long id) {
         //Execute productDao interface to delete object from database
     }
 
