@@ -14,6 +14,5 @@ public class OrderDto {
     private LocalDate date;
     private List<ProductDto> productList;
     private Long userId;
-
-
 }
+
