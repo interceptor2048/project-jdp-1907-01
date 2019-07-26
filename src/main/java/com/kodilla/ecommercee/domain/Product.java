@@ -2,9 +2,8 @@ package com.kodilla.ecommercee.domain;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+
+import javax.persistence.*;
 import java.math.BigDecimal;
 
 @AllArgsConstructor
@@ -19,4 +18,7 @@ public class Product {
     private String productName;
     private BigDecimal price;
     private Long groupId;
+    @ManyToOne
+    @JoinColumn(name = "orderId")
+    private Order order;
 }
