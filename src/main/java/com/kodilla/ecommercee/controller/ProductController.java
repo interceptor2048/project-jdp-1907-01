@@ -20,26 +20,31 @@ public class ProductController {
 
     @GetMapping(value = "getAllProducts")
     public List<ProductDto> getAllProduct() {
-        return new ArrayList<>();
+        //return new ArrayList<>();
+        return productMapper.mapToProductDtoList(productService.getAllProduct());
     }
 
     @GetMapping(value = "getProductById")
-    public ProductDto getProductById(@RequestParam int id) {
-        return new ProductDto();
+    public ProductDto getProductById(@RequestParam int id) throws ProductNotFoundException {
+        //return new ProductDto();
+        return productMapper.mapToProductDto(productService.getProductById(id).orElseThrow(ProductNotFoundException::new));
     }
 
     @PostMapping(value = "createProduct")
-    public ProductDto createProduct(@RequestBody ProductDto productDto) {
-        return productDto;
+    public void createProduct(@RequestBody ProductDto productDto) {       //public ProductDto createProduct
+        //return productDto;
+        productService.saveProduct(productMapper.mapToProduct(productDto));
     }
 
     @PutMapping(value = "updateProduct")
     public ProductDto updateProduct(@RequestBody ProductDto productDto) {
-        return productDto;
+        //return productDto;
+        return productMapper.mapToProductDto(productService.saveProduct(productMapper.mapToProduct(productDto)));
     }
 
     @DeleteMapping(value = "deleteProduct")
     public void deleteProduct(@RequestParam int id) {
         //Execute productDao interface to delete object from database
+        productService.deleteProduct(id);
     }
 }
