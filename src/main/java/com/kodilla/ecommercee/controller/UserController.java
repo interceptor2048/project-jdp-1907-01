@@ -2,6 +2,7 @@ package com.kodilla.ecommercee.controller;
 import com.kodilla.ecommercee.dto.UserDto;
 import com.kodilla.ecommercee.mapper.UserMapper;
 import com.kodilla.ecommercee.service.UserService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
@@ -10,17 +11,14 @@ import java.util.List;
 @RequestMapping("/v1/ecommercee/user/")
 public class UserController {
 
-    private final UserService userService;
+    @Autowired
+    private UserMapper userMapper;
 
-    private final UserMapper userMapper;
-
-    public UserController(UserService userService, UserMapper userMapper) {
-        this.userService = userService;
-        this.userMapper = userMapper;
-    }
+    @Autowired
+    private UserService userService;
 
     @GetMapping(value = "getAllUsers")
-    public List<UserDto> getAllUsers(){
+    public List<UserDto> getAllUsers() {
         return userMapper.mapToUserDtoList(userService.getAllUsers());
     }
 
