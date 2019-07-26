@@ -14,7 +14,8 @@ public class OrderDto {
 
     private long id;
     private LocalDate date;
+    private boolean isCompleted;
     private List<ProductDto> productList;
-    private Long userId;
+    private long userId;
 }
 
