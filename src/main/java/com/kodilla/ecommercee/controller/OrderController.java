@@ -20,7 +20,7 @@ public class OrderController {
 
     @GetMapping("getOrder")
     public OrderDto getOrder(@RequestParam long id) {
-        return new OrderDto(id, LocalDate.now(), new LinkedList<ProductDto>(), 1L);
+        return new OrderDto(id, LocalDate.now(), false, new LinkedList<ProductDto>(), 1L);
     }
 
     @PostMapping("createOrder")
