@@ -1,50 +1,34 @@
 package com.kodilla.ecommercee.controller;
-
 import com.kodilla.ecommercee.dto.ProductDto;
-import com.kodilla.ecommercee.mapper.ProductMapper;
-import com.kodilla.ecommercee.service.ProductService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import java.util.ArrayList;
 import java.util.List;
 
 @RestController
-@RequestMapping("product")
+@RequestMapping("/v1/ecommercee/product/")
 public class ProductController {
-
-    @Autowired
-    private ProductMapper productMapper;
-
-    @Autowired
-    private ProductService productService;
-
     @GetMapping(value = "getAllProducts")
     public List<ProductDto> getAllProduct() {
-        //return new ArrayList<>();
-        return productMapper.mapToProductDtoList(productService.getAllProduct());
+        return new ArrayList<>();
     }
 
     @GetMapping(value = "getProductById")
-    public ProductDto getProductById(@RequestParam int id) throws ProductNotFoundException {
-        //return new ProductDto();
-        return productMapper.mapToProductDto(productService.getProductById(id).orElseThrow(ProductNotFoundException::new));
+    public ProductDto getProductById(@RequestParam long id) {
+        return new ProductDto();
     }
 
     @PostMapping(value = "createProduct")
-    public void createProduct(@RequestBody ProductDto productDto) {       //public ProductDto createProduct
-        //return productDto;
-        productService.saveProduct(productMapper.mapToProduct(productDto));
+    public ProductDto createProduct(@RequestBody ProductDto productDto) {
+        return productDto;
     }
 
     @PutMapping(value = "updateProduct")
     public ProductDto updateProduct(@RequestBody ProductDto productDto) {
-        //return productDto;
-        return productMapper.mapToProductDto(productService.saveProduct(productMapper.mapToProduct(productDto)));
+        return productDto;
     }
 
     @DeleteMapping(value = "deleteProduct")
-    public void deleteProduct(@RequestParam int id) {
+    public void deleteProduct(@RequestParam long id) {
         //Execute productDao interface to delete object from database
-        productService.deleteProduct(id);
     }
 }

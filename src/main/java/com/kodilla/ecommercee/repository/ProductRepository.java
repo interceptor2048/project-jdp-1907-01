@@ -9,17 +9,17 @@ import java.util.List;
 import java.util.Optional;
 
 @Repository
-public interface ProductRepository extends CrudRepository<Product, Integer> {
+public interface ProductRepository extends CrudRepository<Product, Long> {
 
     @Override
     List<Product> findAll();
 
     @Override
-    Optional<Product> findById(Integer id);
+    Optional<Product> findById(Long id);
 
     @Override
     Product save(Product product);
 
     @Override
-    void deleteById(Integer id);
+    void deleteById(Long id);
 }
