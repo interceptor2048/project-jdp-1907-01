@@ -1,9 +1,8 @@
 package com.kodilla.ecommercee.controller;
 
-public class UserNotFoundException extends Exception {
+import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.ResponseStatus;
 
-    @Override
-    public String getMessage() {
-        return "User not found!";
-    }
+@ResponseStatus(code = HttpStatus.NOT_FOUND, reason = "User Not Found!")
+public class UserNotFoundException extends Exception {
 }
