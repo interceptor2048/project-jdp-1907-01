@@ -18,4 +18,10 @@ public class User {
     private String username;
     private String status;
     private Long userKey;
+
+    public User(String username, String status, Long userKey) {
+        this.username = username;
+        this.status = status;
+        this.userKey = userKey;
+    }
 }
