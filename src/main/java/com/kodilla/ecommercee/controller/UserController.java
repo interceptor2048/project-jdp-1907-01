@@ -24,18 +24,18 @@ public class UserController {
         return userMapper.mapToUserDtoList(userService.getAllUsers());
     }
 
-    @PostMapping(value = "addUser")
-    public UserDto addUser(@RequestBody UserDto userDto) {
+    @PostMapping(value = "createUser")
+    public UserDto createUser(@RequestBody UserDto userDto) {
         return userMapper.mapToUserDto(userService.save(userMapper.mapToUser(userDto)));
     }
 
     @GetMapping(value = "getUser")
-    public UserDto getUser(@RequestParam long id) {
-        return userMapper.mapToUserDto(userService.getUser(id).get());
+    public UserDto getUser(@RequestParam long id) throws UserNotFoundException {
+        return userMapper.mapToUserDto(userService.getUser(id).orElseThrow(UserNotFoundException::new));
     }
 
     @PutMapping(value = "updateUser")
-    public UserDto updateProductGroup(@RequestBody UserDto userDto) {
+    public UserDto updateUser(@RequestBody UserDto userDto) {
         return userMapper.mapToUserDto(userService.save(userMapper.mapToUser(userDto)));
     }
 

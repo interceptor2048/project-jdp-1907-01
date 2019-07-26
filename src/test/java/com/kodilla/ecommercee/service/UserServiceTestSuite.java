@@ -22,7 +22,7 @@ public class UserServiceTestSuite {
 
         //When
         userService.save(user);
-        User tempUser = userService.getUser(1L).get();
+        User tempUser = userService.getUser(user.getId()).get();
         List<User> tempUsers = userService.getAllUsers();
 
         //Then
@@ -39,9 +39,9 @@ public class UserServiceTestSuite {
 
         //When
         userService.save(user);
-        userService.deleteUser(1L);
+        userService.deleteUser(user.getId());
 
         //Then
-        assertFalse(userService.getUser(1L).isPresent());
+        assertFalse(userService.getUser(user.getId()).isPresent());
     }
 }
