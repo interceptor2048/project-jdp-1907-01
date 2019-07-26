@@ -18,5 +18,5 @@ public class Product {
     private Long id;
     private String productName;
     private BigDecimal price;
-    //private Group groupId;
+    private Long groupId;
 }
