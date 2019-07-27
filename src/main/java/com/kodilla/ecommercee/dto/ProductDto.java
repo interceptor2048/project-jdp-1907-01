@@ -11,11 +11,11 @@ import java.math.BigDecimal;
 @Getter
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class ProductDto {
-    private  Long id;
+    private Long id;
     private String name;
     private String description;
     private BigDecimal price;
-    private Long groupId;
+    private ProductGroupDto productGroupDto;
 }
 
 
