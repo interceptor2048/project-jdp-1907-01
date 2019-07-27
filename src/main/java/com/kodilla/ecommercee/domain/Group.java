@@ -11,11 +11,15 @@ import javax.persistence.Id;
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
-@Entity
+@Entity(name = "PRODUCT_GROUP")
 public class Group {
 
     @Id
     @GeneratedValue
     private Long id;
     private String name;
+
+    public Group(String name) {
+        this.name = name;
+    }
 }
