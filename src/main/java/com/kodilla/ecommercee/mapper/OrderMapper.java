@@ -4,6 +4,7 @@ import com.kodilla.ecommercee.domain.Order;
 import com.kodilla.ecommercee.dto.OrderDto;
 import org.springframework.stereotype.Component;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Component
 public class OrderMapper {
@@ -19,7 +20,7 @@ public class OrderMapper {
     }
     
     public List<OrderDto> mapToOrderDtoList(final List<Order> orderList) {
-        /*return orderList.steam()
+        /*return orderList.stream()
             .map(o -> new OrderDto(o.getId(), o.getDate(), o.isCompeleted(), o.getProductList(), o.getUserId()))
             .collect(Collectors.toList());
         */
