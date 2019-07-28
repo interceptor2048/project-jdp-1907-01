@@ -12,8 +12,9 @@ import java.util.List;
 @Getter
 public class OrderDto {
 
-    private long id;
+    private Long id;
     private LocalDate date;
+    private boolean isCompleted;
     private List<ProductDto> productList;
     private Long userId;
 }
