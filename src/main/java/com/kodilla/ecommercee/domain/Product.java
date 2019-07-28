@@ -23,9 +23,9 @@ public class Product {
     @JoinColumn(name = "groupId")
     private Group group;
 
-    /*@ManyToOne
-    @JoinColumn(name = "orderId")
-    private Order order;*/
+//    @ManyToOne
+//    @JoinColumn(name = "orderId")
+//    private Order order;
 
     public Product(String name, String description, BigDecimal price, Group group) {
         this.name = name;

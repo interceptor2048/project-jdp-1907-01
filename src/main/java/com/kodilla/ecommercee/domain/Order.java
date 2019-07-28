@@ -19,8 +19,8 @@ public class Order {
     private Long id;
     private LocalDate date;
     private boolean isCompleted;
-    //@OneToMany(targetEntity = Product.class, mappedBy="order", fetch=FetchType.LAZY)
-    //private List<Product> productList;
+//    @OneToMany(targetEntity = Product.class, mappedBy="order", fetch=FetchType.LAZY)
+//    private List<Product> productList;
     private Long userId;
 
 }
