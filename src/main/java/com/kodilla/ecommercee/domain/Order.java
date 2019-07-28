@@ -16,11 +16,11 @@ public class Order {
 
     @Id
     @GeneratedValue
-    private long id;
+    private Long id;
     private LocalDate date;
     private boolean isCompleted;
     //@OneToMany(targetEntity = Product.class, mappedBy="order", fetch=FetchType.LAZY)
     //private List<Product> productList;
-    private long userId;
+    private Long userId;
 
 }
