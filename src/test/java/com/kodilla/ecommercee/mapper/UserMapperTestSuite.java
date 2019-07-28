@@ -1,6 +1,6 @@
 package com.kodilla.ecommercee.mapper;
 import com.kodilla.ecommercee.domain.User;
-import com.kodilla.ecommercee.dto.UserDto;
+import com.kodilla.ecommercee.domain.dto.UserDto;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,10 +21,8 @@ public class UserMapperTestSuite {
     public void mapToUser() {
         //Given
         UserDto userDto = new UserDto(1L, "User1", "1", 1234L);
-
         //When
         User user = mapper.mapToUser(userDto);
-
         //Then
         assertNotNull(user);
         assertEquals(Long.valueOf(1), user.getId());
@@ -37,10 +35,8 @@ public class UserMapperTestSuite {
     public void mapToUserDto() {
         //Given
         User user = new User(1L, "User1", "1", 1234L);
-
         //When
         UserDto userDto = mapper.mapToUserDto(user);
-
         //Then
         assertNotNull(userDto);
         assertEquals(Long.valueOf(1), userDto.getId());
@@ -55,10 +51,8 @@ public class UserMapperTestSuite {
         User user = new User(1L, "User1", "1", 1234L);
         List<User> users = new ArrayList<>();
         users.add(user);
-
         //When
         List<UserDto> usersDtoList = mapper.mapToUserDtoList(users);
-
         //Then
         assertNotNull(usersDtoList);
         assertEquals(1, usersDtoList.size());

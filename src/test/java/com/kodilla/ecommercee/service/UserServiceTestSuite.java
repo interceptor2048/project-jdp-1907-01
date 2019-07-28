@@ -19,12 +19,10 @@ public class UserServiceTestSuite {
     public void testSaveAndGetUser() {
         //Given
         User user = new User("User1", "1", 1234L);
-
         //When
         userService.save(user);
         User tempUser = userService.getUser(user.getId()).get();
         List<User> tempUsers = userService.getAllUsers();
-
         //Then
         assertNotNull(tempUser);
         assertNotNull(tempUsers);
@@ -36,11 +34,9 @@ public class UserServiceTestSuite {
     public void testDeleteUser() {
         //Given
         User user = new User("User1", "1", 1234L);
-
         //When
         userService.save(user);
         userService.deleteUser(user.getId());
-
         //Then
         assertFalse(userService.getUser(user.getId()).isPresent());
     }

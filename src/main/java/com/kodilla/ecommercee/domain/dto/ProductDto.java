@@ -1,15 +1,16 @@
-package com.kodilla.ecommercee.dto;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+package com.kodilla.ecommercee.domain.dto;
 import lombok.AllArgsConstructor;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import java.math.BigDecimal;
 
 @AllArgsConstructor
 @NoArgsConstructor
-@JsonIgnoreProperties(ignoreUnknown = true)
+@Getter
 public class ProductDto {
-    private  Long id;
+    private Long id;
     private String name;
     private String description;
-    private double price;
+    private BigDecimal price;
     private Long groupId;
 }

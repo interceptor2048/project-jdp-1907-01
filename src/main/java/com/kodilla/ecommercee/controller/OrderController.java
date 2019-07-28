@@ -1,9 +1,7 @@
 package com.kodilla.ecommercee.controller;
-
-import com.kodilla.ecommercee.dto.OrderDto;
-import com.kodilla.ecommercee.dto.ProductDto;
+import com.kodilla.ecommercee.domain.dto.OrderDto;
+import com.kodilla.ecommercee.domain.dto.ProductDto;
 import org.springframework.web.bind.annotation.*;
-
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.LinkedList;

@@ -1,5 +1,5 @@
 package com.kodilla.ecommercee.controller;
-import com.kodilla.ecommercee.dto.ProductGroupDto;
+import com.kodilla.ecommercee.domain.dto.GroupDto;
 import org.springframework.web.bind.annotation.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -7,23 +7,24 @@ import java.util.List;
 @RestController
 @RequestMapping("/v1/ecommercee/productGroup/")
 public class GroupController {
+
     @GetMapping(value = "getProductGroups")
-    public List<ProductGroupDto> getProductGroups(){
+    public List<GroupDto> getProductGroups(){
         return new ArrayList<>();
     }
 
     @PostMapping(value = "addProductGroup")
-    public ProductGroupDto addProductGroup(@RequestBody ProductGroupDto productGroupDto) {
-        return productGroupDto;
+    public GroupDto addProductGroup(@RequestBody GroupDto groupDto) {
+        return groupDto;
     }
 
     @GetMapping(value = "getProductGroupById")
-    public ProductGroupDto getProductGroupById(@RequestParam long id) {
-        return new ProductGroupDto();
+    public GroupDto getProductGroupById(@RequestParam long id) {
+        return new GroupDto();
     }
 
     @PutMapping(value = "updateProductGroup")
-    public ProductGroupDto updateProductGroup(@RequestBody ProductGroupDto productGroupDto) {
-        return productGroupDto;
+    public GroupDto updateProductGroup(@RequestBody GroupDto groupDto) {
+        return groupDto;
     }
 }
