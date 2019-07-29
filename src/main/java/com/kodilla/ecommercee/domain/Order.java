@@ -1,4 +1,5 @@
 package com.kodilla.ecommercee.domain;
+
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -20,9 +21,10 @@ public class Order {
     private Long id;
     private LocalDate date;
     private boolean isCompleted;
-    @OneToMany(targetEntity = Product.class, mappedBy="order", fetch=FetchType.LAZY)
+
+    @OneToMany(targetEntity = Product.class, mappedBy = "order", fetch = FetchType.LAZY)
     private List<Product> productList;
-    @OneToOne(cascade = CascadeType.ALL,fetch = FetchType.EAGER)
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinColumn(name = "user_id")
     @Setter
     private User user;
