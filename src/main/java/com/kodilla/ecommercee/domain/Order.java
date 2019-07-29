@@ -12,6 +12,7 @@ import java.util.List;
 @NoArgsConstructor
 @Getter
 @Entity
+@Table(name = "ORDERS")
 public class Order {
 
     @Id
@@ -23,4 +24,9 @@ public class Order {
     //private List<Product> productList;
     private Long userId;
 
+    public Order(LocalDate date, boolean isCompleted, Long userId) {
+        this.date = date;
+        this.isCompleted = isCompleted;
+        this.userId = userId;
+    }
 }
