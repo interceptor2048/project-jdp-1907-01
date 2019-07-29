@@ -30,20 +30,20 @@ public class UserTestSuite {
         return new User("Jessie","busy",2345L);
     }
 
-//    @Test
-//    public void shouldDeleteFromDatabase() {
-//        //Given
-//        User user = createContent();
-//        long prevNumOfRecords = userRepository.count();
-//        userRepository.save(user);
-//        logger.info("Records in table: " + userRepository.count());
-//        //When
-//        userRepository.deleteById(user.getId());
-//        //Then
-//        logger.info("Records in table: " + userRepository.count());
-//        long nextNumOfRecords = userRepository.count();
-//        assertEquals(0, nextNumOfRecords - prevNumOfRecords);
-//    }
+    @Test
+    public void shouldDeleteFromDatabase() {
+        //Given
+        User user = createContent();
+        long prevNumOfRecords = userRepository.count();
+        userRepository.save(user);
+        logger.info("Records in table: " + userRepository.count());
+        //When
+        userRepository.delete(user);
+        //Then
+        logger.info("Records in table: " + userRepository.count());
+        long nextNumOfRecords = userRepository.count();
+        assertEquals(0, nextNumOfRecords - prevNumOfRecords);
+    }
 
     @Test
     public void shouldAddToDataBase(){
