@@ -31,20 +31,6 @@ public class UserTestSuite {
     }
 
     @Test
-    public void shouldAddToDataBase(){
-        //Given
-        User user = createContent();
-        userRepository.save(user);
-        //When
-        long numberOfRecords = userRepository.count();
-        //Then
-        System.out.println(numberOfRecords);
-        assertEquals(1,numberOfRecords);
-        //Clean Up
-        userRepository.deleteById(user.getId());
-    }
-
-    @Test
     public void shouldDeleteFromDatabase() {
         //Given
         User user = createContent();
@@ -57,6 +43,20 @@ public class UserTestSuite {
         //Then
         System.out.println(numberOfRecords);
         assertEquals(0,numberOfRecords);
+    }
+
+    @Test
+    public void shouldAddToDataBase(){
+        //Given
+        User user = createContent();
+        userRepository.save(user);
+        //When
+        long numberOfRecords = userRepository.count();
+        //Then
+        System.out.println(numberOfRecords);
+        assertEquals(1,numberOfRecords);
+        //Clean Up
+        userRepository.deleteById(user.getId());
     }
 //
 //    @Test
