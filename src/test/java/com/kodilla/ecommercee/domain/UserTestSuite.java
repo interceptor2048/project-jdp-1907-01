@@ -43,20 +43,21 @@ public class UserTestSuite {
 //        //Then
 //        assertEquals(0,numberOfRecords);
 //    }
-//
-//    @Test
-//    public void shouldAddToDataBase(){
-//        //Given
-//        User user = createContent();
-//        userRepository.save(user);
-//        //When
-//        long numberOfRecords = userRepository.count();
-//        //Then
-//        assertEquals(1,numberOfRecords);
-//        //Clean Up
-//        userRepository.deleteById(user.getId());
-//    }
-//
+
+    @Test
+    public void shouldAddToDataBase(){
+        //Given
+        User user = createContent();
+        long prevNumOfRecords = userRepository.count();
+        //When
+        userRepository.save(user);
+        //Then
+        long nextNumOfRecords = userRepository.count();
+        assertEquals(1,nextNumOfRecords - prevNumOfRecords);
+        //Clean Up
+        userRepository.deleteById(user.getId());
+    }
+
     @Test
     public void shouldFindUserById() {
         //Given
