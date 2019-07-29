@@ -1,10 +1,11 @@
 package com.kodilla.ecommercee.controller;
+
 import com.kodilla.ecommercee.domain.dto.OrderDto;
-import com.kodilla.ecommercee.domain.dto.ProductDto;
 import org.springframework.web.bind.annotation.*;
-import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.LinkedList;
+import com.kodilla.ecommercee.exception.CanNotFindOrderException;
+import com.kodilla.ecommercee.mapper.OrderMapper;
+import com.kodilla.ecommercee.service.OrderService;
+import org.springframework.beans.factory.annotation.Autowired;
 import java.util.List;
 
 @RestController
@@ -12,28 +13,34 @@ import java.util.List;
 @CrossOrigin("*")
 public class OrderController {
 
+    @Autowired
+    OrderMapper orderMapper;
+
+    @Autowired
+    OrderService orderService;
+
     @GetMapping("getOrders")
     public List<OrderDto> getOrders() {
-        return new ArrayList<>();
+        return orderMapper.mapToOrderDtoList(orderService.getOrders());
     }
 
     @GetMapping("getOrder")
-    public OrderDto getOrder(@RequestParam long id) {
-        return new OrderDto(id, LocalDate.now(), false, new LinkedList<ProductDto>(), 1L);
+    public OrderDto getOrder(@RequestParam long id) throws CanNotFindOrderException {
+        return orderMapper.mapToOrderDto(orderService.getOrder(id));
     }
 
     @PostMapping("createOrder")
     public void createOrder(@RequestBody OrderDto orderDto) {
-        System.out.println("New order has been placed!");
+        orderService.createOrder(orderMapper.mapToOrder(orderDto));
     }
 
-    @PutMapping("updateOrder")
-    public OrderDto updateOrder(@RequestBody OrderDto orderDto) {
-        return orderDto;
+    @PutMapping("editOrder")
+    public OrderDto editOrder(@RequestBody OrderDto orderDto) {
+        return orderMapper.mapToOrderDto(orderService.updateOrder(orderMapper.mapToOrder(orderDto)));
     }
 
     @DeleteMapping("deleteOrder")
     public void deleteOrder(@RequestParam long id) {
-        System.out.println("Order nr. " + id + " has been deleted.");
+        orderService.deleteOrder(id);
     }
 }
