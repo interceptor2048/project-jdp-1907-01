@@ -12,12 +12,6 @@ public class OrderMapper {
         return new Order(orderDto.getId(),orderDto.getDate(),orderDto.isCompleted(),orderDto.getUserId());
     }
 
-    public List<Order> mapToOrderList(List<OrderDto> orderDtos) {
-        return orderDtos.stream()
-                .map(o -> new Order(o.getId(),o.getDate(),o.isCompleted(),o.getUserId()))
-                .collect(Collectors.toList());
-    }
-
     public OrderDto mapToOrderDto(Order order) {
         return new OrderDto(order.getId(),order.getDate(),order.isCompleted(),order.getUserId());
     }
