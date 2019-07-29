@@ -13,6 +13,7 @@ import javax.persistence.Table;
 @NoArgsConstructor
 @Getter
 @Entity
+
 @Table(name = "GROUPS")
 public class Group {
 

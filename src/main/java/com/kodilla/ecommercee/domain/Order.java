@@ -24,4 +24,9 @@ public class Order {
 //    private List<Product> productList;
     private Long userId;
 
+    public Order(LocalDate date, boolean isCompleted, Long userId) {
+        this.date = date;
+        this.isCompleted = isCompleted;
+        this.userId = userId;
+    }
 }
