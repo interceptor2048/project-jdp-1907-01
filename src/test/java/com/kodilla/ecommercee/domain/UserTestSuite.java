@@ -30,19 +30,20 @@ public class UserTestSuite {
         return new User("Jessie","busy",2345L);
     }
 
-//    @Test
-//    public void shouldDeleteFromDatabase() {
-//        //Given
-//        User user = createContent();
-//        userRepository.save(user);
-//        logger.info("Records in table: " + userRepository.count());
-//        userRepository.deleteById(user.getId());
-//        logger.info("Records in table: " + userRepository.count());
-//        //When
-//        long numberOfRecords = userRepository.count();
-//        //Then
-//        assertEquals(0,numberOfRecords);
-//    }
+    @Test
+    public void shouldDeleteFromDatabase() {
+        //Given
+        User user = createContent();
+        long prevNumOfRecords = userRepository.count();
+        userRepository.save(user);
+        logger.info("Records in table: " + userRepository.count());
+        //When
+        userRepository.deleteById(user.getId());
+        //Then
+        logger.info("Records in table: " + userRepository.count());
+        long nextNumOfRecords = userRepository.count();
+        assertEquals(0, nextNumOfRecords - prevNumOfRecords);
+    }
 
     @Test
     public void shouldAddToDataBase(){
@@ -54,8 +55,6 @@ public class UserTestSuite {
         //Then
         long nextNumOfRecords = userRepository.count();
         assertEquals(1,nextNumOfRecords - prevNumOfRecords);
-        //Clean Up
-        userRepository.deleteById(user.getId());
     }
 
     @Test
@@ -67,8 +66,6 @@ public class UserTestSuite {
         Optional resultUser = userRepository.findById(user.getId());
         //Then
         assertTrue(Optional.ofNullable(resultUser).isPresent());
-        //Clean Up
-        userRepository.deleteById(user.getId());
     }
 
     @Test
@@ -85,7 +82,5 @@ public class UserTestSuite {
         assertEquals(1,resultListOfUsers.size());
         assertEquals("UpdateJessie",resultUser.getUsername());
         assertEquals("updateBusy",resultUser.getStatus());
-        //Clean Up
-        userRepository.deleteById(user.getId());
     }
 }
