@@ -1,12 +1,14 @@
 package com.kodilla.ecommercee.domain;
 
 import com.kodilla.ecommercee.repository.GroupRepository;
+import com.kodilla.ecommercee.repository.ProductRepository;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 import static org.junit.Assert.assertEquals;
@@ -16,6 +18,8 @@ public class ProductGroupTestSuite {
 
     @Autowired
     GroupRepository groupRepository;
+    @Autowired
+    ProductRepository productRepository;
 
     @Test
     public void shouldAddToDataBase(){
@@ -75,4 +79,5 @@ public class ProductGroupTestSuite {
         assertEquals(1,numberOfRecords);
         assertEquals(0,numberOfRecordsAfterDelete);
     }
+
 }
