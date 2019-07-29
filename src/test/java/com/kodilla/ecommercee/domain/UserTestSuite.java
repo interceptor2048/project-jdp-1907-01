@@ -44,20 +44,20 @@ public class UserTestSuite {
         userRepository.deleteById(user.getId());
     }
 
-//    @Test
-//    public void shouldDeleteFromDatabase() {
-//        //Given
-//        User user = createContent();
-//        userRepository.save(user);
-//        LOGGER.info("Records in table: " + userRepository.count());
-//        userRepository.deleteById(user.getId());
-//        LOGGER.info("Records in table: " + userRepository.count());
-//        //When
-//        long numberOfRecords = userRepository.count();
-//        //Then
-//        System.out.println(numberOfRecords);
-////        assertEquals(0,numberOfRecords);
-//    }
+    @Test
+    public void shouldDeleteFromDatabase() {
+        //Given
+        User user = createContent();
+        userRepository.save(user);
+        LOGGER.info("Records in table: " + userRepository.count());
+        userRepository.deleteById(user.getId());
+        LOGGER.info("Records in table: " + userRepository.count());
+        //When
+        long numberOfRecords = userRepository.count();
+        //Then
+        System.out.println(numberOfRecords);
+        assertEquals(0,numberOfRecords);
+    }
 //
 //    @Test
 //    public void shouldFindUserById() {
