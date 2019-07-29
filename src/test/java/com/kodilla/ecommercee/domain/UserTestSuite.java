@@ -57,18 +57,18 @@ public class UserTestSuite {
 //        userRepository.deleteById(user.getId());
 //    }
 //
-//    @Test
-//    public void shouldFindUserById() {
-//        //Given
-//        User user = createContent();
-//        userRepository.save(user);
-//        //When
-//        Optional resultUser = userRepository.findById(user.getId());
-//        //Then
-//        assertTrue(Optional.ofNullable(resultUser).isPresent());
-//        //Clean Up
-//        userRepository.deleteById(user.getId());
-//    }
+    @Test
+    public void shouldFindUserById() {
+        //Given
+        User user = createContent();
+        userRepository.save(user);
+        //When
+        Optional resultUser = userRepository.findById(user.getId());
+        //Then
+        assertTrue(Optional.ofNullable(resultUser).isPresent());
+        //Clean Up
+        userRepository.deleteById(user.getId());
+    }
 
     @Test
     public void shouldUpdateUser() {
