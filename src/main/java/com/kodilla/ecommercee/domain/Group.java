@@ -7,6 +7,8 @@ import lombok.NoArgsConstructor;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
+import java.util.List;
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -18,4 +20,11 @@ public class Group {
     @GeneratedValue
     private Long id;
     private String name;
+
+//    public Group(String name) {
+//        this.name = name;
+//    }
+
+    @OneToMany(mappedBy="group")
+    private List<Product> products;
 }
