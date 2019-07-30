@@ -1,11 +1,10 @@
 package com.kodilla.ecommercee.domain;
 
-import com.kodilla.ecommercee.dto.ProductDto;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.Entity;
+import javax.persistence.*;
 import java.util.List;
 
 @AllArgsConstructor
@@ -14,8 +13,14 @@ import java.util.List;
 @Entity
 public class Cart {
 
+    @Id
+    @GeneratedValue
     private Long id;
-    private Long userId;
-    private List<ProductDto> productList;
+
+    @OneToOne
+    private User user;
+
+    @OneToMany
+    private List<Product> productList;
 }
 
