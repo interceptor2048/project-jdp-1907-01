@@ -13,11 +13,16 @@ import javax.persistence.Table;
 @NoArgsConstructor
 @Getter
 @Entity
-@Table(name = "PRODUCT_GROUP")
+
+@Table(name = "GROUPS")
 public class Group {
 
     @Id
     @GeneratedValue
     private Long id;
     private String name;
+
+    public Group(String name) {
+        this.name = name;
+    }
 }
