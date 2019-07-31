@@ -11,6 +11,7 @@ import java.util.List;
 @NoArgsConstructor
 @Getter
 @Entity
+@Table(name = "CARTS")
 public class Cart {
 
     @Id
@@ -18,9 +19,10 @@ public class Cart {
     private Long id;
 
     @OneToOne
+    @JoinColumn(name = "userId")
     private User user;
 
-    @OneToMany
+    @OneToMany(targetEntity = Product.class, mappedBy = "cart", fetch = FetchType.LAZY)
     private List<Product> productList;
 }
 

@@ -28,6 +28,10 @@ public class Product {
 //    @JoinColumn(name = "orderId")
 //    private Order order;
 
+    @ManyToOne
+    @JoinColumn(name = "cartId")
+    private Cart cart;
+
     public Product(String name, String description, BigDecimal price, Group group) {
         this.name = name;
         this.description = description;
