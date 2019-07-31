@@ -9,7 +9,7 @@ import java.math.BigDecimal;
 @NoArgsConstructor
 @Getter
 @Entity
-@Table(name = "PRODUCTS")
+@Table(name = "\"PRODUCTS\"")
 public class Product {
 
     @Id
