@@ -49,6 +49,7 @@ public class GroupTestSuite {
         groupRepository.deleteById(group.getId());
         groupRepository.deleteById(group2.getId());
     }
+
     @Test
     public void shouldUpdateGroupName(){
         //Given
@@ -79,5 +80,4 @@ public class GroupTestSuite {
         assertEquals(1,numberOfRecords);
         assertEquals(0,numberOfRecordsAfterDelete);
     }
-
 }

@@ -15,8 +15,9 @@ import java.util.List;
 @NoArgsConstructor
 @Getter
 @Entity
-@Table(name = "PRODUCT_GROUPS")
+@Table(name = "\"GROUPS\"")
 public class Group {
+
     @Id
     @GeneratedValue
     private Long id;
@@ -29,7 +30,9 @@ public class Group {
         this.id = id;
         this.name = name;
     }
+
     public Group(String name) {
         this.name = name;
     }
 }
+
