@@ -1,8 +1,8 @@
 package com.kodilla.ecommercee.domain;
+
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-
 import javax.persistence.*;
 
 @AllArgsConstructor
@@ -23,9 +23,10 @@ public class User {
     @JoinColumn(name = "cartId")
     private Cart cart;
 
-    public User(String username, String status, Long userKey) {
+    public User(String username, String status, Long userKey, Cart cart) {
         this.username = username;
         this.status = status;
         this.userKey = userKey;
+        this.cart = cart;
     }
 }
