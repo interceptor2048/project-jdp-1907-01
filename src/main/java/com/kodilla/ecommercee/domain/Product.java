@@ -32,10 +32,20 @@ public class Product {
 //    @JoinColumn(name = "orderId")
 //    private Order order;
 
-    public Product(String name, String description, BigDecimal price, Group group) {
+    public Product(Long id, String name, String description, BigDecimal price, Group group) {
+        this.id = id;
         this.name = name;
         this.description = description;
         this.price = price;
         this.group = group;
     }
+    public Product(String name, String description, BigDecimal price, Group group, Order order) {
+        this.name = name;
+        this.description = description;
+        this.price = price;
+        this.group = group;
+        this.order = order;
+    }
+
+
 }

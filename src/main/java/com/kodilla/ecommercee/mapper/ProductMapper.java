@@ -1,5 +1,6 @@
 package com.kodilla.ecommercee.mapper;
 
+import com.kodilla.ecommercee.controller.GroupNotFoundException;
 import com.kodilla.ecommercee.domain.Group;
 import com.kodilla.ecommercee.domain.Product;
 import com.kodilla.ecommercee.dto.ProductDto;
@@ -16,14 +17,14 @@ public class ProductMapper {
     @Autowired
     private GroupService groupService;
 
-    public Product mapToProduct(final ProductDto productDto) {
+    public Product mapToProduct (final ProductDto productDto) {
         return new Product(
                 productDto.getId(),
                 productDto.getName(),
                 productDto.getDescription(),
                 productDto.getPrice(),
-                getGroupId(productDto.getGroupId()),    // groupId z Group
-                null
+                getGroupId(productDto.getGroupId())    // groupId z Group
+
                 );
     }
 
@@ -33,14 +34,13 @@ public class ProductMapper {
                 product.getName(),
                 product.getDescription(),
                 product.getPrice(),
-                getGroupIdFroProduct(product.getGroup())   // groupId z Group
+                getGroupIdForProduct(product.getGroup())   // groupId z Group
         );
     }
 
-    public List<Product> mapToProductList(final List<ProductDto> productDtoList) {
+    public List<Product> mapToProductList(final List<ProductDto> productDtoList){
         return productDtoList
                 .stream()
-                //.map(p -> new Product(p.getId(), p.getName(), p.getDescription(), p.getPrice(), null, null))
                 .map(this::mapToProduct)
                 .collect(Collectors.toList());
     }
@@ -61,7 +61,7 @@ public class ProductMapper {
         }
     }
 
-    private Long getGroupIdFroProduct(Group group) {
+    private Long getGroupIdForProduct(Group group) {
         try {
             return group.getId();
         } catch (Exception e) {

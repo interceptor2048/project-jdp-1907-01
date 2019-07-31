@@ -1,6 +1,7 @@
 package com.kodilla.ecommercee.domain;
 
 import com.kodilla.ecommercee.repository.GroupRepository;
+import com.kodilla.ecommercee.repository.OrderRepository;
 import com.kodilla.ecommercee.repository.ProductRepository;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -28,12 +29,17 @@ public class ProductTestSuite {
     @Autowired
     private GroupRepository groupRepository;
 
+    @Autowired
+    private OrderRepository orderRepository;
+
     public Product createContent() {
-        Group group = new Group("Nike");
+        Group group = new Group();
+        Order order = new Order();
         groupRepository.save(group);
+        orderRepository.save(order);
         return new Product(
                 "Buty Nike", "Fajne buty",
-                new BigDecimal(100), group);
+                new BigDecimal(100), group, order);
     }
 
     @Test
@@ -92,7 +98,7 @@ public class ProductTestSuite {
         Product product = createContent();
         productRepository.save(product);
 
-        Group group = new Group("Addidas");
+        Group group = new Group();
         groupRepository.save(group);
 
         Product updateProduct = new Product(
@@ -109,7 +115,6 @@ public class ProductTestSuite {
         assertEquals("Buty Addidas",resultProduct.getName());
         assertEquals("Drogie buty",resultProduct.getDescription());
         assertEquals(600, resultProduct.getPrice().intValue());
-        assertEquals("Addidas", resultProduct.getGroup().getName());
 
         //Clean Up
         productRepository.deleteById(product.getId());
