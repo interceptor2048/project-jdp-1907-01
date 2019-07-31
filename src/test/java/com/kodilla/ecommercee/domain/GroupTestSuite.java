@@ -25,11 +25,12 @@ public class GroupTestSuite {
     public void shouldAddToDataBase(){
         //Given
         Group group = new Group("Shoes");
-        groupRepository.save(group);
+        long prevNumOfRecords = groupRepository.count();
         //When
-        long numberOfRecords = groupRepository.count();
+        groupRepository.save(group);
         //Then
-        assertEquals(1,numberOfRecords);
+        long nextNumOfRecords = groupRepository.count();
+        assertEquals(1,nextNumOfRecords - prevNumOfRecords);
         //Clean Up
         groupRepository.deleteById(group.getId());
     }
@@ -37,14 +38,15 @@ public class GroupTestSuite {
     @Test
     public void shouldFindAllGroup(){
         //Given
+        long prevNumOfRecords = groupRepository.count();
         Group group = new Group("Shoes");
         Group group2 = new Group("Accessories");
         groupRepository.save(group);
         groupRepository.save(group2);
         //When
-        List<Group> groupList = groupRepository.findAll();
+        long nextNumOfRecords = groupRepository.count();
         //Then
-        assertEquals(2,groupList.size());
+        assertEquals(2,nextNumOfRecords- prevNumOfRecords);
         //Clean Up
         groupRepository.deleteById(group.getId());
         groupRepository.deleteById(group2.getId());
@@ -53,16 +55,18 @@ public class GroupTestSuite {
     @Test
     public void shouldUpdateGroupName(){
         //Given
+        long prevNumOfRecords = groupRepository.count();
         Group group = new Group("shoes");
         groupRepository.save(group);
         Group groupWithMoreSpecificName= new Group(group.getId(),"Sneaker");
         groupRepository.save(groupWithMoreSpecificName);
         //When
         List<Group> groupList = groupRepository.findAll();
-        int listSize = groupRepository.findAll().size();
+        long nextNumOfRecords = groupRepository.count();
         //Then
-        assertEquals(1,listSize);
+        assertEquals(1,nextNumOfRecords - prevNumOfRecords);
         assertEquals("Sneaker",groupList.get(0).getName());
+        assertEquals(1,groupList.size());
         //Clean Up
         groupRepository.deleteById(group.getId());
     }
@@ -70,14 +74,13 @@ public class GroupTestSuite {
     @Test
     public void shouldDeleteFromDatabase() {
         //Given
+        long prevNumOfRecords = groupRepository.count();
         Group group = new Group("shoes");
         groupRepository.save(group);
-        long numberOfRecords = groupRepository.count();
-        groupRepository.deleteById(group.getId());
         //When
-        long numberOfRecordsAfterDelete = groupRepository.count();
+        groupRepository.deleteById(group.getId());
         //Then
-        assertEquals(1,numberOfRecords);
-        assertEquals(0,numberOfRecordsAfterDelete);
+        long nextNumOfRecords = groupRepository.count();
+        assertEquals(0,nextNumOfRecords - prevNumOfRecords);
     }
 }
