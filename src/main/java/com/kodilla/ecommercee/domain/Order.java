@@ -6,6 +6,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import javax.persistence.*;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -22,15 +23,31 @@ public class Order {
     private LocalDate date;
     private boolean isCompleted;
 
-    @OneToMany(targetEntity = Product.class, mappedBy = "order", fetch = FetchType.LAZY)
+    @OneToMany(targetEntity = Product.class, mappedBy = "order", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<Product> productList;
     @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinColumn(name = "user_id")
     @Setter
     private User user;
 
+    public Order(Long id, LocalDate date, boolean isCompleted, User user) {
+        this.id = id;
+        this.date = date;
+        this.isCompleted = isCompleted;
+        this.productList = new ArrayList<>();
+        this.user = user;
+    }
+
+    public Order(LocalDate date, boolean isCompleted, User user) {
+        this.date = date;
+        this.isCompleted = isCompleted;
+        this.productList = new ArrayList<>();
+        this.user = user;
+    }
+
     public Order(LocalDate date, boolean isCompleted) {
         this.date = date;
         this.isCompleted = isCompleted;
+        this.productList = new ArrayList<>();
     }
 }
