@@ -14,7 +14,7 @@ import java.util.List;
 import static org.junit.Assert.assertEquals;
 @SpringBootTest
 @RunWith(SpringRunner.class)
-public class ProductGroupTestSuite {
+public class GroupTestSuite {
 
     @Autowired
     GroupRepository groupRepository;

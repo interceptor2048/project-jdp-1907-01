@@ -7,11 +7,14 @@ import lombok.NoArgsConstructor;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.Table;
 
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
-@Entity(name = "PRODUCT_GROUP")
+@Entity
+
+@Table(name = "PRODUCT_GROUPS")
 public class Group {
 
     @Id
