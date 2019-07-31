@@ -23,7 +23,7 @@ public class OrderEntityTestSuite {
     public static Logger LOGGER = LoggerFactory.getLogger(OrderEntityTestSuite.class);
 
     public Order createContent() {
-        return new Order(LocalDate.now(), true, 3L);
+        return new Order(LocalDate.now(), true);
     }
 
     @Test
@@ -75,7 +75,7 @@ public class OrderEntityTestSuite {
         List<Order> resultOrders = orderRepository.findAll();
         Order resultOrder = resultOrders.get(0);
         //When
-        Order updateOrder = new Order(resultOrder.getId(),resultOrder.getDate(),false,56L);
+        Order updateOrder = new Order(resultOrder.getId(),resultOrder.getDate(),false,resultOrder.getUser());
         orderRepository.save(updateOrder);
         List<Order> resultUpdateOrdersList = orderRepository.findAll();
         //Then
