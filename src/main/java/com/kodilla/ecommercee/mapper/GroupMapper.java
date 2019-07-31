@@ -14,23 +14,19 @@ public class GroupMapper {
     public Group mapToGroup(final ProductGroupDto productGroupDto) {
         return new Group(
                 productGroupDto.getId(),
-                productGroupDto.getName()
-
-                );
+                productGroupDto.getName());
     }
 
     public ProductGroupDto mapToProductGroupDto(final Group group) {
         return new ProductGroupDto(
                 group.getId(),
-                group.getName()
-        );
+                group.getName());
     }
 
     public List<ProductGroupDto> mapToroductGroupDtoList(final List<Group> groupList) {
         return groupList.stream()
                 //.map(g -> new ProductGroupDto(g.getId(), g.getName()))
                 .map(this::mapToProductGroupDto)
-                .collect(Collectors.toList()
-                );
+                .collect(Collectors.toList());
     }
 }

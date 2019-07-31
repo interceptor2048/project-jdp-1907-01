@@ -23,9 +23,7 @@ public class ProductMapper {
                 productDto.getName(),
                 productDto.getDescription(),
                 productDto.getPrice(),
-                getGroupId(productDto.getGroupId())    // groupId z Group
-
-                );
+                getGroupId(productDto.getGroupId()));   // groupId z Group
     }
 
     public ProductDto mapToProductDto(final Product product) {
@@ -34,8 +32,7 @@ public class ProductMapper {
                 product.getName(),
                 product.getDescription(),
                 product.getPrice(),
-                getGroupIdForProduct(product.getGroup())   // groupId z Group
-        );
+                getGroupIdForProduct(product.getGroup()));  // groupId z Group
     }
 
     public List<Product> mapToProductList(final List<ProductDto> productDtoList){

@@ -39,6 +39,7 @@ public class Product {
         this.price = price;
         this.group = group;
     }
+
     public Product(String name, String description, BigDecimal price, Group group, Order order) {
         this.name = name;
         this.description = description;
@@ -46,6 +47,4 @@ public class Product {
         this.group = group;
         this.order = order;
     }
-
-
 }
