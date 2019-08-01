@@ -1,5 +1,4 @@
 package com.kodilla.ecommercee.domain;
-
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -10,7 +9,7 @@ import java.math.BigDecimal;
 @NoArgsConstructor
 @Getter
 @Entity
-@Table(name = "PRODUCTS")
+@Table(name = "\"PRODUCTS\"")
 public class Product {
 
     @Id

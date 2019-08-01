@@ -1,19 +1,21 @@
 package com.kodilla.ecommercee.controller;
-import com.kodilla.ecommercee.dto.ProductDto;
+import com.kodilla.ecommercee.domain.dto.ProductDto;
 import org.springframework.web.bind.annotation.*;
 import java.util.ArrayList;
 import java.util.List;
 
 @RestController
 @RequestMapping("/v1/ecommercee/product/")
+@CrossOrigin("*")
 public class ProductController {
+
     @GetMapping(value = "getAllProducts")
     public List<ProductDto> getAllProduct() {
         return new ArrayList<>();
     }
 
-    @GetMapping(value = "getProductById")
-    public ProductDto getProductById(@RequestParam long id) {
+    @GetMapping(value = "getProduct")
+    public ProductDto getProduct(@RequestParam long id) {
         return new ProductDto();
     }
 
