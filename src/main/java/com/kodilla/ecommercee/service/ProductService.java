@@ -30,4 +30,9 @@ public class ProductService {
     public void deleteProduct(final Long id) {
         productRepository.deleteById(id);
     }
+
+    public Optional<Product> findProductByName(final String name) {
+        return productRepository.findProductByName(name);
+    }
+
 }

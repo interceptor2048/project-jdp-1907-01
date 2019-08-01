@@ -17,13 +17,13 @@ public class ProductMapper {
     @Autowired
     private GroupService groupService;
 
-    public Product mapToProduct (final ProductDto productDto) {
+    public Product mapToProduct (final ProductDto productDto)  {
         return new Product(
                 productDto.getId(),
                 productDto.getName(),
                 productDto.getDescription(),
                 productDto.getPrice(),
-                getGroupId(productDto.getGroupId()));   // groupId z Group
+                (groupService.getGroupById(productDto.getGroupId()).orElse(null)));   // groupId z Group
     }
 
     public ProductDto mapToProductDto(final Product product) {
@@ -48,14 +48,6 @@ public class ProductMapper {
                 //.map(p -> new ProductDto(p.getId(), p.getName(), p.getDescription(), p.getPrice(), null))
                 .map(this::mapToProductDto)
                 .collect(Collectors.toList());
-    }
-
-    private Group getGroupId(Long id) {     // wyszukanie GroupID w serwisie
-        if (id == null) {
-            return null;
-        } else {
-            return groupService.getGroupById(id);
-        }
     }
 
     private Long getGroupIdForProduct(Group group) {
