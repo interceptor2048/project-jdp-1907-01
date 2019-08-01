@@ -30,11 +30,12 @@ public class OrderEntityTestSuite {
     public void shouldAddToDB() {
         //Given
         Order order = createContent();
+        long recordsCountBeforeAdding= orderRepository.count();
         orderRepository.save(order);
         //When
-        long recordsCount = orderRepository.count();
+        long recordsCountResult = orderRepository.count();
         //Then
-        Assert.assertEquals(1, recordsCount);
+        Assert.assertTrue(recordsCountBeforeAdding<recordsCountResult);
         //CleanUp
         orderRepository.deleteById(order.getId());
     }
@@ -77,9 +78,7 @@ public class OrderEntityTestSuite {
         //When
         Order updateOrder = new Order(resultOrder.getId(),resultOrder.getDate(),false,resultOrder.getUser());
         orderRepository.save(updateOrder);
-        List<Order> resultUpdateOrdersList = orderRepository.findAll();
         //Then
-        Assert.assertEquals(1,resultUpdateOrdersList.size());
         Assert.assertEquals(false,updateOrder.isCompleted());
     }
 }
