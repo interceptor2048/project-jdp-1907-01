@@ -65,23 +65,4 @@ public class Product {
         this.price = price;
     }
 
-    public String getName() {
-        return name;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public BigDecimal getPrice() {
-        return price;
-    }
-
-    public Group getGroup() {
-        return group;
-    }
-
-    public Order getOrder() {
-        return order;
-    }
 }
