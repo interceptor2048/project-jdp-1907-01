@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class GroupService {
@@ -30,7 +31,11 @@ public class GroupService {
         groupRepository.deleteById(id);
     }
 
-    public Group getGroupById(final Long groupId) {
+    public Group getGroupById(final Long groupId) {         // used id productMapper
         return groupRepository.findById(groupId).orElse(null);
+    }
+
+    public Optional<Group> getGroup(final long groupId) {   // used id groupController
+        return groupRepository.findById(groupId);
     }
 }
