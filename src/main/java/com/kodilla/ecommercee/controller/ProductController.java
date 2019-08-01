@@ -1,5 +1,6 @@
 package com.kodilla.ecommercee.controller;
-import com.kodilla.ecommercee.dto.ProductDto;
+import com.kodilla.ecommercee.controller.exceptions.ProductNotFoundException;
+import com.kodilla.ecommercee.domain.dto.ProductDto;
 import com.kodilla.ecommercee.mapper.ProductMapper;
 import com.kodilla.ecommercee.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,6 +10,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/v1/ecommercee/product/")
+@CrossOrigin("*")
 public class ProductController {
 
     @Autowired
@@ -19,12 +21,12 @@ public class ProductController {
 
     @GetMapping(value = "getAllProducts")
     public List<ProductDto> getAllProducts() {
-        return productMapper.mapToProductDtoList(productService.getAllProduct());
+        return productMapper.mapToProductDtoList(productService.getAllProducts());
     }
 
-    @GetMapping(value = "getProductById/{productId}")
-    public ProductDto getProductByID(@RequestParam Long productId) throws ProductNotFoundException {
-        return productMapper.mapToProductDto(productService.getProductById(productId).orElseThrow(ProductNotFoundException::new));
+    @GetMapping(value = "getProduct/{productId}")
+    public ProductDto getProduct(@RequestParam long id) throws ProductNotFoundException {
+        return productMapper.mapToProductDto(productService.getProduct(id).orElseThrow(ProductNotFoundException::new));
     }
 
     @PostMapping(value = "createProduct", consumes = MediaType.APPLICATION_JSON_VALUE)
@@ -38,10 +40,8 @@ public class ProductController {
     }
 
     @DeleteMapping(value = "deleteProduct/{productId}")
-    public void deleteProduct(@RequestParam Long productId) {
-        productService.deleteProduct(productId);
+    public void deleteProduct(@RequestParam long id) {
+        productService.deleteProduct(id);
         //Execute productDao interface to delete object from database
     }
-
-
 }
