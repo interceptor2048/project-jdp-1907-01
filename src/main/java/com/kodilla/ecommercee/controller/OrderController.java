@@ -1,9 +1,7 @@
 package com.kodilla.ecommercee.controller;
-
-import com.kodilla.ecommercee.dto.OrderDto;
-import com.kodilla.ecommercee.dto.ProductDto;
+import com.kodilla.ecommercee.domain.dto.OrderDto;
+import com.kodilla.ecommercee.domain.dto.ProductDto;
 import org.springframework.web.bind.annotation.*;
-
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.LinkedList;
@@ -11,6 +9,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/v1/ecommercee/order/")
+@CrossOrigin("*")
 public class OrderController {
 
     @GetMapping("getOrders")
@@ -28,8 +27,8 @@ public class OrderController {
         System.out.println("New order has been placed!");
     }
 
-    @PutMapping("editOrder")
-    public OrderDto editOrder(@RequestBody OrderDto orderDto) {
+    @PutMapping("updateOrder")
+    public OrderDto updateOrder(@RequestBody OrderDto orderDto) {
         return orderDto;
     }
 

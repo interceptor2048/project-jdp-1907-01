@@ -1,6 +1,6 @@
 package com.kodilla.ecommercee.mapper;
 import com.kodilla.ecommercee.domain.User;
-import com.kodilla.ecommercee.dto.UserDto;
+import com.kodilla.ecommercee.domain.dto.UserDto;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -1,5 +1,4 @@
 package com.kodilla.ecommercee.domain;
-
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -10,7 +9,7 @@ import java.math.BigDecimal;
 @NoArgsConstructor
 @Getter
 @Entity
-@Table(name = "PRODUCTS")
+@Table(name = "\"PRODUCTS\"")
 public class Product {
 
     @Id
@@ -27,10 +26,6 @@ public class Product {
     @ManyToOne
     @JoinColumn(name = "orderId")
     private Order order;
-
-//    @ManyToOne
-//    @JoinColumn(name = "orderId")
-//    private Order order;
 
     public Product(Long id, String name, String description, BigDecimal price, Group group) {
         this.id = id;
