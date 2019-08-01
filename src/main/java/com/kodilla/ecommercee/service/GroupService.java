@@ -17,8 +17,8 @@ public class GroupService {
         return groupRepository.findAll();
     }
 
-    public Optional<Group> getGroup(final Long id) throws GroupNotFoundException {
-        return Optional.ofNullable(groupRepository.findById(id)).orElseThrow(GroupNotFoundException::new);
+    public Optional<Group> getGroup(final Long id) {
+        return groupRepository.findById(id);
     }
 
     public Group saveGroup(final Group group) {

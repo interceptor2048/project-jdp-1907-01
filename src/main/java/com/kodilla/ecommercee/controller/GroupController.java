@@ -16,7 +16,7 @@ public class GroupController {
     }
 
     @GetMapping(value = "getGroup")
-    public GroupDto getGroup(@RequestParam long id) throws GroupNotFoundException {
+    public GroupDto getGroup(@RequestParam long id)  {
         return new GroupDto();
     }
 

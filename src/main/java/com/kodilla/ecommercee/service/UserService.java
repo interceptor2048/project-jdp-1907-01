@@ -13,8 +13,8 @@ public class UserService {
     @Autowired
     private UserRepository userRepository;
 
-    public Optional<User> getUser(long id) throws UserNotFoundException{
-        return Optional.ofNullable(userRepository.findById(id)).orElseThrow(UserNotFoundException::new);
+    public Optional<User> getUser(long id) {
+        return userRepository.findById(id);
     }
 
     public List<User> getAllUsers() {

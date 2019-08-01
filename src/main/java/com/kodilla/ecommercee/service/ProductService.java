@@ -17,8 +17,8 @@ public class ProductService {
         return productRepository.findAll();
     }
 
-    public Optional<Product> getProduct(final Long id) throws ProductNotFoundException {
-        return Optional.ofNullable(productRepository.findById(id)).orElseThrow(ProductNotFoundException::new);
+    public Optional<Product> getProduct(final Long id)  {
+        return productRepository.findById(id);
     }
 
     public Product saveProduct(final Product product) {
