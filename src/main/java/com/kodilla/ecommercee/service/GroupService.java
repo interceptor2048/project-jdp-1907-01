@@ -1,5 +1,5 @@
 package com.kodilla.ecommercee.service;
-import com.kodilla.ecommercee.controller.exceptions.GroupNotFoundException;
+
 import com.kodilla.ecommercee.domain.Group;
 import com.kodilla.ecommercee.repository.GroupRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,5 +29,7 @@ public class GroupService {
         groupRepository.deleteById(id);
     }
 
-
+    public Optional<Group> getGroupById(final Long groupId) {
+        return groupRepository.findById(groupId);
+    }
 }
