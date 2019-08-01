@@ -1,4 +1,5 @@
 package com.kodilla.ecommercee.service;
+import com.kodilla.ecommercee.controller.exceptions.GroupNotFoundException;
 import com.kodilla.ecommercee.domain.Group;
 import com.kodilla.ecommercee.repository.GroupRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,8 +17,8 @@ public class GroupService {
         return groupRepository.findAll();
     }
 
-    public Optional<Group> getGroup(final Long id) {
-        return groupRepository.findById(id);
+    public Optional<Group> getGroup(final Long id) throws GroupNotFoundException {
+        return Optional.ofNullable(groupRepository.findById(id)).orElseThrow(GroupNotFoundException::new);
     }
 
     public Group saveGroup(final Group group) {

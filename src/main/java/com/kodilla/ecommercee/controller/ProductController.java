@@ -1,4 +1,5 @@
 package com.kodilla.ecommercee.controller;
+import com.kodilla.ecommercee.controller.exceptions.ProductNotFoundException;
 import com.kodilla.ecommercee.domain.dto.ProductDto;
 import org.springframework.web.bind.annotation.*;
 import java.util.ArrayList;
@@ -15,7 +16,7 @@ public class ProductController {
     }
 
     @GetMapping(value = "getProduct")
-    public ProductDto getProduct(@RequestParam long id) {
+    public ProductDto getProduct(@RequestParam long id) throws ProductNotFoundException {
         return new ProductDto();
     }
 

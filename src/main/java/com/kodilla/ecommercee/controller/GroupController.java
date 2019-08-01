@@ -1,4 +1,5 @@
 package com.kodilla.ecommercee.controller;
+import com.kodilla.ecommercee.controller.exceptions.GroupNotFoundException;
 import com.kodilla.ecommercee.domain.dto.GroupDto;
 import org.springframework.web.bind.annotation.*;
 import java.util.ArrayList;
@@ -15,7 +16,7 @@ public class GroupController {
     }
 
     @GetMapping(value = "getGroup")
-    public GroupDto getGroup(@RequestParam long id) {
+    public GroupDto getGroup(@RequestParam long id) throws GroupNotFoundException {
         return new GroupDto();
     }
 

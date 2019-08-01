@@ -1,4 +1,5 @@
 package com.kodilla.ecommercee.service;
+import com.kodilla.ecommercee.controller.exceptions.UserNotFoundException;
 import com.kodilla.ecommercee.domain.User;
 import com.kodilla.ecommercee.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,8 +13,8 @@ public class UserService {
     @Autowired
     private UserRepository userRepository;
 
-    public Optional<User> getUser(long id) {
-        return userRepository.findById(id);
+    public Optional<User> getUser(long id) throws UserNotFoundException{
+        return Optional.ofNullable(userRepository.findById(id)).orElseThrow(UserNotFoundException::new);
     }
 
     public List<User> getAllUsers() {
