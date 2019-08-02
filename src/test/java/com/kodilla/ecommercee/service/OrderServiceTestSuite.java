@@ -19,7 +19,7 @@ public class OrderServiceTestSuite {
     private OrderService orderService;
 
     @Test
-    public void testOrderService() throws OrderNotFoundException {
+    public void testSaveAndGetOrder() throws OrderNotFoundException {
         //Given
         Order order = new Order(LocalDate.now(), true, new User());
         //When
@@ -31,8 +31,16 @@ public class OrderServiceTestSuite {
         assertNotNull(tempOrders);
         assertEquals(LocalDate.now(), tempOrder.getDate());
         assertEquals(1, tempOrders.size());
-        // Clean up and delete test
+    }
+
+    @Test
+    public void testDeleteUser() {
+        //Given
+        Order order = new Order(LocalDate.now(), true, new User());
+        //When
+        orderService.saveOrder(order);
         orderService.deleteOrder(order.getId());
+        //Then
         assertFalse(orderService.getOrder(order.getId()).isPresent());
     }
 }
