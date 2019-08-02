@@ -76,8 +76,7 @@ public class UserTestSuite {
         User updateUser = new User(user.getId(),"UpdateJessie","updateBusy",567L);
         userRepository.save(updateUser);
         //When
-        List<User> resultListOfUsers = userRepository.findAll();
-        User resultUser = resultListOfUsers.get(0);
+        User resultUser = userRepository.returnUserById(user.getId());
         //Then
         assertEquals("UpdateJessie",resultUser.getUsername());
         assertEquals("updateBusy",resultUser.getStatus());
