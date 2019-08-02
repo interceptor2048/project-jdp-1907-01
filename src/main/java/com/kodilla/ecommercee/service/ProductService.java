@@ -1,4 +1,5 @@
 package com.kodilla.ecommercee.service;
+import com.kodilla.ecommercee.controller.exceptions.ProductNotFoundException;
 import com.kodilla.ecommercee.domain.Product;
 import com.kodilla.ecommercee.repository.ProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,7 +17,7 @@ public class ProductService {
         return productRepository.findAll();
     }
 
-    public Optional<Product> getProduct(final Long id) {
+    public Optional<Product> getProduct(final Long id)  {
         return productRepository.findById(id);
     }
 
