@@ -45,7 +45,7 @@ public class OrderMapperTestSuite {
         //Given
         Order order = getOrder();
         //When
-        OrderDto orderDto = getOrderDto();
+        OrderDto orderDto = orderMapper.mapToOrderDto(order);
         //Then
         assertEquals(order.getId(),orderDto.getId());
         assertEquals(order.getDate(),orderDto.getDate());
