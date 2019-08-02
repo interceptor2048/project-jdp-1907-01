@@ -1,14 +1,12 @@
 package com.kodilla.ecommercee.controller;
-
-import com.kodilla.ecommercee.dto.CartDto;
-import com.kodilla.ecommercee.dto.OrderDto;
+import com.kodilla.ecommercee.domain.dto.CartDto;
+import com.kodilla.ecommercee.domain.dto.OrderDto;
 import org.springframework.web.bind.annotation.*;
-
 import java.util.ArrayList;
 
-@CrossOrigin(origins = "*")
 @RestController
 @RequestMapping("v1/ecommercee/cart/")
+@CrossOrigin("*")
 public class CartController {
 
     @PostMapping(value = "createCart")

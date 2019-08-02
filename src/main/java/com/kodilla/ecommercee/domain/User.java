@@ -3,13 +3,18 @@ package com.kodilla.ecommercee.domain;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+
 import javax.persistence.*;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.OneToOne;
+import javax.persistence.Table;
 
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
 @Entity
-@Table(name = "USERS")
+@Table(name = "\"USERS\"")
 public class User {
 
     @Id
@@ -21,12 +26,12 @@ public class User {
 
     @OneToOne
     @JoinColumn(name = "cartId")
-    private Cart cart;
+    private Long cartId;
 
-    public User(String username, String status, Long userKey, Cart cart) {
+    public User(String username, String status, Long userKey, Long cartId) {
         this.username = username;
         this.status = status;
         this.userKey = userKey;
-        this.cart = cart;
+        this.cartId = cartId;
     }
 }

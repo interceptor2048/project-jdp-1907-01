@@ -1,16 +1,15 @@
 package com.kodilla.ecommercee.domain;
-
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import javax.persistence.*;
 import java.math.BigDecimal;
 
-@AllArgsConstructor
+//@AllArgsConstructor
 @NoArgsConstructor
 @Getter
 @Entity
-@Table(name = "PRODUCTS")
+@Table(name = "\"PRODUCTS\"")
 public class Product {
 
     @Id
@@ -36,15 +35,8 @@ public class Product {
     @JoinColumn(name = "cartId")
     private Cart cart;
 
-    public Product(Long id, String name, String description, BigDecimal price, Group group) {
+    public Product(Long id, String name, String description, BigDecimal price, Group group, Order order, Cart cart) {
         this.id = id;
-        this.name = name;
-        this.description = description;
-        this.price = price;
-        this.group = group;
-    }
-
-    public Product(String name, String description, BigDecimal price, Group group, Order order, Cart cart) {
         this.name = name;
         this.description = description;
         this.price = price;
