@@ -79,6 +79,7 @@ public class UserTestSuite {
         List<User> resultListOfUsers = userRepository.findAll();
         User resultUser = resultListOfUsers.get(0);
         //Then
+        assertTrue(resultListOfUsers.size() == 1);
         assertEquals("UpdateJessie",resultUser.getUsername());
         assertEquals("updateBusy",resultUser.getStatus());
     }
