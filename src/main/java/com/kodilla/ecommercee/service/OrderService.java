@@ -6,6 +6,7 @@ import com.kodilla.ecommercee.repository.OrderRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class OrderService {
@@ -17,20 +18,11 @@ public class OrderService {
         return orderRepository.findAll();
     }
 
-    public Order getOrder(long id) throws CanNotFindOrderException{
-        List<Order> orders = orderRepository.findAll();
-        for(Order order : orders) {
-            if(order.getId() == id) {
-                Order resultOrder = order;
-                return resultOrder;
-            } else {
-                throw  new CanNotFindOrderException();
-            }
-        }
-        return null;
+    public Optional<Order> getOrder(long id) {
+        return orderRepository.findById(id);
     }
 
-    public void createOrder(Order order) {
+    public void saveOrder(Order order) {
         orderRepository.save(order);
     }
 
