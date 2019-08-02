@@ -26,12 +26,12 @@ public class User {
 
     @OneToOne
     @JoinColumn(name = "cartId")
-    private Long cartId;
+    private Cart cart;
 
-    public User(String username, String status, Long userKey, Long cartId) {
+    public User(String username, String status, Long userKey, Cart cart) {
         this.username = username;
         this.status = status;
         this.userKey = userKey;
-        this.cartId = cartId;
+        this.cart = cart;
     }
 }

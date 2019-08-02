@@ -1,6 +1,11 @@
 package com.kodilla.ecommercee.mapper;
+
+import com.kodilla.ecommercee.domain.Cart;
 import com.kodilla.ecommercee.domain.User;
 import com.kodilla.ecommercee.domain.dto.UserDto;
+import com.kodilla.ecommercee.service.CartService;
+import com.kodilla.ecommercee.service.UserService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -8,13 +13,16 @@ import java.util.stream.Collectors;
 @Component
 public class UserMapper {
 
+    @Autowired
+    private CartService cartService;
+
     public User mapToUser(UserDto userDto) {
         return new User(
                 userDto.getId(),
                 userDto.getUsername(),
                 userDto.getStatus(),
                 userDto.getUserKey(),
-                userDto.getCartId());
+                getCartWithId(userDto.getCartId()));
     }
 
     public UserDto mapToUserDto(User user) {
@@ -23,7 +31,7 @@ public class UserMapper {
                 user.getUsername(),
                 user.getStatus(),
                 user.getUserKey(),
-                user.getCartId());
+                user.getCart().getId());
     }
 
     public List<UserDto> mapToUserDtoList(List<User> userList) {
@@ -33,7 +41,11 @@ public class UserMapper {
                         u.getUsername(),
                         u.getStatus(),
                         u.getUserKey(),
-                        u.getCartId()))
+                        u.getCart().getId()))
                 .collect(Collectors.toList());
+    }
+
+    private Cart getCartWithId(Long id) {
+        return cartService.getCart(id).orElse(null);
     }
 }
