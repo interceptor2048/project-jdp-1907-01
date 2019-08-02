@@ -1,4 +1,5 @@
 package com.kodilla.ecommercee.service;
+import com.kodilla.ecommercee.controller.exceptions.GroupNotFoundException;
 import com.kodilla.ecommercee.domain.Group;
 import com.kodilla.ecommercee.repository.GroupRepository;
 import org.springframework.beans.factory.annotation.Autowired;

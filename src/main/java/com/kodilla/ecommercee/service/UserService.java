@@ -1,4 +1,5 @@
 package com.kodilla.ecommercee.service;
+import com.kodilla.ecommercee.controller.exceptions.UserNotFoundException;
 import com.kodilla.ecommercee.domain.User;
 import com.kodilla.ecommercee.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,5 +27,9 @@ public class UserService {
 
     public void deleteUser(long id) {
         userRepository.deleteById(id);
+    }
+
+    public User returnUserById(long id) {
+        return userRepository.returnUserById(id);
     }
 }

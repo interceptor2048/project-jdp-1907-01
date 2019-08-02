@@ -6,7 +6,12 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.persistence.NamedQuery;
 
+@NamedQuery(
+        name = "User.returnUserById",
+        query = "from User where id = :param"
+)
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
