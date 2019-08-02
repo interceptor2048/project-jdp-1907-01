@@ -25,6 +25,7 @@ public class ProductController {
     }
 
     @GetMapping(value = "getProduct")
+
     public ProductDto getProduct(@RequestParam long id) throws ProductNotFoundException {
         return productMapper.mapToProductDto(productService.getProduct(id).orElseThrow(ProductNotFoundException::new));
     }
