@@ -1,6 +1,7 @@
 package com.kodilla.ecommercee.mapper;
 import com.kodilla.ecommercee.domain.Order;
 import com.kodilla.ecommercee.domain.dto.OrderDto;
+import com.kodilla.ecommercee.repository.OrderRepository;
 import com.kodilla.ecommercee.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -12,6 +13,9 @@ public class OrderMapper {
 
     @Autowired
     UserRepository userRepository;
+
+    @Autowired
+    OrderRepository orderRepository;
 
     public Order mapToOrder(OrderDto orderDto) {
         return new Order(orderDto.getId(),orderDto.getDate(),orderDto.isCompleted(),userRepository.returnUserById(orderDto.getUserId()));
