@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import java.util.List;
 
+
 @Service
 public class OrderService {
 
@@ -29,9 +30,10 @@ public class OrderService {
             }
         }
         return null;
+
     }
 
-    public void createOrder(Order order) {
+    public void saveOrder(Order order) {
         orderRepository.save(order);
     }
 

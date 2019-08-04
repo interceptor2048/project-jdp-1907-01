@@ -31,7 +31,7 @@ public class OrderController {
 
     @PostMapping("createOrder")
     public void createOrder(@RequestBody OrderDto orderDto) {
-        orderService.createOrder(orderMapper.mapToOrder(orderDto));
+        orderService.saveOrder(orderMapper.mapToOrder(orderDto));
     }
 
     @PutMapping("editOrder")
