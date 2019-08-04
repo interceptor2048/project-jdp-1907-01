@@ -3,7 +3,6 @@ package com.kodilla.ecommercee.controller;
 import com.kodilla.ecommercee.controller.exceptions.OrderNotFoundException;
 import com.kodilla.ecommercee.domain.dto.OrderDto;
 import org.springframework.web.bind.annotation.*;
-import com.kodilla.ecommercee.exception.CanNotFindOrderException;
 import com.kodilla.ecommercee.mapper.OrderMapper;
 import com.kodilla.ecommercee.service.OrderService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,7 +26,7 @@ public class OrderController {
 
     @GetMapping("getOrder")
     public OrderDto getOrder(@RequestParam long id) throws OrderNotFoundException {
-        return orderMapper.mapToOrderDto(orderService.getOrder(id).orElseThrow(OrderNotFoundException::new));
+        return orderMapper.mapToOrderDto(orderService.getOrder(id));
     }
 
     @PostMapping("createOrder")
