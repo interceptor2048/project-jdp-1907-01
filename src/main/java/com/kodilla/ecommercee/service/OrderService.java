@@ -1,7 +1,7 @@
 package com.kodilla.ecommercee.service;
 
+import com.kodilla.ecommercee.controller.exceptions.OrderNotFoundException;
 import com.kodilla.ecommercee.domain.Order;
-import com.kodilla.ecommercee.exception.CanNotFindOrderException;
 import com.kodilla.ecommercee.repository.OrderRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -18,14 +18,14 @@ public class OrderService {
     }
 
 
-    public Order getOrder(long id) throws CanNotFindOrderException{
+    public Order getOrder(long id) throws OrderNotFoundException {
         List<Order> orders = orderRepository.findAll();
         for(Order order : orders) {
             if(order.getId() == id) {
                 Order resultOrder = order;
                 return resultOrder;
             } else {
-                throw  new CanNotFindOrderException();
+                throw  new OrderNotFoundException();
             }
         }
         return null;
