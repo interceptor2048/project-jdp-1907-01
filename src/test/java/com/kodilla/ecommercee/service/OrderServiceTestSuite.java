@@ -5,6 +5,8 @@ import com.kodilla.ecommercee.domain.Order;
 import com.kodilla.ecommercee.domain.User;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
@@ -21,18 +23,22 @@ public class OrderServiceTestSuite {
     @Autowired
     private OrderService orderService;
 
+    Logger LOGGER = LoggerFactory.getLogger(OrderServiceTestSuite.class);
+
     @Test
-    public void testSaveAndGetOrder() throws OrderNotFoundException {
+    public void testSaveAndGetOrder()  {
         //Given
-        Order order = new Order(13L,LocalDate.now(), true, new User());
+        Order tempOrder = null;
+        Order order = new Order(LocalDate.now(), true, new User());
         //When
         orderService.saveOrder(order);
-        Order tempOrder = orderService.getOrder(order.getId());
-        List<Order> tempOrders = orderService.getOrders();
+        try {
+             tempOrder = orderService.getOrder(order.getId());
+        } catch (OrderNotFoundException e) {
+           LOGGER.error(e.getMessage());
+        }
         //Then
-        assertNotNull(tempOrder);
-        assertNotNull(tempOrders);
-        assertEquals(LocalDate.now(), tempOrder.getDate());
+        assertEquals(order.getId(),tempOrder.getId());
     }
 
     @Test
