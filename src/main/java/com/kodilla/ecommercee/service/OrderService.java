@@ -19,20 +19,6 @@ public class OrderService {
     }
 
 
-    public Order getOrder(long id) throws OrderNotFoundException {
-        List<Order> orders = orderRepository.findAll();
-        for(Order order : orders) {
-            if(order.getId() == id) {
-                Order resultOrder = order;
-                return resultOrder;
-            } else {
-                throw  new OrderNotFoundException();
-            }
-        }
-        return null;
-
-    }
-
     public void saveOrder(Order order) {
         orderRepository.save(order);
     }
@@ -43,6 +29,10 @@ public class OrderService {
 
     public void deleteOrder(long id) {
         orderRepository.deleteById(id);
+    }
+
+    public Order getOrder(long id) throws OrderNotFoundException{
+        return orderRepository.findById(id).orElseThrow(OrderNotFoundException::new);
     }
 
 }
