@@ -21,7 +21,8 @@ public class Product {
     private String description;
     private BigDecimal price;
     @Setter
-    @ManyToOne
+
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "groupId")
     private Group group;
     @Setter
@@ -50,5 +51,12 @@ public class Product {
         this.name = name;
         this.description = description;
         this.price = price;
+    }
+
+    public Product(String name, String description, BigDecimal price, Group group) {
+        this.name = name;
+        this.description = description;
+        this.price = price;
+        this.group = group;
     }
 }

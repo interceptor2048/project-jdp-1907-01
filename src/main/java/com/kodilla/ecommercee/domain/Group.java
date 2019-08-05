@@ -25,13 +25,11 @@ public class Group {
 
     @OneToMany(targetEntity = Product.class,
             mappedBy = "group",
-            fetch = FetchType.EAGER
-    )
+            fetch = FetchType.EAGER)
     private List<Product> products = new ArrayList<>();
 
     public Group(Long id, String name) {
         this.id = id;
-
         this.name = name;
     }
 

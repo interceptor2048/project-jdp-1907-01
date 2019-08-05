@@ -12,6 +12,8 @@ public class GroupService {
 
     @Autowired
     private GroupRepository groupRepository;
+    @Autowired
+    private ProductService productService;
 
     public List<Group> getAllGroups() {
         return groupRepository.findAll();
@@ -29,7 +31,28 @@ public class GroupService {
         groupRepository.deleteById(id);
     }
 
-    public Optional<Group> getGroupById(final Long groupId) {
-        return groupRepository.findById(groupId);
+    public Optional<Group> getGroupByName(final String name) {
+        return groupRepository.findGroupByName(name);
+    }
+
+    public void deleteGroupAndMoveProductToUnassignedGroup(long id) {
+        Optional<Group> unassignedGroup = getGroupByName("Unassigned product.");
+        Optional<Group> optionalGroup = getGroup(id);
+        if(!unassignedGroup.isPresent()) {
+            Group newUnassignedGroup = new Group("Unassigned product.");
+            saveGroup(newUnassignedGroup);
+            optionalGroup.ifPresent(group -> group.getProducts().forEach(p -> p.setGroup(newUnassignedGroup)));
+            optionalGroup.ifPresent(group -> group.getProducts().forEach(p -> productService.saveProduct(p)));
+            optionalGroup.ifPresent(group -> group.getProducts().forEach(p-> newUnassignedGroup.getProducts().add(p)));
+            optionalGroup.ifPresent(group -> group.getProducts().clear());
+            saveGroup(newUnassignedGroup);
+        } else {
+            optionalGroup.ifPresent(group -> group.getProducts().forEach(p -> p.setGroup(unassignedGroup.get())));
+            optionalGroup.ifPresent(group -> group.getProducts().forEach(p -> productService.saveProduct(p)));
+            optionalGroup.ifPresent(group -> group.getProducts().forEach(p-> unassignedGroup.get().getProducts().add(p)));
+            optionalGroup.ifPresent(group -> group.getProducts().clear());
+            saveGroup(unassignedGroup.get());
+        }
+        deleteGroup(id);
     }
 }

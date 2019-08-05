@@ -1,5 +1,6 @@
 package com.kodilla.ecommercee.service;
 import com.kodilla.ecommercee.domain.User;
+import com.kodilla.ecommercee.repository.UserRepository;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,22 +15,28 @@ public class UserServiceTestSuite {
 
     @Autowired
     private UserService userService;
+    @Autowired
+    private UserRepository userRepository;
 
     @Test
     public void testSaveAndGetUser() {
         //Given
+
+        int prevNumOfRecords = userService.getAllUsers().size();
         User user = new User("User1", "1", 1234L);
 
         //When
         userService.save(user);
         User tempUser = userService.getUser(user.getId()).get();
         List<User> tempUsers = userService.getAllUsers();
-
+        int afterNumOfRecords = userService.getAllUsers().size();
         //Then
         assertNotNull(tempUser);
         assertNotNull(tempUsers);
         assertEquals("User1", tempUser.getUsername());
-        assertEquals(1, tempUsers.size());
+        assertEquals(1, afterNumOfRecords-prevNumOfRecords);
+
+
     }
 
     @Test
