@@ -14,13 +14,14 @@ public class ProductMapper {
     @Autowired
     private GroupService groupService;
 
-    public Product mapToProduct (final ProductDto productDto) {
+    public Product mapToProduct (final ProductDto productDto)  {
         return new Product(
                 productDto.getId(),
                 productDto.getName(),
                 productDto.getDescription(),
                 productDto.getPrice(),
                 getGroupWithId(productDto.getGroupId()));
+
     }
 
     public ProductDto mapToProductDto(final Product product) {
@@ -44,6 +45,14 @@ public class ProductMapper {
                 .stream()
                 .map(this::mapToProductDto)
                 .collect(Collectors.toList());
+    }
+
+    private Long getGroupIdForProduct(Group group) {
+        try {
+            return group.getId();
+        } catch (Exception e) {
+            return null;
+        }
     }
 
     private Group getGroupWithId(Long id) {

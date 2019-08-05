@@ -26,16 +26,16 @@ public class Group {
     @OneToMany(targetEntity = Product.class,
             mappedBy = "group",
             fetch = FetchType.EAGER)
-    private List<Product> products = new ArrayList<>();
+        private List<Product> products = new ArrayList<>();
 
     public Group(Long id, String name) {
         this.id = id;
+
         this.name = name;
     }
 
     public Group(String name) {
         this.name = name;
     }
-
 }
 

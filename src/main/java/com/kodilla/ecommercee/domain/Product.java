@@ -10,6 +10,7 @@ import java.math.BigDecimal;
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
+@Setter
 @Entity
 @Table(name = "\"PRODUCTS\"")
 public class Product {
@@ -17,21 +18,28 @@ public class Product {
     @Id
     @GeneratedValue
     private Long id;
+    @Column(unique = true)
     private String name;
     private String description;
     private BigDecimal price;
-    @Setter
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "groupId")
     private Group group;
-    @Setter
+
     @ManyToOne
     @JoinColumn(name = "orderId")
     private Order order;
 
     public Product(Long id, String name, String description, BigDecimal price, Group group) {
         this.id = id;
+        this.name = name;
+        this.description = description;
+        this.price = price;
+        this.group = group;
+    }
+
+    public Product(String name, String description, BigDecimal price, Group group) {
         this.name = name;
         this.description = description;
         this.price = price;
@@ -46,17 +54,16 @@ public class Product {
         this.order = order;
     }
 
-    public Product(Long id, String name, String description, BigDecimal price) {
-        this.id = id;
+    public Product(String name, String description, BigDecimal price) {
         this.name = name;
         this.description = description;
         this.price = price;
     }
 
-    public Product(String name, String description, BigDecimal price, Group group) {
+    public Product(Long id, String name, String description, BigDecimal price) {
+        this.id = id;
         this.name = name;
         this.description = description;
         this.price = price;
-        this.group = group;
     }
 }
