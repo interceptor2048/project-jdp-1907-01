@@ -39,11 +39,4 @@ public class Product {
         this.group = group;
         this.cart = cart;
     }
-
-    public Product(Long id, String name, String description, BigDecimal price) {
-        this.id = id;
-        this.name = name;
-        this.description = description;
-        this.price = price;
-    }
 }

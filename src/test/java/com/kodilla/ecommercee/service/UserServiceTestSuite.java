@@ -1,4 +1,5 @@
 package com.kodilla.ecommercee.service;
+import com.kodilla.ecommercee.domain.Cart;
 import com.kodilla.ecommercee.domain.User;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -18,7 +19,7 @@ public class UserServiceTestSuite {
     @Test
     public void testSaveAndGetUser() {
         //Given
-        User user = new User("User1", "1", 1234L);
+        User user = new User("User1", "1", 1234L, new Cart());
 
         //When
         userService.save(user);
@@ -35,7 +36,7 @@ public class UserServiceTestSuite {
     @Test
     public void testDeleteUser() {
         //Given
-        User user = new User("User1", "1", 1234L);
+        User user = new User("User1", "1", 1234L, new Cart());
 
         //When
         userService.save(user);
@@ -48,7 +49,7 @@ public class UserServiceTestSuite {
     @Test
     public void testReturnUserById(){
         //Given
-        User user = new User("User1", "1", 1234L);
+        User user = new User("User1", "1", 1234L, new Cart());
         userService.save(user);
         //When
         User resultUser = userService.returnUserById(user.getId());
