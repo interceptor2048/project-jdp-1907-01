@@ -1,13 +1,10 @@
 package com.kodilla.ecommercee.mapper;
-
-import com.kodilla.ecommercee.controller.GroupNotFoundException;
 import com.kodilla.ecommercee.domain.Group;
 import com.kodilla.ecommercee.domain.Product;
-import com.kodilla.ecommercee.dto.ProductDto;
+import com.kodilla.ecommercee.domain.dto.ProductDto;
 import com.kodilla.ecommercee.service.GroupService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -23,7 +20,7 @@ public class ProductMapper {
                 productDto.getName(),
                 productDto.getDescription(),
                 productDto.getPrice(),
-                getGroupId(productDto.getGroupId()));   // groupId z Group
+                getGroupWithId(productDto.getGroupId()));
     }
 
     public ProductDto mapToProductDto(final Product product) {
@@ -32,7 +29,7 @@ public class ProductMapper {
                 product.getName(),
                 product.getDescription(),
                 product.getPrice(),
-                getGroupIdForProduct(product.getGroup()));  // groupId z Group
+                product.getGroup().getId());
     }
 
     public List<Product> mapToProductList(final List<ProductDto> productDtoList){
@@ -45,24 +42,11 @@ public class ProductMapper {
     public List<ProductDto> mapToProductDtoList(final List<Product> productList) {
         return productList
                 .stream()
-                //.map(p -> new ProductDto(p.getId(), p.getName(), p.getDescription(), p.getPrice(), null))
                 .map(this::mapToProductDto)
                 .collect(Collectors.toList());
     }
 
-    private Group getGroupId(Long id) {     // wyszukanie GroupID w serwisie
-        if (id == null) {
-            return null;
-        } else {
-            return groupService.getGroupById(id);
-        }
-    }
-
-    private Long getGroupIdForProduct(Group group) {
-        try {
-            return group.getId();
-        } catch (Exception e) {
-            return null;
-        }
+    private Group getGroupWithId(Long id) {
+        return groupService.getGroup(id).orElse(null);
     }
 }

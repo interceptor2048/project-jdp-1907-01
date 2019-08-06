@@ -9,7 +9,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
-
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
@@ -24,18 +23,19 @@ public class OrderEntityTestSuite {
     public static Logger LOGGER = LoggerFactory.getLogger(OrderEntityTestSuite.class);
 
     public Order createContent() {
-        return new Order(LocalDate.now(), true, 3L);
+        return new Order(LocalDate.now(), true);
     }
 
     @Test
     public void shouldAddToDB() {
         //Given
         Order order = createContent();
+        long recordsCountBeforeAdding= orderRepository.count();
         orderRepository.save(order);
         //When
-        long recordsCount = orderRepository.count();
+        long recordsCountResult = orderRepository.count();
         //Then
-        Assert.assertEquals(1, recordsCount);
+        Assert.assertTrue(recordsCountBeforeAdding<recordsCountResult);
         //CleanUp
         orderRepository.deleteById(order.getId());
     }
@@ -76,11 +76,9 @@ public class OrderEntityTestSuite {
         List<Order> resultOrders = orderRepository.findAll();
         Order resultOrder = resultOrders.get(0);
         //When
-        Order updateOrder = new Order(resultOrder.getId(),resultOrder.getDate(),false,56L);
+        Order updateOrder = new Order(resultOrder.getId(),resultOrder.getDate(),false,resultOrder.getUser());
         orderRepository.save(updateOrder);
-        List<Order> resultUpdateOrdersList = orderRepository.findAll();
         //Then
-        Assert.assertEquals(1,resultUpdateOrdersList.size());
         Assert.assertEquals(false,updateOrder.isCompleted());
     }
 }

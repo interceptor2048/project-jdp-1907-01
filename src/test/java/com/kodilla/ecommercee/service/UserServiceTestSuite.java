@@ -44,4 +44,17 @@ public class UserServiceTestSuite {
         //Then
         assertFalse(userService.getUser(user.getId()).isPresent());
     }
+
+    @Test
+    public void testReturnUserById(){
+        //Given
+        User user = new User("User1", "1", 1234L);
+        userService.save(user);
+        //When
+        User resultUser = userService.returnUserById(user.getId());
+        //Then
+        assertEquals(user.getId(),resultUser.getId());
+        assertEquals(user.getStatus(),resultUser.getStatus());
+        assertEquals(user.getUserKey(),resultUser.getUserKey());
+    }
 }

@@ -1,6 +1,6 @@
 package com.kodilla.ecommercee.mapper;
 import com.kodilla.ecommercee.domain.User;
-import com.kodilla.ecommercee.dto.UserDto;
+import com.kodilla.ecommercee.domain.dto.UserDto;
 import org.springframework.stereotype.Component;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -13,8 +13,7 @@ public class UserMapper {
                 userDto.getId(),
                 userDto.getUsername(),
                 userDto.getStatus(),
-                userDto.getUserKey()
-        );
+                userDto.getUserKey());
     }
 
     public UserDto mapToUserDto(User user) {
@@ -22,8 +21,7 @@ public class UserMapper {
                 user.getId(),
                 user.getUsername(),
                 user.getStatus(),
-                user.getUserKey()
-        );
+                user.getUserKey());
     }
 
     public List<UserDto> mapToUserDtoList(List<User> userList) {
