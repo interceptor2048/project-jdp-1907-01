@@ -8,10 +8,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
-import java.math.BigDecimal;
 import java.util.List;
-
+import java.util.Optional;
 import static org.junit.Assert.assertEquals;
+
+
 @SpringBootTest
 @RunWith(SpringRunner.class)
 public class GroupTestSuite {
@@ -25,12 +26,11 @@ public class GroupTestSuite {
     public void shouldAddToDataBase(){
         //Given
         Group group = new Group("Shoes");
-        long prevNumOfRecords = groupRepository.count();
-        //When
         groupRepository.save(group);
+        //When
+        Optional<Group> shoesGroup = groupRepository.findGroupByName("Shoes");
         //Then
-        long nextNumOfRecords = groupRepository.count();
-        assertEquals(1,nextNumOfRecords - prevNumOfRecords);
+        assertEquals("Shoes",shoesGroup.get().getName());
         //Clean Up
         groupRepository.deleteById(group.getId());
     }
@@ -38,13 +38,13 @@ public class GroupTestSuite {
     @Test
     public void shouldFindAllGroup(){
         //Given
-        long prevNumOfRecords = groupRepository.count();
+        long prevNumOfRecords =  groupRepository.findAll().size();
         Group group = new Group("Shoes");
         Group group2 = new Group("Accessories");
         groupRepository.save(group);
         groupRepository.save(group2);
         //When
-        long nextNumOfRecords = groupRepository.count();
+        long nextNumOfRecords = groupRepository.findAll().size();
         //Then
         assertEquals(2,nextNumOfRecords- prevNumOfRecords);
         //Clean Up
@@ -58,15 +58,14 @@ public class GroupTestSuite {
         long prevNumOfRecords = groupRepository.count();
         Group group = new Group("shoes");
         groupRepository.save(group);
+        //When
         Group groupWithMoreSpecificName= new Group(group.getId(),"Sneaker");
         groupRepository.save(groupWithMoreSpecificName);
-        //When
-        List<Group> groupList = groupRepository.findAll();
-        long nextNumOfRecords = groupRepository.count();
         //Then
+        long nextNumOfRecords = groupRepository.count();
+        Optional<Group> sneakerGroup = groupRepository.findGroupByName("Sneaker");
         assertEquals(1,nextNumOfRecords - prevNumOfRecords);
-        assertEquals("Sneaker",groupList.get(0).getName());
-        assertEquals(1,groupList.size());
+        assertEquals("Sneaker",sneakerGroup.get().getName());
         //Clean Up
         groupRepository.deleteById(group.getId());
     }
