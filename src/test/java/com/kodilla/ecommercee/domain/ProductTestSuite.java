@@ -43,9 +43,7 @@ public class ProductTestSuite {
         groupRepository.save(group);
         orderRepository.save(order);
         cartRepository.save(cart);
-        return new Product(
-                22L, "Buty Nike", "Fajne buty",
-                new BigDecimal(100), group, cart);
+        return new Product( "Buty Nike", "Fajne buty", new BigDecimal(100), group, order, cart);
     }
 
     @Test
@@ -62,9 +60,6 @@ public class ProductTestSuite {
 
         //Code clean up
         productRepository.deleteById(product.getId());
-        groupRepository.deleteById(product.getGroup().getId());
-        cartRepository.deleteById(product.getCart().getId());
-
     }
 
     @Test
