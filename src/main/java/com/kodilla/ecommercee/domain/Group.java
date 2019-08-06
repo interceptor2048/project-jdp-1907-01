@@ -21,11 +21,16 @@ public class Group {
     private Long id;
     private String name;
 
+    @OneToMany(mappedBy="group")
+    private List<Product> products;
+
     public Group(Long id, String name) {
         this.id = id;
         this.name = name;
     }
 
-    @OneToMany(mappedBy="group")
-    private List<Product> products;
+    public Group(String name) {
+        this.name = name;
+    }
 }
+
