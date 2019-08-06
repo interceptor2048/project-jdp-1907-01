@@ -29,7 +29,7 @@ public class User {
     private String status;
     private Long userKey;
 
-    @OneToOne
+    @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "cartId")
     private Cart cart;
 
