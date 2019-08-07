@@ -29,6 +29,11 @@ public class Product {
     @JoinColumn(name = "orderId")
     private Order order;
 
+    @Setter
+    @ManyToOne
+    @JoinColumn(name = "productItemId")
+    private ProductItem productItem;
+
     public Product(Long id, String name, String description, BigDecimal price, Group group) {
         this.id = id;
         this.name = name;
