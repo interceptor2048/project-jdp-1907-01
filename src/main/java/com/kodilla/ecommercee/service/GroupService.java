@@ -37,6 +37,7 @@ public class GroupService {
 
     public void deleteGroupAndMoveProductToUnassignedGroup(long id) {
         Optional<Group> unassignedGroup = Optional.of(getGroupByName("Unassigned product.").orElse(new Group("Unassigned product.")));
+        groupRepository.save(unassignedGroup.get());
         Optional<Group> groupToRemove = getGroup(id);
         groupToRemove.ifPresent(group -> group.getProducts().forEach(p -> p.setGroup(unassignedGroup.get())));
         groupToRemove.ifPresent(group -> group.getProducts().forEach(p -> productService.saveProduct(p)));
