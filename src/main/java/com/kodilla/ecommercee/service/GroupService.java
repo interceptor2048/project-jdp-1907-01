@@ -36,23 +36,15 @@ public class GroupService {
     }
 
     public void deleteGroupAndMoveProductToUnassignedGroup(long id) {
-        Optional<Group> unassignedGroup = getGroupByName("Unassigned product.");
-        Optional<Group> optionalGroup = getGroup(id);
-        if(!unassignedGroup.isPresent()) {
-            Group newUnassignedGroup = new Group("Unassigned product.");
-            saveGroup(newUnassignedGroup);
-            optionalGroup.ifPresent(group -> group.getProducts().forEach(p -> p.setGroup(newUnassignedGroup)));
-            optionalGroup.ifPresent(group -> group.getProducts().forEach(p -> productService.saveProduct(p)));
-            optionalGroup.ifPresent(group -> group.getProducts().forEach(p-> newUnassignedGroup.getProducts().add(p)));
-            optionalGroup.ifPresent(group -> group.getProducts().clear());
-            saveGroup(newUnassignedGroup);
-        } else {
-            optionalGroup.ifPresent(group -> group.getProducts().forEach(p -> p.setGroup(unassignedGroup.get())));
-            optionalGroup.ifPresent(group -> group.getProducts().forEach(p -> productService.saveProduct(p)));
-            optionalGroup.ifPresent(group -> group.getProducts().forEach(p-> unassignedGroup.get().getProducts().add(p)));
-            optionalGroup.ifPresent(group -> group.getProducts().clear());
-            saveGroup(unassignedGroup.get());
-        }
+        Optional<Group> unassignedGroup = Optional.of(getGroupByName("Unassigned product.").orElse(new Group("Unassigned product.")));
+        Optional<Group> groupToRemove = getGroup(id);
+        groupToRemove.ifPresent(group -> group.getProducts().forEach(p -> p.setGroup(unassignedGroup.get())));
+        groupToRemove.ifPresent(group -> group.getProducts().forEach(p -> productService.saveProduct(p)));
+        groupToRemove.ifPresent(group -> group.getProducts().forEach(p-> unassignedGroup.get().getProducts().add(p)));
+        groupToRemove.ifPresent(group -> group.getProducts().clear());
+        saveGroup(unassignedGroup.get());
         deleteGroup(id);
     }
 }
+
+

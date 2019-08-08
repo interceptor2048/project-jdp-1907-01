@@ -20,7 +20,7 @@ public class ProductMapper {
                 productDto.getName(),
                 productDto.getDescription(),
                 productDto.getPrice(),
-                getGroupWithId(productDto.getGroupId()));
+                groupService.getGroup(productDto.getId()).orElse(null));
 
     }
 
@@ -47,15 +47,4 @@ public class ProductMapper {
                 .collect(Collectors.toList());
     }
 
-    private Long getGroupIdForProduct(Group group) {
-        try {
-            return group.getId();
-        } catch (Exception e) {
-            return null;
-        }
-    }
-
-    private Group getGroupWithId(Long id) {
-        return groupService.getGroup(id).orElse(null);
-    }
 }
