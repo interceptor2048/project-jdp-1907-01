@@ -18,10 +18,18 @@ public class GroupMapperTestSuite {
     @Autowired
     private GroupMapper groupMapper;
 
+    private Group createGroup() {
+        return new Group(1L, "Test group");
+    }
+
+    private GroupDto createGroupDto() {
+        return new GroupDto(1L, "Test group");
+    }
+
     @Test
     public void testMapToGroup() {
         //Given
-        GroupDto groupDto = new GroupDto(1L, "Test group");
+        GroupDto groupDto = createGroupDto();
 
         //When
         Group group = groupMapper.mapToGroup(groupDto);
@@ -35,7 +43,7 @@ public class GroupMapperTestSuite {
     @Test
     public void testMapToGroupDto() {
         //Given
-        Group group = new Group(1L, "Test group");
+        Group group = createGroup();
 
         //When
         GroupDto groupDto = groupMapper.mapToGroupDto(group);
