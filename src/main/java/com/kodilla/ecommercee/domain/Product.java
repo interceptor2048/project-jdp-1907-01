@@ -7,7 +7,6 @@ import lombok.Setter;
 import javax.persistence.*;
 import java.math.BigDecimal;
 
-@AllArgsConstructor
 @NoArgsConstructor
 @Getter
 @Entity
@@ -29,6 +28,13 @@ public class Product {
     @JoinColumn(name = "orderId")
     private Order order;
 
+    public Product(Long id, String name, String description, BigDecimal price) {
+        this.id = id;
+        this.name = name;
+        this.description = description;
+        this.price = price;
+    }
+
     public Product(Long id, String name, String description, BigDecimal price, Group group) {
         this.id = id;
         this.name = name;
@@ -45,10 +51,14 @@ public class Product {
         this.order = order;
     }
 
-    public Product(Long id, String name, String description, BigDecimal price) {
-        this.id = id;
+    public Product(Long Id, String name, String description, BigDecimal price, Group group, Order order) {
         this.name = name;
         this.description = description;
         this.price = price;
+        this.group = group;
+        this.order = order;
     }
+
+
 }
+
