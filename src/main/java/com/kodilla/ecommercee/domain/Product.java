@@ -28,6 +28,9 @@ public class Product {
     @ManyToOne
     @JoinColumn(name = "orderId")
     private Order order;
+    @ManyToOne
+    @JoinColumn(name = "cartId")
+    private Cart cart;
 
     public Product(Long id, String name, String description, BigDecimal price, Group group) {
         this.id = id;
