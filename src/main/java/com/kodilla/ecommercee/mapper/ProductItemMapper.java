@@ -1,7 +1,10 @@
 package com.kodilla.ecommercee.mapper;
 
+import com.kodilla.ecommercee.domain.Product;
 import com.kodilla.ecommercee.domain.ProductItem;
+import com.kodilla.ecommercee.domain.dto.ProductDto;
 import com.kodilla.ecommercee.domain.dto.ProductItemDto;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
@@ -10,18 +13,28 @@ import java.util.stream.Collectors;
 @Component
 public class ProductItemMapper {
 
+    @Autowired
+    private ProductMapper productMapper;
+
     public ProductItem mapToProductItem(final ProductItemDto productItemDto) {
+        List<ProductDto> productDtos = productItemDto.getProducts();
+        List<Product> products = productMapper.mapToProductList(productDtos);
+
         return new ProductItem(
                 productItemDto.getId(),
-                productItemDto.getProducts(),
+                products,
                 productItemDto.getQuantity(),
                 productItemDto.getAmmount());
     }
 
     public ProductItemDto mapToProductItemDto(final ProductItem productItem) {
+
+
+        List<Product> products = productItem.getProducts();
+        List<ProductDto> productDtos = productMapper.mapToProductDtoList(products);
         return new ProductItemDto(
                 productItem.getId(),
-                productItem.getProducts(),
+                productDtos,
                 productItem.getQuantity(),
                 productItem.getAmmount());
     }

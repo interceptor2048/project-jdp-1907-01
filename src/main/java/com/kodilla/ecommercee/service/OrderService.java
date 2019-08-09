@@ -47,12 +47,11 @@ public class OrderService {
         return orderRepository.findById(id).orElseThrow(OrderNotFoundException::new);
     }
 
-    public Order createOrder(@RequestParam long cartId) {
+    public Order createOrder(@RequestParam long cartId) throws OrderNotFoundException{
         Order order = new Order();
         // na podstawie CartId wyciagnac z Repozytorium koszyk
-        Optional<Cart> cartOptional = cartRepository.findById(cartId);
-        if(cartOptional.isPresent()) {
-            Cart cart = cartOptional.get();
+        Cart cart = cartRepository.findById(cartId).orElseThrow(OrderNotFoundException::new);
+
             // dla wyciagnitego koszyka pobrac liste productsItems
             List<ProductItem> productItems = cart.getProductItems();
             // za pomoca listy ProductsItems uzupelnic OrderDto
@@ -65,7 +64,6 @@ public class OrderService {
             order.setProductList(products);
             order.setCart(cart);
             orderRepository.save(order);
-        }
-        return order;
+            return order;
     }
 }

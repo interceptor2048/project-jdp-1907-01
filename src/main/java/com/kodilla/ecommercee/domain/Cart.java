@@ -31,5 +31,8 @@ public class Cart {
     private List<ProductItem> productItems;     // ma listę elementow zamowionych przez klienta (opisana przez productItem)
     private User user;
 
-
+    public Cart(List<ProductItem> productItems, User user) {
+        this.productItems = productItems;
+        this.user = user;
+    }
 }

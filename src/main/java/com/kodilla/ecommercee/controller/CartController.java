@@ -1,7 +1,9 @@
 package com.kodilla.ecommercee.controller;
+import com.kodilla.ecommercee.domain.Cart;
 import com.kodilla.ecommercee.domain.ProductItem;
 import com.kodilla.ecommercee.domain.dto.CartDto;
 import com.kodilla.ecommercee.domain.dto.OrderDto;
+import com.kodilla.ecommercee.mapper.CartMapper;
 import com.kodilla.ecommercee.service.CartService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -15,10 +17,16 @@ public class CartController {
     @Autowired
     private CartService cartService;
 
+    @Autowired
+    private CartMapper cartMapper;
+
     @PostMapping(value = "createCart")
     public  CartDto createCart(@RequestParam long userId) {
         //return new CartDto();
-        return cartService.createCart(userId);
+
+        Cart cart = cartService.createCart(userId);
+        CartDto cartDto = cartMapper.mapToCartDto(cart);
+        return cartDto;
     }
 
     @GetMapping(value = "getCart")

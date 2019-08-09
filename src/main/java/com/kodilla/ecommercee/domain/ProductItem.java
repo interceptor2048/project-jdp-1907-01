@@ -5,15 +5,19 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
+import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+import javax.persistence.Table;
 import java.math.BigDecimal;
 import java.util.List;
 
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
+@Entity
+@Table(name = "\"PRODUCTS_ITEM\"")
 public class ProductItem {
     @Id
     @GeneratedValue
