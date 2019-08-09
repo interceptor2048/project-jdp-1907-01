@@ -1,5 +1,6 @@
 package com.kodilla.ecommercee.mapper;
 
+import com.kodilla.ecommercee.domain.Cart;
 import com.kodilla.ecommercee.domain.Order;
 import com.kodilla.ecommercee.domain.User;
 import com.kodilla.ecommercee.domain.dto.OrderDto;
@@ -22,7 +23,7 @@ public class OrderMapperTestSuite {
     OrderMapper orderMapper;
 
     public Order getOrder(){
-        return new Order(20L, LocalDate.now(),true,new User(1L,"Jessie","busy",1234L));
+        return new Order(20L, LocalDate.now(),true,new User("Jessie","busy", 1234L, new Cart(3209L)));
     }
 
     public OrderDto getOrderDto(){
