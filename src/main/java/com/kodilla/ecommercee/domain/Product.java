@@ -7,6 +7,7 @@ import lombok.Setter;
 import javax.persistence.*;
 import java.math.BigDecimal;
 
+
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
@@ -28,17 +29,6 @@ public class Product {
     @ManyToOne
     @JoinColumn(name = "orderId")
     private Order order;
-    @ManyToOne
-    @JoinColumn(name = "cartId")
-    private Cart cart;
-
-    public Product(Long id, String name, String description, BigDecimal price, Group group) {
-        this.id = id;
-        this.name = name;
-        this.description = description;
-        this.price = price;
-        this.group = group;
-    }
 
     public Product(String name, String description, BigDecimal price, Group group, Order order) {
         this.name = name;
@@ -46,6 +36,14 @@ public class Product {
         this.price = price;
         this.group = group;
         this.order = order;
+    }
+
+    public Product(Long id, String name, String description, BigDecimal price, Group group) {
+        this.id = id;
+        this.name = name;
+        this.description = description;
+        this.price = price;
+        this.group = group;
     }
 
     public Product(Long id, String name, String description, BigDecimal price) {

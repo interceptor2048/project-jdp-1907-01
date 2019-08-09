@@ -27,11 +27,13 @@ public class User {
     @JoinColumn(name = "cartId")
     private Cart cart;
 
+
     public User(String username, String status, Long userKey) {
         this.username = username;
         this.status = status;
         this.userKey = userKey;
     }
+
     public User(String username, String status, Long userKey, Cart cart) {
         this.username = username;
         this.status = status;

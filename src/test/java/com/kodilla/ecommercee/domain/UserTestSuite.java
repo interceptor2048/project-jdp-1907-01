@@ -73,7 +73,7 @@ public class UserTestSuite {
         //Given
         User user = createContent();
         userRepository.save(user);
-        User updateUser = new User(user.getId(),"UpdateJessie","updateBusy",567L);
+        User updateUser = new User(user.getId(),"UpdateJessie","updateBusy",567L, new Cart());
         userRepository.save(updateUser);
         //When
         User resultUser = userRepository.returnUserById(user.getId());

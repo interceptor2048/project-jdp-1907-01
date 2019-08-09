@@ -1,9 +1,7 @@
 package com.kodilla.ecommercee.domain;
-
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-
 import javax.persistence.*;
 import java.util.List;
 
@@ -11,18 +9,20 @@ import java.util.List;
 @NoArgsConstructor
 @Getter
 @Entity
-@Table(name = "CARTS")
+@Table(name = "\"CARTS\"")
 public class Cart {
 
     @Id
     @GeneratedValue
     private Long id;
 
+    public Cart(Long id) {
+        this.id = id;
+    }
+
     @OneToOne
     @JoinColumn(name = "userId")
     private User user;
 
-    @OneToMany(targetEntity = Product.class, mappedBy = "cart", fetch = FetchType.LAZY)
-    private List<Product> productList;
 }
 
