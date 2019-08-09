@@ -7,19 +7,13 @@ import java.util.Optional;
 
 @Repository
 public interface OrderRepository extends CrudRepository<Order, Long> {
-    
+
     @Override
     List<Order> findAll();
-    
+
     @Override
     Optional<Order> findById(Long id);
 
-    List<Order> findByUserId(Long userId);
-
-    @Override
-    Order save(Order order);
-
-    Optional<Order> findByIsCompleted(boolean isCompleted);
 
     @Override
     void deleteById(Long id);
