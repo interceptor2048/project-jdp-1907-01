@@ -40,7 +40,6 @@ public class ProductTestSuite {
         return new Product(
                 "Buty Nike", "Fajne buty",
                 new BigDecimal(100), group, order);
-
     }
 
     @Test
@@ -58,7 +57,6 @@ public class ProductTestSuite {
         //Code clean up
         productRepository.deleteById(product.getId());
         groupRepository.deleteById(product.getGroup().getId());
-
     }
 
     @Test
