@@ -1,6 +1,8 @@
 package com.kodilla.ecommercee.controller;
 
+import com.kodilla.ecommercee.client.TrelloClient;
 import com.kodilla.ecommercee.controller.exceptions.OrderNotFoundException;
+import com.kodilla.ecommercee.domain.Order;
 import com.kodilla.ecommercee.domain.dto.OrderDto;
 import org.springframework.web.bind.annotation.*;
 import com.kodilla.ecommercee.mapper.OrderMapper;
@@ -19,6 +21,9 @@ public class OrderController {
     @Autowired
     OrderService orderService;
 
+    @Autowired
+    TrelloClient trelloClient;
+
     @GetMapping("getOrders")
     public List<OrderDto> getOrders() {
         return orderMapper.mapToOrderDtoList(orderService.getOrders());
@@ -30,17 +35,22 @@ public class OrderController {
     }
 
     @PostMapping("createOrder")
-    public void createOrder(@RequestBody OrderDto orderDto) {
-        orderService.saveOrder(orderMapper.mapToOrder(orderDto));
+    public void createOrder(@RequestBody OrderDto orderDto) throws OrderNotFoundException{
+        Order order = orderService.saveOrder(orderMapper.mapToOrder(orderDto));
+        order.setTrelloCardId(trelloClient.addOrderToNewOrderList(order.getId()).getListId());
     }
 
     @PutMapping("editOrder")
-    public OrderDto editOrder(@RequestBody OrderDto orderDto) {
+    public OrderDto editOrder(@RequestBody OrderDto orderDto) throws OrderNotFoundException{
+        Order order = orderService.updateOrder(orderMapper.mapToOrder(orderDto));
+        trelloClient.updateOrder(order.getId());
         return orderMapper.mapToOrderDto(orderService.updateOrder(orderMapper.mapToOrder(orderDto)));
+
     }
 
     @DeleteMapping("deleteOrder")
-    public void deleteOrder(@RequestParam long id) {
+    public void deleteOrder(@RequestParam long id) throws OrderNotFoundException{
         orderService.deleteOrder(id);
+        trelloClient.deleteOrder(id);
     }
 }

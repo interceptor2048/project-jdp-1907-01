@@ -19,8 +19,8 @@ public class OrderService {
     }
 
 
-    public void saveOrder(Order order) {
-        orderRepository.save(order);
+    public Order saveOrder(Order order) {
+       return  orderRepository.save(order);
     }
 
     public Order updateOrder(Order order) {

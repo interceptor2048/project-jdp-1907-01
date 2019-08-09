@@ -15,13 +15,15 @@ public class OrderDto {
     private boolean isCompleted;
     private List<ProductDto> productList;
     private Long userId;
+    private String status;
 
-    public OrderDto(Long id, LocalDate date, boolean isCompleted, Long userId) {
+    public OrderDto(Long id, LocalDate date, boolean isCompleted, Long userId,String status) {
         this.id = id;
         this.date = date;
         this.isCompleted = isCompleted;
         this.userId = userId;
         this.productList = new ArrayList<>();
+        this.status = status;
     }
 }
 
