@@ -23,6 +23,7 @@ public class User {
     private String status;
     private Long userKey;
 
+
     @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinColumn(name = "cartId")
     private Cart cart;
