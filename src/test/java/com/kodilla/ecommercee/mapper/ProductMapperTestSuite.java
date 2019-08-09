@@ -24,11 +24,11 @@ public class ProductMapperTestSuite {
     ProductMapper productMapper;
 
     private Product getProduct() {
-        return new Product(1L, "Shoes", "Cofortable shoes", new BigDecimal(10000), new Group(45L, "Clothes"), new Cart(3209L));
+        return new Product(1L, "Shoes", "Cofortable shoes", new BigDecimal(10000), new Group(45L, "Clothes"));
     }
 
     private ProductDto getProductDto() {
-        return new ProductDto(52L, "jacket", "cheap jacket", new BigDecimal(50), 40L, 3209L);
+        return new ProductDto(52L, "jacket", "cheap jacket", new BigDecimal(50), 40L);
     }
 
     @Test

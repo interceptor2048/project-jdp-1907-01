@@ -43,7 +43,7 @@ public class ProductTestSuite {
         groupRepository.save(group);
         orderRepository.save(order);
         cartRepository.save(cart);
-        return new Product( "Buty Nike", "Fajne buty", new BigDecimal(100), group, order, cart);
+        return new Product( "Buty Nike", "Fajne buty", new BigDecimal(100), group, order);
     }
 
     @Test
@@ -109,7 +109,7 @@ public class ProductTestSuite {
 
         Product updateProduct = new Product(
                 product.getId(), "Buty Addidas",
-                "Drogie buty", new BigDecimal(600), group, cart);
+                "Drogie buty", new BigDecimal(600), group);
         productRepository.save(updateProduct);
 
         //When
