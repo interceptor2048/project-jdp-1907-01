@@ -20,6 +20,9 @@ public class TrelloClient {
     @Autowired
     OrderRepository orderRepository;
 
+    public static String NEW_ORDER = "5d4d3da71a092c6120273bfc";
+    public static String IN_PROGRESS = "5d4d4dc2b7c993299d4fb9b9";
+    public static String SEND = "5d4d4dd18fdfdd70d375c0ff";
     public void updateOrder(long orderId) throws OrderNotFoundException {
         Order order = orderRepository.findById(orderId).orElseThrow(OrderNotFoundException::new);
 
@@ -37,15 +40,15 @@ public class TrelloClient {
         if(order.getStatus().equals(Order.IN_PROGRESS) && (resultTrelloOrder.getListId().equals("5d4d3da71a092c6120273bfc")
          || resultTrelloOrder.getListId().equals("5d4d4dd18fdfdd70d375c0ff"))) {
             deleteOrder(order.getId());
-            addOrderToInProgressList(order.getId());
+            addOrderToList(order.getId(),IN_PROGRESS);
         } else if (order.getStatus().equals(Order.SEND) && (resultTrelloOrder.getListId().equals("5d4d3da71a092c6120273bfc")
         || resultTrelloOrder.getListId().equals("5d4d4dc2b7c993299d4fb9b9"))) {
             deleteOrder(order.getId());
-            addOrderToSendList(order.getId());
+            addOrderToList(order.getId(),SEND);
         }else if (order.getStatus().equals(Order.AWAITING) && (resultTrelloOrder.getListId().equals("5d4d4dd18fdfdd70d375c0ff")
          || resultTrelloOrder.getListId().equals("5d4d4dc2b7c993299d4fb9b9"))) {
             deleteOrder(order.getId());
-            addOrderToNewOrderList(order.getId());
+            addOrderToList(order.getId(),NEW_ORDER);
         }
     }
 
@@ -70,43 +73,13 @@ public class TrelloClient {
                 .queryParam("id", order.getTrelloCardId() + "").encode().build().toUri();
     }
 
-    public TrelloOrder addOrderToNewOrderList(long orderId) throws OrderNotFoundException {
+    public TrelloOrder addOrderToList(long orderId, String listId) throws OrderNotFoundException {
         Order order = orderRepository.findById(orderId).orElseThrow(OrderNotFoundException::new);
 
         URI url = UriComponentsBuilder.fromHttpUrl("/cards")
                 .queryParam("key", "8d1820034df65ac861bb93f0c68f555e")
                 .queryParam("token", "b6281a584be1cf03743e3cbefee6719fabde07304d91f8a96e40c58578ae85b3")
-                .queryParam("idList", "5d4d3da71a092c6120273bfc")
-                .queryParam("name", "Order ID:" + order.getId())
-                .queryParam("desc", "Date: " + order.getDate() + "\n" +
-                        "For User: " + order.getUser().getId() + "\n" +
-                        "Status: " + order.getStatus()).encode().build().toUri();
-
-        return restTemplate.postForObject(url, null, TrelloOrder.class);
-    }
-
-    public TrelloOrder addOrderToInProgressList(long orderId) throws OrderNotFoundException {
-        Order order = orderRepository.findById(orderId).orElseThrow(OrderNotFoundException::new);
-
-        URI url = UriComponentsBuilder.fromHttpUrl("/cards")
-                .queryParam("key", "8d1820034df65ac861bb93f0c68f555e")
-                .queryParam("token", "b6281a584be1cf03743e3cbefee6719fabde07304d91f8a96e40c58578ae85b3")
-                .queryParam("idList", "5d4d4dc2b7c993299d4fb9b9")
-                .queryParam("name", "Order ID:" + order.getId())
-                .queryParam("desc", "Date: " + order.getDate() + "\n" +
-                        "For User: " + order.getUser().getId() + "\n" +
-                        "Status: " + order.getStatus()).encode().build().toUri();
-
-        return restTemplate.postForObject(url, null, TrelloOrder.class);
-    }
-
-    public TrelloOrder addOrderToSendList(long orderId) throws OrderNotFoundException {
-        Order order = orderRepository.findById(orderId).orElseThrow(OrderNotFoundException::new);
-
-        URI url = UriComponentsBuilder.fromHttpUrl("/cards")
-                .queryParam("key", "8d1820034df65ac861bb93f0c68f555e")
-                .queryParam("token", "b6281a584be1cf03743e3cbefee6719fabde07304d91f8a96e40c58578ae85b3")
-                .queryParam("idList", "5d4d4dd18fdfdd70d375c0ff")
+                .queryParam("idList", listId)
                 .queryParam("name", "Order ID:" + order.getId())
                 .queryParam("desc", "Date: " + order.getDate() + "\n" +
                         "For User: " + order.getUser().getId() + "\n" +
