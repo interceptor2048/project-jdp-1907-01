@@ -18,12 +18,12 @@ public class OrderMapper {
     }
 
     public OrderDto mapToOrderDto(Order order) {
-        return new OrderDto(order.getId(),order.getDate(),order.isCompleted(),order.getUser().getId(),order.getStatus());
+        return new OrderDto(order.getId(),order.getDate(),order.isCompleted(),order.getUser().getId());
     }
 
     public List<OrderDto> mapToOrderDtoList(List<Order> orders) {
         return  orders.stream()
-                .map(o -> new OrderDto(o.getId(),o.getDate(),o.isCompleted(),o.getUser().getId(),o.getStatus()))
+                .map(o -> new OrderDto(o.getId(),o.getDate(),o.isCompleted(),o.getUser().getId()))
                 .collect(Collectors.toList());
     }
 }
