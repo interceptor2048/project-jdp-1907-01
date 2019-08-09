@@ -20,9 +20,9 @@ public class TrelloClient {
     @Autowired
     OrderRepository orderRepository;
 
-    public static String NEW_ORDER = "5d4d3da71a092c6120273bfc";
-    public static String IN_PROGRESS = "5d4d4dc2b7c993299d4fb9b9";
-    public static String SEND = "5d4d4dd18fdfdd70d375c0ff";
+    public static String NEW_ORDER_LIST = "5d4d3da71a092c6120273bfc";
+    public static String IN_PROGRESS_LIST = "5d4d4dc2b7c993299d4fb9b9";
+    public static String SEND_LIST = "5d4d4dd18fdfdd70d375c0ff";
     public void updateOrder(long orderId) throws OrderNotFoundException {
         Order order = orderRepository.findById(orderId).orElseThrow(OrderNotFoundException::new);
 
@@ -40,15 +40,15 @@ public class TrelloClient {
         if(order.getStatus().equals(Order.IN_PROGRESS) && (resultTrelloOrder.getListId().equals("5d4d3da71a092c6120273bfc")
          || resultTrelloOrder.getListId().equals("5d4d4dd18fdfdd70d375c0ff"))) {
             deleteOrder(order.getId());
-            addOrderToList(order.getId(),IN_PROGRESS);
+            addOrderToList(order.getId(),IN_PROGRESS_LIST);
         } else if (order.getStatus().equals(Order.SEND) && (resultTrelloOrder.getListId().equals("5d4d3da71a092c6120273bfc")
         || resultTrelloOrder.getListId().equals("5d4d4dc2b7c993299d4fb9b9"))) {
             deleteOrder(order.getId());
-            addOrderToList(order.getId(),SEND);
+            addOrderToList(order.getId(),SEND_LIST);
         }else if (order.getStatus().equals(Order.AWAITING) && (resultTrelloOrder.getListId().equals("5d4d4dd18fdfdd70d375c0ff")
          || resultTrelloOrder.getListId().equals("5d4d4dc2b7c993299d4fb9b9"))) {
             deleteOrder(order.getId());
-            addOrderToList(order.getId(),NEW_ORDER);
+            addOrderToList(order.getId(),NEW_ORDER_LIST);
         }
     }
 

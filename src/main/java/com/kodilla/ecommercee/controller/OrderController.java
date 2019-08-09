@@ -37,7 +37,7 @@ public class OrderController {
     @PostMapping("createOrder")
     public void createOrder(@RequestBody OrderDto orderDto) throws OrderNotFoundException{
         Order order = orderService.saveOrder(orderMapper.mapToOrder(orderDto));
-        order.setTrelloCardId(trelloClient.addOrderToList(order.getId(),TrelloClient.NEW_ORDER).getListId());
+        order.setTrelloCardId(trelloClient.addOrderToList(order.getId(),TrelloClient.NEW_ORDER_LIST).getListId());
     }
 
     @PutMapping("editOrder")
