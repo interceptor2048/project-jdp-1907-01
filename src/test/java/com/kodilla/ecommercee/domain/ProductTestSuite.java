@@ -1,5 +1,6 @@
 package com.kodilla.ecommercee.domain;
 
+import com.kodilla.ecommercee.repository.CartRepository;
 import com.kodilla.ecommercee.repository.GroupRepository;
 import com.kodilla.ecommercee.repository.OrderRepository;
 import com.kodilla.ecommercee.repository.ProductRepository;
@@ -32,14 +33,17 @@ public class ProductTestSuite {
     @Autowired
     private OrderRepository orderRepository;
 
+    @Autowired
+    private CartRepository cartRepository;
+
     public Product createContent() {
         Group group = new Group();
         Order order = new Order();
+        Cart cart = new Cart();
         groupRepository.save(group);
         orderRepository.save(order);
-        return new Product(
-                "Buty Nike", "Fajne buty",
-                new BigDecimal(100), group, order);
+        cartRepository.save(cart);
+        return new Product( "Buty Nike", "Fajne buty", new BigDecimal(100), group, order, cart);
     }
 
     @Test
@@ -56,7 +60,6 @@ public class ProductTestSuite {
 
         //Code clean up
         productRepository.deleteById(product.getId());
-        groupRepository.deleteById(product.getGroup().getId());
     }
 
     @Test
@@ -101,9 +104,12 @@ public class ProductTestSuite {
         Group group = new Group();
         groupRepository.save(group);
 
+        Cart cart = new Cart();
+        cartRepository.save(cart);
+
         Product updateProduct = new Product(
                 product.getId(), "Buty Addidas",
-                "Drogie buty", new BigDecimal(600), group );
+                "Drogie buty", new BigDecimal(600), group, cart);
         productRepository.save(updateProduct);
 
         //When

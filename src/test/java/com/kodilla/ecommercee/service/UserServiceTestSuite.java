@@ -19,6 +19,7 @@ public class UserServiceTestSuite {
     @Test
     public void testSaveAndGetUser() {
         //Given
+
         long prevNumOfRecords = userService.getAllUsers().size();
         User user = new User("User1", "1", 1234L, new Cart());
 

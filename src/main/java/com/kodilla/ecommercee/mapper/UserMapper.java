@@ -22,8 +22,7 @@ public class UserMapper {
                 userDto.getUsername(),
                 userDto.getStatus(),
                 userDto.getUserKey(),
-                getCartWithId(userDto.getId()));
-
+                getCartWithId(userDto.getCartId()));
     }
 
     public UserDto mapToUserDto(User user) {

@@ -28,7 +28,7 @@ public class UserTestSuite {
     private UserRepository userRepository;
 
     private User createContent() {
-        return new User("Jessie","busy",2345L);
+        return new User("Jessie","busy",2345L, new Cart());
     }
 
     @Test

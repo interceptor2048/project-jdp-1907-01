@@ -28,8 +28,8 @@ public class ProductMapper {
                 productDto.getName(),
                 productDto.getDescription(),
                 productDto.getPrice(),
-                getGroupWithId(productDto.getGroupId())
-                );
+                getGroupWithId(productDto.getGroupId()));
+
     }
 
     public ProductDto mapToProductDto(final Product product) {
