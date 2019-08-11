@@ -27,6 +27,4 @@ public class GroupService {
     public void deleteGroup(final Long id) {
         groupRepository.deleteById(id);
     }
-
-
 }

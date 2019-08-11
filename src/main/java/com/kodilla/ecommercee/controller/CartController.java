@@ -16,7 +16,7 @@ public class CartController {
 
     @GetMapping(value = "getCart")
     public CartDto getCart(@RequestParam long userId) {
-        return new CartDto(new ArrayList<>());
+        return new CartDto();
     }
 
     @PostMapping(value = "addItem")

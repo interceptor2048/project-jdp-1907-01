@@ -8,5 +8,6 @@ import java.util.List;
 @NoArgsConstructor
 @Getter
 public class CartDto {
-     private List<ProductDto> productList;
+     private Long id;
+     private Long userId;
 }
