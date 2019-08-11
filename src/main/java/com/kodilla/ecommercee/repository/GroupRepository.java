@@ -21,5 +21,8 @@ public interface GroupRepository extends CrudRepository <Group, Long> {
     void deleteById(Long id);
 
      Optional<Group> findGroupByName(String name);
+
+    @Override
+    void deleteAll();
 }
 
