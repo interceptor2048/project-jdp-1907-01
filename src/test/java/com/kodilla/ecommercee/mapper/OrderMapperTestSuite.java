@@ -23,7 +23,7 @@ public class OrderMapperTestSuite {
     OrderMapper orderMapper;
 
     public Order getOrder(){
-        return new Order(20L, LocalDate.now(),true,new User("Jessie","busy", 1234L, new Cart(3209L)));
+        return new Order(20L, LocalDate.now(),true,new User("Jessie","busy", 1234L, "123456789", new Cart(3209L)));
     }
 
     public OrderDto getOrderDto(){

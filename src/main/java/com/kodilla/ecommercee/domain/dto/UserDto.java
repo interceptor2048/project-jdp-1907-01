@@ -12,5 +12,6 @@ public class UserDto {
     private String username;
     private String status;
     private Long userKey;
+    private String phoneNumber;
     private Long cartId;
 }
