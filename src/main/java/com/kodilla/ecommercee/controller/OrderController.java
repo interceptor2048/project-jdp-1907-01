@@ -1,7 +1,12 @@
 package com.kodilla.ecommercee.controller;
 
 import com.kodilla.ecommercee.controller.exceptions.OrderNotFoundException;
+import com.kodilla.ecommercee.domain.Order;
 import com.kodilla.ecommercee.domain.dto.OrderDto;
+import com.kodilla.ecommercee.facade.OrderFacade;
+import com.kodilla.ecommercee.service.SimpleEmailService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.web.bind.annotation.*;
 import com.kodilla.ecommercee.mapper.OrderMapper;
 import com.kodilla.ecommercee.service.OrderService;
@@ -13,11 +18,16 @@ import java.util.List;
 @CrossOrigin("*")
 public class OrderController {
 
+    private static final Logger LOGGER = LoggerFactory.getLogger(OrderController.class);
+
     @Autowired
     OrderMapper orderMapper;
 
     @Autowired
     OrderService orderService;
+
+    @Autowired
+    OrderFacade orderFacade;
 
     @GetMapping("getOrders")
     public List<OrderDto> getOrders() {
@@ -31,7 +41,15 @@ public class OrderController {
 
     @PostMapping("createOrder")
     public void createOrder(@RequestBody OrderDto orderDto) {
-        orderService.saveOrder(orderMapper.mapToOrder(orderDto));
+        Order order = orderMapper.mapToOrder(orderDto);
+        orderService.saveOrder(order);
+
+        try {
+            LOGGER.info("Processing order...");
+            orderFacade.processOrder(order);
+        } catch (OrderNotFoundException e) {
+            LOGGER.error("Processing failed...", e.getMessage(), e);
+        }
     }
 
     @PutMapping("editOrder")
