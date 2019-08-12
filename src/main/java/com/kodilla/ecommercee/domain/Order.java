@@ -26,7 +26,7 @@ public class Order {
     private Long id;
     private LocalDate date;
     private boolean isCompleted;
-
+    @Setter
     @OneToMany(targetEntity = Product.class, mappedBy = "order", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<Product> productList;
 
@@ -34,6 +34,10 @@ public class Order {
     @JoinColumn(name = "user_id")
     @Setter
     private User user;
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @JoinColumn(name = "cart_id")
+    @Setter
+    private Cart cart;
 
     @Setter
     private String trelloCardId;
