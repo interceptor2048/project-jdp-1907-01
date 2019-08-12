@@ -26,9 +26,10 @@ public class CartTestSuite {
     public void testSaveCart() {
         //Given
         Cart cart = createTestCart();
+        long before = cartRepository.count();
         //When
         cartRepository.save(cart);
-        long result = cartRepository.count();
+        long result = cartRepository.count() - before;
         //Then
         assertEquals(1, result);
         //CleanUp
@@ -45,8 +46,8 @@ public class CartTestSuite {
         cartRepository.deleteById(cart.getId());
         long endCount = cartRepository.count();
         //Then
-        assertEquals(1, startCount);
-        assertEquals(0, endCount);
+        long result = startCount - endCount;
+        assertEquals(1, result);
     }
 
     @Test
@@ -67,10 +68,11 @@ public class CartTestSuite {
         //Given
         Cart cart = createTestCart();
         cartRepository.save(cart);
+        long expected = cartRepository.count();
         //When
         List<Cart> resultList = cartRepository.findAll();
         //Then
-        assertEquals(1, resultList.size());
+        assertEquals(expected, resultList.size());
         //CleanUp
         cartRepository.deleteById(cart.getId());
     }
