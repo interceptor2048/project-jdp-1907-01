@@ -1,6 +1,8 @@
 package com.kodilla.ecommercee.service;
+
 import com.kodilla.ecommercee.domain.Group;
 import com.kodilla.ecommercee.repository.GroupRepository;
+import com.kodilla.ecommercee.repository.ProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import java.util.List;
@@ -11,6 +13,8 @@ public class GroupService {
 
     @Autowired
     private GroupRepository groupRepository;
+    @Autowired
+    private ProductRepository productRepository;
 
     public List<Group> getAllGroups() {
         return groupRepository.findAll();
@@ -27,4 +31,22 @@ public class GroupService {
     public void deleteGroup(final Long id) {
         groupRepository.deleteById(id);
     }
+
+    public Optional<Group> getGroupByName(final String name) {
+        return groupRepository.findGroupByName(name);
+    }
+
+    public void deleteGroupAndMoveProductToUnassignedGroup(long id) {
+        Optional<Group> unassignedGroup = Optional.of(getGroupByName("Unassigned product.").orElse(new Group("Unassigned product.")));
+        groupRepository.save(unassignedGroup.get());
+        Optional<Group> groupToRemove = getGroup(id);
+        groupToRemove.ifPresent(group -> group.getProducts().forEach(p -> p.setGroup(unassignedGroup.get())));
+        groupToRemove.ifPresent(group -> group.getProducts().forEach(p-> unassignedGroup.get().getProducts().add(p)));
+        groupToRemove.ifPresent(group ->  productRepository.saveAll(group.getProducts()));
+        saveGroup(unassignedGroup.get());
+        deleteGroup(id);
+    }
+
 }
+
+
