@@ -10,6 +10,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import java.util.List;
@@ -26,7 +27,11 @@ public class Cart {
     @Id
     @GeneratedValue
     private Long id;
-    private List<ProductItem> productItems;     // ma listę elementow zamowionych przez klienta (opisana przez productItem)
+
+    @Setter
+    @OneToMany(mappedBy = "cart")
+    private List<ProductItem> productItems;
+
     @Setter
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "userId")

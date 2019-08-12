@@ -24,6 +24,7 @@ public class Product {
     @ManyToOne
     @JoinColumn(name = "groupId")
     private Group group;
+
     @Setter
     @ManyToOne
     @JoinColumn(name = "orderId")
