@@ -17,7 +17,7 @@ import java.util.List;
 @NoArgsConstructor
 @Getter
 @Entity
-@Table(name = "CART")
+@Table(name = "\"CARTS\"")
 
 public class Cart {
 //    private List<ProductDto> productList;

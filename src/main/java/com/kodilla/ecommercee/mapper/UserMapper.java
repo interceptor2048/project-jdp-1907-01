@@ -13,7 +13,8 @@ public class UserMapper {
                 userDto.getId(),
                 userDto.getUsername(),
                 userDto.getStatus(),
-                userDto.getUserKey());
+                userDto.getUserKey(),
+                null);
     }
 
     public UserDto mapToUserDto(User user) {

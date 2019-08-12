@@ -25,10 +25,18 @@ public class User {
     private String username;
     private String status;
     private Long userKey;
+    private Cart cart;
 
     public User(String username, String status, Long userKey) {
         this.username = username;
         this.status = status;
         this.userKey = userKey;
+    }
+
+    public User(String username, String status, Long userKey, Cart cart) {
+        this.username = username;
+        this.status = status;
+        this.userKey = userKey;
+        this.cart = cart;
     }
 }
