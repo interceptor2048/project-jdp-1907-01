@@ -1,5 +1,4 @@
 package com.kodilla.ecommercee.domain;
-
 import com.kodilla.ecommercee.repository.CartRepository;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -8,6 +7,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 import java.util.List;
 import java.util.Optional;
+
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
@@ -21,6 +21,7 @@ public class CartTestSuite {
     private Cart createTestCart() {
         return new Cart();
     }
+
 
     @Test
     public void testSaveCart() {
