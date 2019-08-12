@@ -5,6 +5,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import javax.persistence.*;
+import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -30,6 +31,8 @@ public class Order {
     @Setter
     private User user;
 
+    private BigDecimal valueOfOrder;
+
     public Order(Long id, LocalDate date, boolean isCompleted, User user) {
         this.id = id;
         this.date = date;
@@ -49,5 +52,12 @@ public class Order {
         this.date = date;
         this.isCompleted = isCompleted;
         this.productList = new ArrayList<>();
+    }
+
+    public Order(LocalDate date, boolean isCompleted, User user, BigDecimal valueOfOrder) {
+        this.date = date;
+        this.isCompleted = isCompleted;
+        this.user = user;
+        this.valueOfOrder = valueOfOrder;
     }
 }

@@ -27,5 +27,8 @@ public class Cart {
     @JoinColumn(name = "userId")
     private User user;
 
+    @OneToMany(cascade = CascadeType.ALL,mappedBy = "cart")
+    List<Product> products;
+
 }
 

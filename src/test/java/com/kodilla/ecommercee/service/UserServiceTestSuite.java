@@ -1,4 +1,5 @@
 package com.kodilla.ecommercee.service;
+import com.kodilla.ecommercee.controller.exceptions.UserNotFoundException;
 import com.kodilla.ecommercee.domain.Cart;
 import com.kodilla.ecommercee.domain.User;
 import org.junit.Test;
@@ -49,12 +50,12 @@ public class UserServiceTestSuite {
     }
 
     @Test
-    public void testReturnUserById(){
+    public void testReturnUserById() throws UserNotFoundException{
         //Given
         User user = new User("User1", "1", 1234L, new Cart());
         userService.save(user);
         //When
-        User resultUser = userService.returnUserById(user.getId());
+        User resultUser = userService.returnUserById(user.getId()).orElseThrow(UserNotFoundException::new);
         //Then
         assertEquals(user.getId(),resultUser.getId());
         assertEquals(user.getStatus(),resultUser.getStatus());

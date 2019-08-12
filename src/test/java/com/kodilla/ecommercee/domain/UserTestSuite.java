@@ -1,5 +1,6 @@
 package com.kodilla.ecommercee.domain;
 
+import com.kodilla.ecommercee.controller.exceptions.UserNotFoundException;
 import com.kodilla.ecommercee.repository.CartRepository;
 import com.kodilla.ecommercee.repository.UserRepository;
 import org.junit.Test;
@@ -70,14 +71,14 @@ public class UserTestSuite {
     }
 
     @Test
-    public void shouldUpdateUser() {
+    public void shouldUpdateUser() throws  UserNotFoundException{
         //Given
         User user = createContent();
         userRepository.save(user);
         User updateUser = new User(user.getId(),"UpdateJessie","updateBusy",567L, new Cart());
         userRepository.save(updateUser);
         //When
-        User resultUser = userRepository.returnUserById(updateUser.getId());
+        User resultUser = userRepository.findById(updateUser.getId()).orElseThrow(UserNotFoundException::new);
         //Then
         assertEquals("UpdateJessie", resultUser.getUsername());
         assertEquals("updateBusy", resultUser.getStatus());

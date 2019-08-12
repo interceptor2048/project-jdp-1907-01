@@ -3,14 +3,9 @@ package com.kodilla.ecommercee.domain;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-
 import javax.persistence.*;
 
 
-@NamedQuery(
-        name = "User.returnUserById",
-        query = "from User where id = :param"
-)
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
