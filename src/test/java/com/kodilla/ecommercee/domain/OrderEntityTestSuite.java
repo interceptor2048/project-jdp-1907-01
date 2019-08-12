@@ -1,5 +1,6 @@
 package com.kodilla.ecommercee.domain;
 
+import com.kodilla.ecommercee.client.TrelloClient;
 import com.kodilla.ecommercee.repository.OrderRepository;
 import org.junit.Assert;
 import org.junit.Test;
@@ -19,6 +20,9 @@ public class OrderEntityTestSuite {
 
     @Autowired
     OrderRepository orderRepository;
+
+    @Autowired
+    TrelloClient trelloClient;
 
     public static Logger LOGGER = LoggerFactory.getLogger(OrderEntityTestSuite.class);
 
