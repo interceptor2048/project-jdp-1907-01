@@ -11,7 +11,6 @@ import java.util.List;
 @Getter
 public class CartDto {
      private Long id;
-     //private List<ProductDto> productList;
-     private List<ProductItem> productItems;      // TODO: stworzyc productItem dto, service, mapper
+     private List<ProductItem> productItems;
      private User user;
 }

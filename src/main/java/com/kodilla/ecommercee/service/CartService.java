@@ -4,11 +4,7 @@ import com.kodilla.ecommercee.controller.exceptions.CartNotFoundException;
 import com.kodilla.ecommercee.domain.Cart;
 import com.kodilla.ecommercee.domain.ProductItem;
 import com.kodilla.ecommercee.domain.User;
-import com.kodilla.ecommercee.domain.dto.CartDto;
-import com.kodilla.ecommercee.domain.dto.OrderDto;
-import com.kodilla.ecommercee.mapper.CartMapper;
 import com.kodilla.ecommercee.repository.CartRepository;
-import com.kodilla.ecommercee.repository.OrderRepository;
 import com.kodilla.ecommercee.repository.ProductItemRepository;
 import com.kodilla.ecommercee.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,7 +13,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -65,5 +60,13 @@ public class CartService {
 
             cartRepository.save(cart);
             return cart;
+    }
+
+    public Cart save(Cart cart) {
+        return cartRepository.save(cart);
+    }
+
+    public void deleteCart(long id) {
+        cartRepository.deleteById(id);
     }
 }

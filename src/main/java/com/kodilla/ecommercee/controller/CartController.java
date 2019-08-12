@@ -7,7 +7,6 @@ import com.kodilla.ecommercee.mapper.CartMapper;
 import com.kodilla.ecommercee.service.CartService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-import java.util.ArrayList;
 
 @RestController
 @RequestMapping("v1/ecommercee/cart/")

@@ -1,10 +1,16 @@
 package com.kodilla.ecommercee.domain;
+
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.NamedQuery;
 
@@ -25,6 +31,9 @@ public class User {
     private String username;
     private String status;
     private Long userKey;
+
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @JoinColumn(name = "cartId")
     private Cart cart;
 
     public User(String username, String status, Long userKey) {

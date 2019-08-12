@@ -1,35 +1,40 @@
 package com.kodilla.ecommercee.domain;
 
-import com.kodilla.ecommercee.domain.dto.ProductDto;
-import com.sun.javafx.beans.IDProperty;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
-import java.math.BigDecimal;
 import java.util.List;
 
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
+@Setter
 @Entity
 @Table(name = "\"CARTS\"")
 
 public class Cart {
-//    private List<ProductDto> productList;
-//    private Long cartId;
-//    private int productsQuantity;
-//    private Group group;
 
     @Id
     @GeneratedValue
     private Long id;
     private List<ProductItem> productItems;     // ma listę elementow zamowionych przez klienta (opisana przez productItem)
+    @Setter
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "userId")
     private User user;
+
+    public Cart(Long id) {
+        this.id = id;
+    }
 
     public Cart(List<ProductItem> productItems, User user) {
         this.productItems = productItems;
