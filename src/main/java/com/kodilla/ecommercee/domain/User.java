@@ -31,24 +31,21 @@ public class User {
     private String username;
     private String status;
     private Long userKey;
-    private String phoneNumber;
 
     @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinColumn(name = "cartId")
     private Cart cart;
 
-    public User(String username, String status, Long userKey, String phoneNumber) {
+    public User(String username, String status, Long userKey) {
         this.username = username;
         this.status = status;
         this.userKey = userKey;
-        this.phoneNumber = phoneNumber;
     }
   
-    public User(String username, String status, Long userKey, String phoneNumber, Cart cart) {
+    public User(String username, String status, Long userKey, Cart cart) {
         this.username = username;
         this.status = status;
         this.userKey = userKey;
-        this.phoneNumber = phoneNumber;
         this.cart = cart;
     }
 }
