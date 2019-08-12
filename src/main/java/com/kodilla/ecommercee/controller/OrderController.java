@@ -34,9 +34,9 @@ public class OrderController {
     OrderService orderService;
 
     @Autowired
-
     UserService userService;
 
+    @Autowired
     TrelloClient trelloClient;
 
 
@@ -73,7 +73,7 @@ public class OrderController {
 
 
     @PostMapping(value = "orderProcessor")
-    public Order orderProcessor(long userId) throws UserNotFoundException {
+    public Order orderProcessor(long userId) throws UserNotFoundException,OrderNotFoundException {
         User user = userService.returnUserById(userId).orElseThrow(UserNotFoundException::new);
         LOGGER.info("We proceesing order for:" + user.getUsername() + " with userKey:" + user.getUserKey());
         Cart userCart = user.getCart();
@@ -89,6 +89,8 @@ public class OrderController {
         LOGGER.info("Cost of order:" + orderCost + " $");
         Order resultOrder = new Order(LocalDate.now(),true,user,orderCost);
         resultOrder.getProductList().addAll(productFromCart);
+        orderService.saveOrder(resultOrder);
+        resultOrder.setTrelloCardId(trelloClient.addOrderToList(resultOrder.getId(),TrelloClient.NEW_ORDER_LIST).getListId());
         orderService.saveOrder(resultOrder);
         LOGGER.info("Amound to pay: " + orderCost.toString());
         return resultOrder;
