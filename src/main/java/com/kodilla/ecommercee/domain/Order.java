@@ -18,6 +18,10 @@ import java.util.List;
 @Table(name = "\"ORDERS\"")
 public class Order {
 
+    public static String AWAITING = "is awaiting acceptance for implementation";
+    public static String IN_PROGRESS = "in progress";
+    public static String SEND = "send";
+
     @Id
     @GeneratedValue
     private Long id;
@@ -26,12 +30,22 @@ public class Order {
 
     @OneToMany(targetEntity = Product.class, mappedBy = "order", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<Product> productList;
+
     @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinColumn(name = "user_id")
     @Setter
     private User user;
 
     private BigDecimal valueOfOrder;
+
+    @Setter
+    private String trelloCardId;
+
+    @Setter
+    private String status = AWAITING;
+
+
+
 
     public Order(Long id, LocalDate date, boolean isCompleted, User user) {
         this.id = id;

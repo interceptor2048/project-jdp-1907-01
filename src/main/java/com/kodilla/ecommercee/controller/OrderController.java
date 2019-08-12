@@ -1,5 +1,6 @@
 package com.kodilla.ecommercee.controller;
 
+import com.kodilla.ecommercee.client.TrelloClient;
 import com.kodilla.ecommercee.controller.exceptions.OrderNotFoundException;
 import com.kodilla.ecommercee.controller.exceptions.UserNotFoundException;
 import com.kodilla.ecommercee.domain.Cart;
@@ -14,7 +15,6 @@ import org.springframework.web.bind.annotation.*;
 import com.kodilla.ecommercee.mapper.OrderMapper;
 import com.kodilla.ecommercee.service.OrderService;
 import org.springframework.beans.factory.annotation.Autowired;
-
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -34,7 +34,11 @@ public class OrderController {
     OrderService orderService;
 
     @Autowired
+
     UserService userService;
+
+    TrelloClient trelloClient;
+
 
     @GetMapping("getOrders")
     public List<OrderDto> getOrders() {
@@ -47,18 +51,24 @@ public class OrderController {
     }
 
     @PostMapping("createOrder")
-    public void createOrder(@RequestBody OrderDto orderDto) throws UserNotFoundException {
-        orderService.saveOrder(orderMapper.mapToOrder(orderDto));
+
+    public void createOrder(@RequestBody OrderDto orderDto) throws OrderNotFoundException,UserNotFoundException{
+        Order order = orderService.saveOrder(orderMapper.mapToOrder(orderDto));
+        order.setTrelloCardId(trelloClient.addOrderToList(order.getId(),TrelloClient.NEW_ORDER_LIST).getListId());
     }
 
     @PutMapping("editOrder")
-    public OrderDto editOrder(@RequestBody OrderDto orderDto) throws  UserNotFoundException{
+    public OrderDto editOrder(@RequestBody OrderDto orderDto) throws OrderNotFoundException,UserNotFoundException{
+        Order order = orderService.updateOrder(orderMapper.mapToOrder(orderDto));
+        trelloClient.updateOrder(order.getId());
         return orderMapper.mapToOrderDto(orderService.updateOrder(orderMapper.mapToOrder(orderDto)));
+
     }
 
     @DeleteMapping("deleteOrder")
-    public void deleteOrder(@RequestParam long id) {
+    public void deleteOrder(@RequestParam long id) throws OrderNotFoundException{
         orderService.deleteOrder(id);
+        trelloClient.deleteOrder(id);
     }
 
 
