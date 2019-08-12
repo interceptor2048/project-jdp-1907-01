@@ -14,8 +14,6 @@ public class GroupService {
     @Autowired
     private GroupRepository groupRepository;
     @Autowired
-    private ProductService productService;
-    @Autowired
     private ProductRepository productRepository;
 
     public List<Group> getAllGroups() {
@@ -48,6 +46,7 @@ public class GroupService {
         saveGroup(unassignedGroup.get());
         deleteGroup(id);
     }
+
 }
 
 

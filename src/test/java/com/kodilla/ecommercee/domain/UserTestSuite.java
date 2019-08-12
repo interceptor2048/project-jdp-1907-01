@@ -1,5 +1,6 @@
 package com.kodilla.ecommercee.domain;
 
+import com.kodilla.ecommercee.repository.CartRepository;
 import com.kodilla.ecommercee.repository.UserRepository;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -27,7 +28,7 @@ public class UserTestSuite {
     private UserRepository userRepository;
 
     private User createContent() {
-        return new User("Jessie","busy",2345L);
+        return new User("Jessie","busy",2345L, new Cart());
     }
 
     @Test
@@ -73,12 +74,12 @@ public class UserTestSuite {
         //Given
         User user = createContent();
         userRepository.save(user);
-        User updateUser = new User(user.getId(),"UpdateJessie","updateBusy",567L);
+        User updateUser = new User(user.getId(),"UpdateJessie","updateBusy",567L, new Cart());
         userRepository.save(updateUser);
         //When
-        User resultUser = userRepository.returnUserById(user.getId());
+        User resultUser = userRepository.returnUserById(updateUser.getId());
         //Then
-        assertEquals("UpdateJessie",resultUser.getUsername());
-        assertEquals("updateBusy",resultUser.getStatus());
+        assertEquals("UpdateJessie", resultUser.getUsername());
+        assertEquals("updateBusy", resultUser.getStatus());
     }
 }

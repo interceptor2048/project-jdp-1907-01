@@ -1,6 +1,6 @@
 package com.kodilla.ecommercee.service;
+import com.kodilla.ecommercee.domain.Cart;
 import com.kodilla.ecommercee.domain.User;
-import com.kodilla.ecommercee.repository.UserRepository;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,34 +15,30 @@ public class UserServiceTestSuite {
 
     @Autowired
     private UserService userService;
-    @Autowired
-    private UserRepository userRepository;
 
     @Test
     public void testSaveAndGetUser() {
         //Given
 
-        int prevNumOfRecords = userService.getAllUsers().size();
-        User user = new User("User1", "1", 1234L);
+        long prevNumOfRecords = userService.getAllUsers().size();
+        User user = new User("User1", "1", 1234L, new Cart());
 
         //When
         userService.save(user);
         User tempUser = userService.getUser(user.getId()).get();
-        List<User> tempUsers = userService.getAllUsers();
-        int afterNumOfRecords = userService.getAllUsers().size();
+        long afterNumOfRecords = userService.getAllUsers().size();
+
+
         //Then
         assertNotNull(tempUser);
-        assertNotNull(tempUsers);
         assertEquals("User1", tempUser.getUsername());
-        assertEquals(1, afterNumOfRecords-prevNumOfRecords);
-
-
+        assertEquals(1, afterNumOfRecords - prevNumOfRecords);
     }
 
     @Test
     public void testDeleteUser() {
         //Given
-        User user = new User("User1", "1", 1234L);
+        User user = new User("User1", "1", 1234L, new Cart());
 
         //When
         userService.save(user);
@@ -55,7 +51,7 @@ public class UserServiceTestSuite {
     @Test
     public void testReturnUserById(){
         //Given
-        User user = new User("User1", "1", 1234L);
+        User user = new User("User1", "1", 1234L, new Cart());
         userService.save(user);
         //When
         User resultUser = userService.returnUserById(user.getId());
