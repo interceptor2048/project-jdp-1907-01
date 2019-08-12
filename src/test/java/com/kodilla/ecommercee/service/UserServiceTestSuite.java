@@ -26,7 +26,7 @@ public class UserServiceTestSuite {
         //When
         userService.save(user);
         User tempUser = userService.getUser(user.getId()).get();
-       long afterNumOfRecords = userService.getAllUsers().size();
+        long afterNumOfRecords = userService.getAllUsers().size();
 
 
         //Then
