@@ -19,16 +19,14 @@ public class ProductMapper {
     @Autowired
     private GroupService groupService;
 
-    @Autowired
-    private CartService cartService;
-
     public Product mapToProduct (final ProductDto productDto) {
         return new Product(
                 productDto.getId(),
                 productDto.getName(),
                 productDto.getDescription(),
                 productDto.getPrice(),
-                getGroupWithId(productDto.getGroupId()));
+                groupService.getGroup(productDto.getId()).orElse(null));
+
 
     }
 
@@ -55,11 +53,5 @@ public class ProductMapper {
                 .collect(Collectors.toList());
     }
 
-    private Group getGroupWithId(Long id) {
-        return groupService.getGroup(id).orElse(null);
-    }
-
-    private Cart getCartWithId(Long id) {
-        return cartService.getCart(id).orElse(null);
-    }
 }
+

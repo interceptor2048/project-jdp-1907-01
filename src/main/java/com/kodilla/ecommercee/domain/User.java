@@ -43,7 +43,7 @@ public class User {
         this.userKey = userKey;
         this.phoneNumber = phoneNumber;
     }
-
+  
     public User(String username, String status, Long userKey, String phoneNumber, Cart cart) {
         this.username = username;
         this.status = status;

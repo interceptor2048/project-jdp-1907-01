@@ -28,6 +28,7 @@ public class GroupServiceTestSuite {
     @Test
     public void testSaveOrGetGroup() {
         //Given
+        long prevNumOfRecords =  groupService.getAllGroups().size();
         List<Group> groups = new ArrayList<>();
         Group tempGroup = null;
         Group group = new Group("Group");
@@ -39,10 +40,11 @@ public class GroupServiceTestSuite {
         } catch (GroupNotFoundException e) {
             LOGGER.error(e.getMessage());
         }
+        long afterNumOfRecords =  groupService.getAllGroups().size();
         //Then
         assertEquals(group.getId(), tempGroup.getId());
         assertEquals(group.getName(), tempGroup.getName());
-        assertEquals(1, groups.size());
+        assertEquals(1, afterNumOfRecords - prevNumOfRecords);
         //Clean up
         groupService.deleteGroup(group.getId());
     }
