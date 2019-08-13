@@ -118,15 +118,13 @@
                     <div class="block-content collapse in">
                         <div class="span12">
                             <address>
-                              <strong>Twitter, Inc.</strong><br>
-                              795 Folsom Ave, Suite 600<br>
-                              San Francisco, CA 94107<br>
-                              <abbr title="Phone">P:</abbr> (123) 456-7890
+                              <strong th:text="${address}"></strong><br>
+                             <abbr title="Phone">P:</abbr> (123) 456-7890
                             </address>
 
                             <address>
-                              <strong>Full Name</strong><br>
-                              <a href="mailto:#">first.last@example.com</a>
+                              <strong th:text="${username}"></strong><br>
+                              <a href="#" th:text="${email}"></a>
                             </address>
                         </div>
                     </div>

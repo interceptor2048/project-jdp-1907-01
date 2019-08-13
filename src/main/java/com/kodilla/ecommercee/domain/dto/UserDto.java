@@ -12,5 +12,7 @@ public class UserDto {
     private String username;
     private String status;
     private Long userKey;
+    private String address;
+    private String email;
     private Long cartId;
 }

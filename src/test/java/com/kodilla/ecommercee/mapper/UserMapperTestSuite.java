@@ -17,11 +17,17 @@ public class UserMapperTestSuite {
 
     @Autowired
     private UserMapper mapper;
-
+    private Long id;
+    private String username;
+    private String status;
+    private Long userKey;
+    private String address;
+    private String email;
+    private Long cartId;
     @Test
     public void mapToUser() {
         //Given
-        UserDto userDto = new UserDto(1L, "User1", "1", 1234L, 3209L);
+        UserDto userDto = new UserDto(1L, "User1", "1", 1234L,"ul. Nowa 13, Warszawa 22-500","kowalski@wp.pl", 3209L);
 
         //When
         User user = mapper.mapToUser(userDto);
@@ -37,7 +43,7 @@ public class UserMapperTestSuite {
     @Test
     public void mapToUserDto() {
         //Given
-        User user = new User(1L, "User1", "1", 1234L, new Cart(3209L));
+        User user = new User(1L, "User1", "1", 1234L,"ul. Nowa 13, Warszawa 22-500","kowalski@wp.pl", new Cart(3209L));
 
         //When
         UserDto userDto = mapper.mapToUserDto(user);
@@ -53,7 +59,7 @@ public class UserMapperTestSuite {
     @Test
     public void mapToUserDtoList() {
         //Given
-        User user = new User(1L, "User1", "1", 1234L, new Cart(3209L));
+        User user = new User(1L, "User1", "1", 1234L,"ul. Nowa 13, Warszawa 22-500","kowalski@wp.pl", new Cart(3209L));
         List<User> users = new ArrayList<>();
         users.add(user);
 

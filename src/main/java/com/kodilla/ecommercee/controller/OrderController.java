@@ -2,11 +2,16 @@ package com.kodilla.ecommercee.controller;
 
 import com.kodilla.ecommercee.client.TrelloClient;
 import com.kodilla.ecommercee.controller.exceptions.OrderNotFoundException;
+import com.kodilla.ecommercee.controller.exceptions.UserNotFoundException;
 import com.kodilla.ecommercee.domain.Order;
+import com.kodilla.ecommercee.domain.User;
 import com.kodilla.ecommercee.domain.dto.OrderDto;
+import com.kodilla.ecommercee.domain.dto.UserDto;
 import com.kodilla.ecommercee.mapper.OrderMapper;
+import com.kodilla.ecommercee.mapper.UserMapper;
 import com.kodilla.ecommercee.service.Html2PdfService;
 import com.kodilla.ecommercee.service.OrderService;
+import com.kodilla.ecommercee.service.UserService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.java.Log;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,6 +27,7 @@ import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/v1/ecommercee/order/")
@@ -32,18 +38,16 @@ public class OrderController {
 
     @Autowired
     private OrderMapper orderMapper;
-
     @Autowired
     private OrderService orderService;
-
-    @Autowired
-    private ServletContext context;
     @Autowired
     ResourceLoader resourceLoader;
-
+    @Autowired
     private final Html2PdfService documentGeneratorService;
-
-
+    @Autowired
+    private UserService userService;
+    @Autowired
+    UserMapper userMapper;
     @Autowired
     TrelloClient trelloClient;
 
@@ -77,18 +81,21 @@ public class OrderController {
         trelloClient.deleteOrder(id);
     }
 
-    @GetMapping("{id}/confirmationPdf")
-    public ModelAndView createPdf(HttpServletRequest request, HttpServletResponse response, @PathVariable Long id, Model model) throws OrderNotFoundException {
-       // OrderDto orderDto = orderMapper.mapToOrderDto(orderService.getOrder(id));
-       // boolean isFlag = orderService.createPdf(orderDto, context, request, response);
+    @GetMapping("{id}/confirmation")
+    public ModelAndView createPdf(HttpServletRequest request, HttpServletResponse response, @PathVariable Long id, Model model) throws OrderNotFoundException, UserNotFoundException {
         ModelAndView modelAndView = new ModelAndView();
         OrderDto orderDto = orderMapper.mapToOrderDto(orderService.getOrder(id));
-        model.addAttribute("orderDto", orderDto);
-
+        Optional<User> user = userService.getUser(orderDto.getUserId());
+        if(user.isPresent()){
+            model.addAttribute("address", user.get().getAddress());
+            model.addAttribute("email", user.get().getEmail());
+            model.addAttribute("username", user.get().getUsername());
+        }
+        model.addAttribute("date", orderDto.getDate());
         modelAndView.setViewName("confirmation");
         return modelAndView;
     }
-    @RequestMapping(value = "{id}/confirmationPdf/download", method = RequestMethod.GET, produces = "application/pdf")
+    @RequestMapping(value = "{id}/confirmation/download", method = RequestMethod.GET, produces = "application/pdf")
     public ResponseEntity downloadFile(@PathVariable Long id) throws OrderNotFoundException {
         Order order = orderService.getOrder(id);
         InputStreamResource resource = documentGeneratorService.html2PdfGenerator(order);

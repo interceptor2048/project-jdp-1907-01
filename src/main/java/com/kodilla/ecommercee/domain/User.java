@@ -31,6 +31,8 @@ public class User {
     private String username;
     private String status;
     private Long userKey;
+    private String address;
+    private String email;
 
     @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinColumn(name = "cartId")
@@ -46,6 +48,29 @@ public class User {
         this.username = username;
         this.status = status;
         this.userKey = userKey;
+        this.cart = cart;
+    }
+    public User(Long id, String username, String status, Long userKey, Cart cart) {
+        this.username = username;
+        this.status = status;
+        this.userKey = userKey;
+        this.cart = cart;
+    }
+
+    public User(String username, String status, Long userKey, String address, String email) {
+        this.username = username;
+        this.status = status;
+        this.userKey = userKey;
+        this.address = address;
+        this.email = email;
+    }
+
+    public User(String username, String status, Long userKey, String address, String email, Cart cart) {
+        this.username = username;
+        this.status = status;
+        this.userKey = userKey;
+        this.address = address;
+        this.email = email;
         this.cart = cart;
     }
 }

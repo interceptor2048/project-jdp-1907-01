@@ -2,6 +2,7 @@ package com.kodilla.ecommercee.service;
 
 import com.itextpdf.html2pdf.HtmlConverter;
 import com.kodilla.ecommercee.domain.Order;
+import com.kodilla.ecommercee.domain.User;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.java.Log;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,8 +14,8 @@ import org.thymeleaf.context.Context;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.net.URL;
-import java.util.Map;
+import java.util.Optional;
+
 
 import static java.util.logging.Level.INFO;
 import static java.util.logging.Level.SEVERE;
@@ -25,6 +26,8 @@ import static java.util.logging.Level.SEVERE;
 public class Html2PdfServiceImpl implements Html2PdfService {
 
     private final TemplateEngine templateEngine;
+    @Autowired
+    UserService userService;
 
     @Override
     public InputStreamResource html2PdfGenerator(Order order) {
@@ -32,16 +35,22 @@ public class Html2PdfServiceImpl implements Html2PdfService {
         Context context = new Context();
         context.setVariable("number", order.getId());
         context.setVariable("date", order.getDate());
+        Optional<User> user = userService.getUser(order.getUser().getId());
+        if(user.isPresent()){
+            context.setVariable("address", user.get().getAddress());
+            context.setVariable("email", user.get().getEmail());
+            context.setVariable("username", user.get().getUsername());
+        }
 
-        final String html = templateEngine.process("confirmation", context);
+        final String htmlCode = templateEngine.process("confirmation", context);
 
-        log.log(INFO, html);
+        log.log(INFO, htmlCode);
 
 
-        final String DEST = "src/main/resources/confirmations/FA-2018-09-04-0001.pdf";
+        final String DEST = "src/main/resources/confirmations/order-00" + order.getId() +".pdf";
         System.out.println(DEST);
         try {
-            HtmlConverter.convertToPdf(html, new FileOutputStream(DEST));
+            HtmlConverter.convertToPdf(htmlCode, new FileOutputStream(DEST));
             return new InputStreamResource(new FileInputStream(DEST));
 
         } catch (IOException e) {
@@ -49,5 +58,4 @@ public class Html2PdfServiceImpl implements Html2PdfService {
             return null;
         }
     }
-
 }
