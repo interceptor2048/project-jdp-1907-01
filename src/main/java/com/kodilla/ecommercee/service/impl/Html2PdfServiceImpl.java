@@ -1,8 +1,10 @@
-package com.kodilla.ecommercee.service;
+package com.kodilla.ecommercee.service.impl;
 
 import com.itextpdf.html2pdf.HtmlConverter;
 import com.kodilla.ecommercee.domain.Order;
 import com.kodilla.ecommercee.domain.User;
+import com.kodilla.ecommercee.service.Html2PdfService;
+import com.kodilla.ecommercee.service.UserService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.java.Log;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,8 +28,7 @@ import static java.util.logging.Level.SEVERE;
 public class Html2PdfServiceImpl implements Html2PdfService {
 
     private final TemplateEngine templateEngine;
-    @Autowired
-    UserService userService;
+    private final UserService userService;
 
     @Override
     public InputStreamResource html2PdfGenerator(Order order) {
