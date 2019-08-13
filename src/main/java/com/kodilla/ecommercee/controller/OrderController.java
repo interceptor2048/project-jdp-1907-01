@@ -4,6 +4,10 @@ import com.kodilla.ecommercee.client.TrelloClient;
 import com.kodilla.ecommercee.controller.exceptions.OrderNotFoundException;
 import com.kodilla.ecommercee.domain.Order;
 import com.kodilla.ecommercee.domain.dto.OrderDto;
+import com.kodilla.ecommercee.facade.OrderFacade;
+import com.kodilla.ecommercee.service.SimpleEmailService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.web.bind.annotation.*;
 import com.kodilla.ecommercee.mapper.OrderMapper;
 import com.kodilla.ecommercee.service.OrderService;
@@ -15,6 +19,8 @@ import java.util.List;
 @CrossOrigin("*")
 public class OrderController {
 
+    private static final Logger LOGGER = LoggerFactory.getLogger(OrderController.class);
+
     @Autowired
     OrderMapper orderMapper;
 
@@ -23,6 +29,9 @@ public class OrderController {
 
     @Autowired
     TrelloClient trelloClient;
+
+    @Autowired
+    OrderFacade orderFacade;
 
     @GetMapping("getOrders")
     public List<OrderDto> getOrders() {
@@ -38,6 +47,13 @@ public class OrderController {
     public void createOrder(@RequestBody OrderDto orderDto) throws OrderNotFoundException{
         Order order = orderService.saveOrder(orderMapper.mapToOrder(orderDto));
         order.setTrelloCardId(trelloClient.addOrderToList(order.getId(),TrelloClient.NEW_ORDER_LIST).getListId());
+
+        try {
+            LOGGER.info("Processing order...");
+            orderFacade.processOrder(order);
+        } catch (OrderNotFoundException e) {
+            LOGGER.error("Processing failed...", e.getMessage(), e);
+        }
     }
 
     @PutMapping("editOrder")

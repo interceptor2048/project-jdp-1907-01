@@ -14,11 +14,17 @@ public class OrderMapper {
     UserRepository userRepository;
 
     public Order mapToOrder(OrderDto orderDto) {
-        return new Order(orderDto.getId(),orderDto.getDate(),orderDto.isCompleted(),userRepository.returnUserById(orderDto.getUserId()));
+        return new Order(orderDto.getId(),
+                orderDto.getDate(),
+                orderDto.isCompleted(),
+                userRepository.returnUserById(orderDto.getUserId()));
     }
 
     public OrderDto mapToOrderDto(Order order) {
-        return new OrderDto(order.getId(),order.getDate(),order.isCompleted(),order.getUser().getId());
+        return new OrderDto(order.getId(),
+                order.getDate(),
+                order.isCompleted(),
+                order.getUser().getId());
     }
 
     public List<OrderDto> mapToOrderDtoList(List<Order> orders) {
