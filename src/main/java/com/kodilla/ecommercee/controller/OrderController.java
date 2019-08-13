@@ -73,26 +73,25 @@ public class OrderController {
 
 
     @PostMapping(value = "orderProcessor")
-    public Order orderProcessor(long userId) throws UserNotFoundException,OrderNotFoundException {
+    public Order orderProcessor(long userId, List<ProductItem> productItems) throws UserNotFoundException {
         User user = userService.returnUserById(userId).orElseThrow(UserNotFoundException::new);
         LOGGER.info("We proceesing order for:" + user.getUsername() + " with userKey:" + user.getUserKey());
         Cart userCart = user.getCart();
-        LOGGER.info(user.getUsername() + " have "+ userCart.getProducts().size() + " product in cart");
-        List<Product> productFromCart = new ArrayList<>();
-        BigDecimal orderCost = BigDecimal.ZERO;
-        LOGGER.info("Cart items: ");
-        for(Product product : userCart.getProducts()) {
-            LOGGER.info("Item:" + product.getName() + ", " + product.getPrice());
-            productFromCart.add(product);
-            orderCost.add(product.getPrice());
+        userCart.getProductItems().clear();
+        userCart.getProductItems().addAll(productItems);
+        int productCount = 0;
+        BigDecimal priceOfProducts = new BigDecimal(0);
+        List<Product> products = new ArrayList<>();
+        for (ProductItem productItem : userCart.getProductItems()) {
+            productCount += productItem.getQuantity();
+            priceOfProducts.add(productItem.getAmmount());
+            products.addAll(productItem.getProducts());
         }
-        LOGGER.info("Cost of order:" + orderCost + " $");
-        Order resultOrder = new Order(LocalDate.now(),true,user,orderCost);
-        resultOrder.getProductList().addAll(productFromCart);
+        LOGGER.info(user.getUsername() + " have " + productCount + "product in cart");
+        Order resultOrder = new Order(LocalDate.now(), true, user, priceOfProducts);
+        resultOrder.getProductList().addAll(products);
         orderService.saveOrder(resultOrder);
-        resultOrder.setTrelloCardId(trelloClient.addOrderToList(resultOrder.getId(),TrelloClient.NEW_ORDER_LIST).getListId());
-        orderService.saveOrder(resultOrder);
-        LOGGER.info("Amound to pay: " + orderCost.toString());
+        LOGGER.info("Amound to pay: " + priceOfProducts.toString());
         return resultOrder;
     }
 }
