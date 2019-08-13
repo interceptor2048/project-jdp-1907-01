@@ -3,8 +3,14 @@ package com.kodilla.ecommercee.domain;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import javax.persistence.*;
-
+import javax.persistence.CascadeType;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
+import javax.persistence.Table;
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -31,12 +37,9 @@ public class User {
     }
 
     public User(String username, String status, Long userKey, Cart cart) {
-
         this.username = username;
         this.status = status;
         this.userKey = userKey;
         this.cart = cart;
     }
-
-
 }
