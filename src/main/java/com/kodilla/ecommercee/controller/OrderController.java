@@ -1,35 +1,27 @@
 package com.kodilla.ecommercee.controller;
 
-import com.itextpdf.html2pdf.ConverterProperties;
-import com.itextpdf.html2pdf.HtmlConverter;
-import com.itextpdf.kernel.pdf.PdfWriter;
+import com.kodilla.ecommercee.client.TrelloClient;
 import com.kodilla.ecommercee.controller.exceptions.OrderNotFoundException;
 import com.kodilla.ecommercee.domain.Order;
 import com.kodilla.ecommercee.domain.dto.OrderDto;
+import com.kodilla.ecommercee.mapper.OrderMapper;
 import com.kodilla.ecommercee.service.Html2PdfService;
+import com.kodilla.ecommercee.service.OrderService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.java.Log;
-import org.springframework.core.io.FileSystemResource;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.InputStreamResource;
 import org.springframework.core.io.ResourceLoader;
-import org.springframework.data.repository.query.Param;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import com.kodilla.ecommercee.mapper.OrderMapper;
-import com.kodilla.ecommercee.service.OrderService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.IOException;
 import java.util.List;
-import java.util.Map;
 
 @RestController
 @RequestMapping("/v1/ecommercee/order/")
@@ -52,6 +44,9 @@ public class OrderController {
     private final Html2PdfService documentGeneratorService;
 
 
+    @Autowired
+    TrelloClient trelloClient;
+
     @GetMapping("getOrders")
     public List<OrderDto> getOrders() {
         return orderMapper.mapToOrderDtoList(orderService.getOrders());
@@ -63,18 +58,23 @@ public class OrderController {
     }
 
     @PostMapping("createOrder")
-    public void createOrder(@RequestBody OrderDto orderDto) {
-        orderService.saveOrder(orderMapper.mapToOrder(orderDto));
+    public void createOrder(@RequestBody OrderDto orderDto) throws OrderNotFoundException{
+        Order order = orderService.saveOrder(orderMapper.mapToOrder(orderDto));
+        order.setTrelloCardId(trelloClient.addOrderToList(order.getId(),TrelloClient.NEW_ORDER_LIST).getListId());
     }
 
     @PutMapping("editOrder")
-    public OrderDto editOrder(@RequestBody OrderDto orderDto) {
+    public OrderDto editOrder(@RequestBody OrderDto orderDto) throws OrderNotFoundException{
+        Order order = orderService.updateOrder(orderMapper.mapToOrder(orderDto));
+        trelloClient.updateOrder(order.getId());
         return orderMapper.mapToOrderDto(orderService.updateOrder(orderMapper.mapToOrder(orderDto)));
+
     }
 
     @DeleteMapping("deleteOrder")
-    public void deleteOrder(@RequestParam long id) {
+    public void deleteOrder(@RequestParam long id) throws OrderNotFoundException{
         orderService.deleteOrder(id);
+        trelloClient.deleteOrder(id);
     }
 
     @GetMapping("{id}/confirmationPdf")

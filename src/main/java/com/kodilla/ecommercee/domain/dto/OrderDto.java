@@ -1,4 +1,5 @@
 package com.kodilla.ecommercee.domain.dto;
+import com.kodilla.ecommercee.domain.Order;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -15,6 +16,7 @@ public class OrderDto {
     private boolean isCompleted;
     private List<ProductDto> productList;
     private Long userId;
+    private String status = Order.AWAITING;
 
     public OrderDto(Long id, LocalDate date, boolean isCompleted, Long userId) {
         this.id = id;
