@@ -35,7 +35,7 @@ public class MailCreatorService {
         context.setVariable("message", message);
         context.setVariable("products", products);
         context.setVariable("admin_name", adminConfig.getAdminName());
-        context.setVariable("order_url", "http://localhost:8080/v1/ecommercee/order/getOrder?id=" + orderId);
+        context.setVariable("order_url", "https://dry-beyond-69165.herokuapp.com/v1/ecommercee/order/getOrder?id=" + orderId);
         context.setVariable("button", "SHOW ORDER");
         context.setVariable("company_details", "Kodilla Ecommerce");
 
