@@ -53,13 +53,6 @@ public class OrderController {
         return orderMapper.mapToOrderDto(orderService.getOrder(id));
     }
 
-    @PostMapping("createOrder")
-
-    public void createOrder(@RequestBody OrderDto orderDto) throws OrderNotFoundException, UserNotFoundException {
-        Order order = orderService.saveOrder(orderMapper.mapToOrder(orderDto));
-        order.setTrelloCardId(trelloClient.addOrderToList(order.getId(), TrelloClient.NEW_ORDER_LIST).getListId());
-    }
-
     @PutMapping("editOrder")
     public OrderDto editOrder(@RequestBody OrderDto orderDto) throws OrderNotFoundException, UserNotFoundException {
         Order order = orderService.updateOrder(orderMapper.mapToOrder(orderDto));
@@ -94,6 +87,7 @@ public class OrderController {
         resultOrder.setTrelloCardId(trelloClient.addOrderToList(resultOrder.getId(),TrelloClient.NEW_ORDER_LIST).getListId());
         orderService.saveOrder(resultOrder);
         LOGGER.info("Amound to pay: " + priceOfProducts.toString());
+        userCart.getProductItems().clear();
         return resultOrder;
     }
 }

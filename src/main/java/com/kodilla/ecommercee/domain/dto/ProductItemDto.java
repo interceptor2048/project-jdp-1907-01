@@ -6,13 +6,14 @@ import lombok.NoArgsConstructor;
 
 import java.math.BigDecimal;
 import java.util.List;
+import java.util.Set;
 
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
 public class ProductItemDto {
     private Long id;
-    private List<ProductDto> products;
+    private Set<ProductDto> products;
     private int quantity;
     private BigDecimal ammount;
 }

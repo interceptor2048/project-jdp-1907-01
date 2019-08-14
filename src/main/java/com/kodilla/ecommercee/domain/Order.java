@@ -8,7 +8,9 @@ import javax.persistence.*;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 
 @AllArgsConstructor
@@ -30,7 +32,7 @@ public class Order {
 
 
     @ManyToMany(mappedBy = "orders",cascade = CascadeType.ALL)
-    private List<ProductItem> productItems;
+    private Set<ProductItem> productItems;
 
     @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinColumn(name = "user_id")
@@ -52,21 +54,21 @@ public class Order {
         this.id = id;
         this.date = date;
         this.isCompleted = isCompleted;
-        this.productItems = new ArrayList<>();
+        this.productItems = new HashSet<>();
         this.user = user;
     }
 
     public Order(LocalDate date, boolean isCompleted, User user) {
         this.date = date;
         this.isCompleted = isCompleted;
-        this.productItems = new ArrayList<>();
+        this.productItems = new HashSet<>();
         this.user = user;
     }
 
     public Order(LocalDate date, boolean isCompleted) {
         this.date = date;
         this.isCompleted = isCompleted;
-        this.productItems = new ArrayList<>();
+        this.productItems = new HashSet<>();
     }
 
     public Order(LocalDate date, boolean isCompleted, User user, BigDecimal valueOfOrder) {
@@ -74,6 +76,6 @@ public class Order {
         this.isCompleted = isCompleted;
         this.user = user;
         this.valueOfOrder = valueOfOrder;
-        this.productItems = new ArrayList<>();
+        this.productItems = new HashSet<>();
     }
 }

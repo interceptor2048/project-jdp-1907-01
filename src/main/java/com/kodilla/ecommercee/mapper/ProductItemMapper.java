@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 @Component
@@ -17,8 +18,8 @@ public class ProductItemMapper {
     private ProductMapper productMapper;
 
     public ProductItem mapToProductItem(final ProductItemDto productItemDto) {
-        List<ProductDto> productDtos = productItemDto.getProducts();
-        List<Product> products = productMapper.mapToProductList(productDtos);
+        Set<ProductDto> productDtos = productItemDto.getProducts();
+        Set<Product> products = productMapper.mapToProductSet(productDtos);
 
         return new ProductItem(
                 productItemDto.getId(),
@@ -30,8 +31,8 @@ public class ProductItemMapper {
     public ProductItemDto mapToProductItemDto(final ProductItem productItem) {
 
 
-        List<Product> products = productItem.getProducts();
-        List<ProductDto> productDtos = productMapper.mapToProductDtoList(products);
+        Set<Product> products = productItem.getProducts();
+        Set<ProductDto> productDtos = productMapper.mapToProductDtoSet(products);
         return new ProductItemDto(
                 productItem.getId(),
                 productDtos,

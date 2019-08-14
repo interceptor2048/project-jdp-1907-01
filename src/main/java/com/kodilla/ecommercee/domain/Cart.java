@@ -21,12 +21,7 @@ public class Cart {
     @GeneratedValue
     private Long id;
 
-    @ManyToMany(cascade = CascadeType.ALL)
-    @JoinTable(
-            name = "cart_and_product_Items",
-            joinColumns = @JoinColumn(name = "cart_id",referencedColumnName = "id"),
-            inverseJoinColumns = @JoinColumn(name = "product_item_id",referencedColumnName = "id")
-    )
+    @OneToMany(cascade = CascadeType.ALL,mappedBy = "cart")
     private List<ProductItem> productItems;
 
     @Setter

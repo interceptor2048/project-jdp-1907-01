@@ -7,7 +7,9 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -19,20 +21,21 @@ public class ProductItem {
     @GeneratedValue
     private Long id;
 
-    @ManyToMany(cascade = CascadeType.ALL)
+    @ManyToMany
     @JoinTable(
             name = "product_Item_id_and_product_id",
             joinColumns = @JoinColumn(name = "product_Item_id",referencedColumnName = "id"),
             inverseJoinColumns = @JoinColumn(name = "product_id",referencedColumnName = "id")
     )
-    private List<Product> products;
+    private Set<Product> products;
     private int quantity;
     private BigDecimal ammount;
 
-    @ManyToMany(cascade = CascadeType.ALL)
-    private List<Cart> carts;
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "cart_id")
+    private Cart cart;
 
-    @ManyToMany(cascade = CascadeType.ALL)
+    @ManyToMany
     @JoinTable(
             name = "product_items_id_and_orders_id",
             joinColumns = @JoinColumn(name = "product_item_id",referencedColumnName = "id"),
@@ -40,7 +43,7 @@ public class ProductItem {
     )
     private List<Order> orders;
 
-    public ProductItem(Long id, List<Product> products, int quantity, BigDecimal ammount) {
+    public ProductItem(Long id, Set<Product> products, int quantity, BigDecimal ammount) {
         this.id = id;
         this.products = products;
         this.quantity = quantity;
