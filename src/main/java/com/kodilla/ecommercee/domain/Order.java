@@ -78,4 +78,34 @@ public class Order {
         this.valueOfOrder = valueOfOrder;
         this.productItems = new HashSet<>();
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Order)) return false;
+
+        Order order = (Order) o;
+
+        if (isCompleted != order.isCompleted) return false;
+        if (!id.equals(order.id)) return false;
+        if (!date.equals(order.date)) return false;
+        if (!productItems.equals(order.productItems)) return false;
+        if (!user.equals(order.user)) return false;
+        if (!valueOfOrder.equals(order.valueOfOrder)) return false;
+        if (!trelloCardId.equals(order.trelloCardId)) return false;
+        return status.equals(order.status);
+    }
+
+    @Override
+    public int hashCode() {
+        int result = id.hashCode();
+        result = 31 * result + date.hashCode();
+        result = 31 * result + (isCompleted ? 1 : 0);
+        result = 31 * result + productItems.hashCode();
+        result = 31 * result + user.hashCode();
+        result = 31 * result + valueOfOrder.hashCode();
+        result = 31 * result + trelloCardId.hashCode();
+        result = 31 * result + status.hashCode();
+        return result;
+    }
 }

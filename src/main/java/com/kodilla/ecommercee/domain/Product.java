@@ -59,22 +59,22 @@ public class Product {
 
         Product product = (Product) o;
 
-        if (id != null ? !id.equals(product.id) : product.id != null) return false;
-        if (name != null ? !name.equals(product.name) : product.name != null) return false;
-        if (description != null ? !description.equals(product.description) : product.description != null) return false;
-        if (price != null ? !price.equals(product.price) : product.price != null) return false;
-        if (group != null ? !group.equals(product.group) : product.group != null) return false;
-        return productItems != null ? productItems.equals(product.productItems) : product.productItems == null;
+        if (!id.equals(product.id)) return false;
+        if (!name.equals(product.name)) return false;
+        if (!description.equals(product.description)) return false;
+        if (!price.equals(product.price)) return false;
+        if (!group.equals(product.group)) return false;
+        return productItems.equals(product.productItems);
     }
 
     @Override
     public int hashCode() {
-        int result = id != null ? id.hashCode() : 0;
-        result = 31 * result + (name != null ? name.hashCode() : 0);
-        result = 31 * result + (description != null ? description.hashCode() : 0);
-        result = 31 * result + (price != null ? price.hashCode() : 0);
-        result = 31 * result + (group != null ? group.hashCode() : 0);
-        result = 31 * result + (productItems != null ? productItems.hashCode() : 0);
+        int result = id.hashCode();
+        result = 31 * result + name.hashCode();
+        result = 31 * result + description.hashCode();
+        result = 31 * result + price.hashCode();
+        result = 31 * result + group.hashCode();
+        result = 31 * result + productItems.hashCode();
         return result;
     }
 }

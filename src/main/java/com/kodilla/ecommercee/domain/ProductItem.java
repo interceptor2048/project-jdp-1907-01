@@ -49,4 +49,30 @@ public class ProductItem {
         this.quantity = quantity;
         this.ammount = ammount;
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof ProductItem)) return false;
+
+        ProductItem that = (ProductItem) o;
+
+        if (quantity != that.quantity) return false;
+        if (!id.equals(that.id)) return false;
+        if (!products.equals(that.products)) return false;
+        if (!ammount.equals(that.ammount)) return false;
+        if (!cart.equals(that.cart)) return false;
+        return orders.equals(that.orders);
+    }
+
+    @Override
+    public int hashCode() {
+        int result = id.hashCode();
+        result = 31 * result + products.hashCode();
+        result = 31 * result + quantity;
+        result = 31 * result + ammount.hashCode();
+        result = 31 * result + cart.hashCode();
+        result = 31 * result + orders.hashCode();
+        return result;
+    }
 }
