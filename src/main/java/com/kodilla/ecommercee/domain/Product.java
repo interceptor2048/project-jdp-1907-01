@@ -73,8 +73,6 @@ public class Product {
         result = 31 * result + name.hashCode();
         result = 31 * result + description.hashCode();
         result = 31 * result + price.hashCode();
-        result = 31 * result + group.hashCode();
-        result = 31 * result + productItems.hashCode();
         return result;
     }
 }
