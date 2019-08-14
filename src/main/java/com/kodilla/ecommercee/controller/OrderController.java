@@ -1,10 +1,12 @@
 package com.kodilla.ecommercee.controller;
 
 import com.kodilla.ecommercee.client.TrelloClient;
+import com.kodilla.ecommercee.controller.exceptions.CartNotFoundException;
 import com.kodilla.ecommercee.controller.exceptions.OrderNotFoundException;
 import com.kodilla.ecommercee.controller.exceptions.UserNotFoundException;
 import com.kodilla.ecommercee.domain.*;
 import com.kodilla.ecommercee.domain.dto.OrderDto;
+import com.kodilla.ecommercee.service.CartService;
 import com.kodilla.ecommercee.service.UserService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -36,6 +38,9 @@ public class OrderController {
 
     @Autowired
     TrelloClient trelloClient;
+
+    @Autowired
+    CartService cartService;
 
 
     @GetMapping("getOrders")
@@ -71,23 +76,21 @@ public class OrderController {
 
 
     @PostMapping(value = "orderProcessor")
-    public Order orderProcessor(long userId, List<ProductItem> productItems) throws UserNotFoundException,OrderNotFoundException {
-        User user = userService.returnUserById(userId).orElseThrow(UserNotFoundException::new);
+    public Order orderProcessor(long cartId) throws CartNotFoundException,OrderNotFoundException {
+        Cart userCart = cartService.getCart(cartId).orElseThrow(CartNotFoundException::new);
+        User user = userCart.getUser();
         LOGGER.info("We proceesing order for:" + user.getUsername() + " with userKey:" + user.getUserKey());
-        Cart userCart = user.getCart();
-        userCart.getProductItems().clear();
-        userCart.getProductItems().addAll(productItems);
         int productCount = 0;
         BigDecimal priceOfProducts = new BigDecimal(0);
-        List<Product> products = new ArrayList<>();
+        List<ProductItem> productsItems = new ArrayList<>();
         for (ProductItem productItem : userCart.getProductItems()) {
             productCount += productItem.getQuantity();
             priceOfProducts.add(productItem.getAmmount());
-            products.addAll(productItem.getProducts());
+            productsItems.add(productItem);
         }
         LOGGER.info(user.getUsername() + " have " + productCount + "product in cart");
         Order resultOrder = new Order(LocalDate.now(), true, user, priceOfProducts);
-        resultOrder.getProductList().addAll(products);
+        resultOrder.getProductItems().addAll(productsItems);
         resultOrder.setTrelloCardId(trelloClient.addOrderToList(resultOrder.getId(),TrelloClient.NEW_ORDER_LIST).getListId());
         orderService.saveOrder(resultOrder);
         LOGGER.info("Amound to pay: " + priceOfProducts.toString());

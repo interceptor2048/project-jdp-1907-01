@@ -5,13 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.math.BigDecimal;
 import java.util.List;
 
@@ -25,14 +19,26 @@ public class ProductItem {
     @GeneratedValue
     private Long id;
 
-    @OneToMany(mappedBy = "productItem")
+    @ManyToMany(cascade = CascadeType.ALL)
+    @JoinTable(
+            name = "product_Item_id_and_product_id",
+            joinColumns = @JoinColumn(name = "product_Item_id",referencedColumnName = "id"),
+            inverseJoinColumns = @JoinColumn(name = "product_id",referencedColumnName = "id")
+    )
     private List<Product> products;
     private int quantity;
     private BigDecimal ammount;
 
-    @ManyToOne
-    @JoinColumn(name = "cartId")
-    private Cart cart;
+    @ManyToMany(cascade = CascadeType.ALL)
+    private List<Cart> carts;
+
+    @ManyToMany(cascade = CascadeType.ALL)
+    @JoinTable(
+            name = "product_items_id_and_orders_id",
+            joinColumns = @JoinColumn(name = "product_item_id",referencedColumnName = "id"),
+            inverseJoinColumns = @JoinColumn(name = "order_id",referencedColumnName = "id")
+    )
+    private List<Order> orders;
 
     public ProductItem(Long id, List<Product> products, int quantity, BigDecimal ammount) {
         this.id = id;

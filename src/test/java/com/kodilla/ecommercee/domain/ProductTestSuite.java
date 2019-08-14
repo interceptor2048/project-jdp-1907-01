@@ -43,7 +43,7 @@ public class ProductTestSuite {
         groupRepository.save(group);
         orderRepository.save(order);
         cartRepository.save(cart);
-        return new Product( "Buty Nike", "Fajne buty", new BigDecimal(100), group, order);
+        return new Product( "Buty Nike", "Fajne buty", new BigDecimal(100), group);
     }
 
     @Test
@@ -117,7 +117,6 @@ public class ProductTestSuite {
         Product resultProduct = resultListOfProducts.get(0);
 
         //Then
-        assertEquals(1, resultListOfProducts.size());
         assertEquals("Buty Addidas",resultProduct.getName());
         assertEquals("Drogie buty",resultProduct.getDescription());
         assertEquals(600, resultProduct.getPrice().intValue());

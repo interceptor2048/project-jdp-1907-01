@@ -5,14 +5,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.util.List;
 
 @AllArgsConstructor
@@ -28,8 +21,12 @@ public class Cart {
     @GeneratedValue
     private Long id;
 
-    @Setter
-    @OneToMany(mappedBy = "cart")
+    @ManyToMany(cascade = CascadeType.ALL)
+    @JoinTable(
+            name = "cart_and_product_Items",
+            joinColumns = @JoinColumn(name = "cart_id",referencedColumnName = "id"),
+            inverseJoinColumns = @JoinColumn(name = "product_item_id",referencedColumnName = "id")
+    )
     private List<ProductItem> productItems;
 
     @Setter
