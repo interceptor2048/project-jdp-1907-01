@@ -45,6 +45,6 @@ public class UserMapper {
     }
 
     private Cart getCartWithId(Long id) {
-        return cartService.getCart(id).orElse(null);
+        return cartService.getCart(id).orElse(new Cart());
     }
 }
