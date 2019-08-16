@@ -31,7 +31,7 @@ public class Order {
     private boolean isCompleted;
 
 
-    @ManyToMany(mappedBy = "orders",cascade = CascadeType.ALL)
+    @ManyToMany(mappedBy = "orders")
     private Set<ProductItem> productItems;
 
     @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)

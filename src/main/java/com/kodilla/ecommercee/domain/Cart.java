@@ -21,7 +21,7 @@ public class Cart {
     @GeneratedValue
     private Long id;
 
-    @OneToMany(cascade = CascadeType.ALL,mappedBy = "cart")
+    @OneToMany(mappedBy = "cart")
     private List<ProductItem> productItems;
 
     @Setter
