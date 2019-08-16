@@ -21,7 +21,7 @@ public class UserServiceTestSuite {
         //Given
 
         long prevNumOfRecords = userService.getAllUsers().size();
-        User user = new User("User1", "1", 1234L, new Cart());
+        User user = new User("User1", "1", 1234L, "123456789", new Cart());
 
         //When
         userService.save(user);
@@ -38,7 +38,7 @@ public class UserServiceTestSuite {
     @Test
     public void testDeleteUser() {
         //Given
-        User user = new User("User1", "1", 1234L, new Cart());
+        User user = new User("User1", "1", 1234L, "123456789", new Cart());
 
         //When
         userService.save(user);
@@ -51,7 +51,7 @@ public class UserServiceTestSuite {
     @Test
     public void testReturnUserById(){
         //Given
-        User user = new User("User1", "1", 1234L, new Cart());
+        User user = new User("User1", "1", 1234L,"123456789", new Cart());
         userService.save(user);
         //When
         User resultUser = userService.returnUserById(user.getId());
