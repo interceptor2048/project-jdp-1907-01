@@ -21,7 +21,7 @@ public class UserMapperTestSuite {
     @Test
     public void mapToUser() {
         //Given
-        UserDto userDto = new UserDto(1L, "User1", "1", 1234L, 3209L);
+        UserDto userDto = new UserDto(1L, "User1", "1", 1234L, "123456789",3209L);
 
         //When
         User user = mapper.mapToUser(userDto);
@@ -37,7 +37,7 @@ public class UserMapperTestSuite {
     @Test
     public void mapToUserDto() {
         //Given
-        User user = new User(1L, "User1", "1", 1234L, new Cart(3209L));
+        User user = new User(1L, "User1", "1", 1234L, "123456789", new Cart(3209L));
 
         //When
         UserDto userDto = mapper.mapToUserDto(user);
@@ -53,7 +53,7 @@ public class UserMapperTestSuite {
     @Test
     public void mapToUserDtoList() {
         //Given
-        User user = new User(1L, "User1", "1", 1234L, new Cart(3209L));
+        User user = new User(1L, "User1", "1", 1234L, "123456789", new Cart(3209L));
         List<User> users = new ArrayList<>();
         users.add(user);
 
