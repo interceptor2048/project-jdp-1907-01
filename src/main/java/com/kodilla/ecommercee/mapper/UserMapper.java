@@ -23,6 +23,7 @@ public class UserMapper {
                 userDto.getUserKey(),
                 userDto.getAddress(),
                 userDto.getEmail(),
+                userDto.getPhoneNumber(),
                 getCartWithId(userDto.getCartId()));
     }
 
@@ -34,6 +35,7 @@ public class UserMapper {
                 user.getUserKey(),
                 user.getAddress(),
                 user.getEmail(),
+                user.getPhoneNumber(),
                 user.getCart().getId());
     }
 
@@ -46,6 +48,7 @@ public class UserMapper {
                         u.getUserKey(),
                         u.getAddress(),
                         u.getEmail(),
+                        u.getPhoneNumber(),
                         u.getCart().getId()))
                 .collect(Collectors.toList());
     }
