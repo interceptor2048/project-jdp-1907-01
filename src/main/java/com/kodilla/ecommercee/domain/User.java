@@ -77,4 +77,14 @@ public class User {
         this.email = email;
         this.cart = cart;
     }
+
+    public User(String username, String status, Long userKey, String address, String email, String phoneNumber, Cart cart) {
+        this.username = username;
+        this.status = status;
+        this.userKey = userKey;
+        this.address = address;
+        this.email = email;
+        this.phoneNumber = phoneNumber;
+        this.cart = cart;
+    }
 }
