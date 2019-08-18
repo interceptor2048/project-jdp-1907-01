@@ -10,9 +10,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 import java.math.BigDecimal;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+import java.util.*;
+import java.util.stream.Collectors;
 
 import static org.junit.Assert.*;
 
@@ -55,13 +54,20 @@ public class ProductMapperTestSuite {
     }
 
     @Test
-    public void shouldMapToProductList() {
+    public void shouldMapToProductSet() {
         //Given
         List<ProductDto> productDtos = new ArrayList<>(Arrays.asList(getProductDto()));
         //When
-        List<Product> resultProducts = productMapper.mapToProductList(productDtos);
+        Set<Product> resultProducts = productMapper.mapToProductSet(productDtos.stream().collect(Collectors.toSet()));
         ProductDto productDto = productDtos.get(0);
-        Product product = resultProducts.get(0);
+        Product product = null;
+        Iterator<Product> iterator = resultProducts.iterator();
+        while(iterator.hasNext()) {
+             product = iterator.next();
+             if(product.equals(getProduct())) {
+                 break;
+             }
+        }
         //Then
         assertEquals(productDtos.size(), resultProducts.size());
         assertEquals(productDto.getName(), product.getName());
@@ -73,9 +79,16 @@ public class ProductMapperTestSuite {
         //Given
         List<Product> products = new ArrayList<>(Arrays.asList(getProduct()));
         //When
-        List<ProductDto> productDtos = productMapper.mapToProductDtoList(products);
-        ProductDto productDto = productDtos.get(0);
+        Set<ProductDto> productDtos = productMapper.mapToProductDtoSet(products.stream().collect(Collectors.toSet()));
+        ProductDto productDto = null;
         Product product = products.get(0);
+        Iterator<ProductDto> iterator = productDtos.iterator();
+        while(iterator.hasNext()) {
+            productDto = iterator.next();
+            if(productDto.equals(getProductDto())) {
+                break;
+            }
+        }
         //Then
         assertEquals(products.size(),productDtos.size());
         assertEquals(productDto.getName(), product.getName());

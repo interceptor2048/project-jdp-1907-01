@@ -14,4 +14,11 @@ public class UserDto {
     private Long userKey;
     private String phoneNumber;
     private Long cartId;
+
+    public UserDto(Long id, String username, String status, Long userKey) {
+        this.id = id;
+        this.username = username;
+        this.status = status;
+        this.userKey = userKey;
+    }
 }

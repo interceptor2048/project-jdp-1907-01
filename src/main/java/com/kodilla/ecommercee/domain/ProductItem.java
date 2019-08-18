@@ -5,15 +5,11 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.math.BigDecimal;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -25,19 +21,51 @@ public class ProductItem {
     @GeneratedValue
     private Long id;
 
-    @OneToMany(mappedBy = "productItem")
-    private List<Product> products;
+   @ManyToOne(cascade = CascadeType.ALL)
+   @JoinColumn(name = "product_id")
+    private Product product;
     private int quantity;
     private BigDecimal ammount;
 
-    @ManyToOne
-    @JoinColumn(name = "cartId")
-    private Cart cart;
+    @ManyToMany(mappedBy = "productItems")
+    private List<Cart> carts;
 
-    public ProductItem(Long id, List<Product> products, int quantity, BigDecimal ammount) {
+    @ManyToMany
+    @JoinTable(
+            name = "product_items_id_and_orders_id",
+            joinColumns = @JoinColumn(name = "product_item_id",referencedColumnName = "id"),
+            inverseJoinColumns = @JoinColumn(name = "order_id",referencedColumnName = "id")
+    )
+    private List<Order> orders;
+
+    public ProductItem(Long id, Product product, int quantity, BigDecimal ammount) {
         this.id = id;
-        this.products = products;
+        this.product = product;
         this.quantity = quantity;
         this.ammount = ammount;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof ProductItem)) return false;
+
+        ProductItem that = (ProductItem) o;
+
+        if (quantity != that.quantity) return false;
+        if (!id.equals(that.id)) return false;
+        if (!ammount.equals(that.ammount)) return false;
+        if (!carts.equals(that.carts)) return false;
+        return orders.equals(that.orders);
+    }
+
+    @Override
+    public int hashCode() {
+        int result = id.hashCode();
+        result = 31 * result + quantity;
+        result = 31 * result + ammount.hashCode();
+        result = 31 * result + carts.hashCode();
+        result = 31 * result + orders.hashCode();
+        return result;
     }
 }

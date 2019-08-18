@@ -1,5 +1,6 @@
 package com.kodilla.ecommercee.mapper;
 
+import com.kodilla.ecommercee.controller.exceptions.UserNotFoundException;
 import com.kodilla.ecommercee.domain.Cart;
 import com.kodilla.ecommercee.domain.Order;
 import com.kodilla.ecommercee.domain.User;
@@ -31,14 +32,18 @@ public class OrderMapperTestSuite {
     }
 
     @Test
-    public void shouldMapToOrder(){
+    public void shouldMapToOrder() {
         //Given
         OrderDto orderDto = getOrderDto();
         //When
-        Order order = orderMapper.mapToOrder(orderDto);
-        //Then
-        assertEquals(orderDto.getDate(),order.getDate());
-        assertEquals(orderDto.getId(),order.getId());
+        try {
+            Order order = orderMapper.mapToOrder(orderDto);
+            //Then
+            assertEquals(orderDto.getDate(),order.getDate());
+            assertEquals(orderDto.getId(),order.getId());
+        }catch (UserNotFoundException e) {
+            System.out.println(e.getMessage());
+        }
     }
 
     @Test
