@@ -13,7 +13,7 @@ import java.util.Set;
 @Getter
 public class ProductItemDto {
     private Long id;
-    private Set<ProductDto> products;
+    private long productId;
     private int quantity;
     private BigDecimal ammount;
 }

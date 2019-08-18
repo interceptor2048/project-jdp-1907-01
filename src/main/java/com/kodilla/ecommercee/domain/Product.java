@@ -27,8 +27,8 @@ public class Product {
     @JoinColumn(name = "groupId")
     private Group group;
 
-    @ManyToMany(mappedBy = "products")
-    private Set<ProductItem> productItems;
+    @OneToMany(mappedBy = "product")
+    private List<ProductItem> productItems;
 
     public Product(Long id, String name, String description, BigDecimal price) {
         this.id = id;

@@ -1,9 +1,12 @@
 package com.kodilla.ecommercee.mapper;
 
+import com.kodilla.ecommercee.controller.exceptions.ProductNotFoundException;
 import com.kodilla.ecommercee.domain.Product;
 import com.kodilla.ecommercee.domain.ProductItem;
 import com.kodilla.ecommercee.domain.dto.ProductDto;
 import com.kodilla.ecommercee.domain.dto.ProductItemDto;
+import com.kodilla.ecommercee.repository.ProductItemRepository;
+import com.kodilla.ecommercee.repository.ProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -17,40 +20,40 @@ public class ProductItemMapper {
     @Autowired
     private ProductMapper productMapper;
 
-    public ProductItem mapToProductItem(final ProductItemDto productItemDto) {
-        Set<ProductDto> productDtos = productItemDto.getProducts();
-        Set<Product> products = productMapper.mapToProductSet(productDtos);
+    @Autowired
+    private ProductRepository productRepository;
+
+    public ProductItem mapToProductItem(final ProductItemDto productItemDto) throws  ProductNotFoundException{
+        Product product = productRepository.findById(productItemDto.getProductId()).orElseThrow(ProductNotFoundException::new);
 
         return new ProductItem(
                 productItemDto.getId(),
-                products,
+                product,
                 productItemDto.getQuantity(),
                 productItemDto.getAmmount());
     }
 
     public ProductItemDto mapToProductItemDto(final ProductItem productItem) {
 
-
-        Set<Product> products = productItem.getProducts();
-        Set<ProductDto> productDtos = productMapper.mapToProductDtoSet(products);
+        long productId = productItem.getId();
         return new ProductItemDto(
                 productItem.getId(),
-                productDtos,
+                productId,
                 productItem.getQuantity(),
                 productItem.getAmmount());
     }
 
-    public List<ProductItem> mapToProductItemList(List<ProductItemDto> productItemDtoList) {
-        return productItemDtoList
-                .stream()
-                .map(this::mapToProductItem)
-                .collect(Collectors.toList());
-    }
-
-    public List<ProductItemDto> mapToProductItemDtoList(List<ProductItem> productItemList) {
-        return productItemList
-                .stream()
-                .map(this::mapToProductItemDto)
-                .collect(Collectors.toList());
-    }
+//    public List<ProductItem> mapToProductItemList(List<ProductItemDto> productItemDtoList) {
+//        return productItemDtoList
+//                .stream()
+//                .map(this::mapToProductItem)
+//                .collect(Collectors.toList());
+//    }
+//
+//    public List<ProductItemDto> mapToProductItemDtoList(List<ProductItem> productItemList) {
+//        return productItemList
+//                .stream()
+//                .map(this::mapToProductItemDto)
+//                .collect(Collectors.toList());
+//    }
 }

@@ -21,19 +21,14 @@ public class ProductItem {
     @GeneratedValue
     private Long id;
 
-    @ManyToMany
-    @JoinTable(
-            name = "product_Item_id_and_product_id",
-            joinColumns = @JoinColumn(name = "product_Item_id",referencedColumnName = "id"),
-            inverseJoinColumns = @JoinColumn(name = "product_id",referencedColumnName = "id")
-    )
-    private Set<Product> products;
+   @ManyToOne(cascade = CascadeType.ALL)
+   @JoinColumn(name = "product_id")
+    private Product product;
     private int quantity;
     private BigDecimal ammount;
 
-    @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "cart_id")
-    private Cart cart;
+    @ManyToMany(mappedBy = "productItems")
+    private List<Cart> carts;
 
     @ManyToMany
     @JoinTable(
@@ -43,9 +38,9 @@ public class ProductItem {
     )
     private List<Order> orders;
 
-    public ProductItem(Long id, Set<Product> products, int quantity, BigDecimal ammount) {
+    public ProductItem(Long id, Product product, int quantity, BigDecimal ammount) {
         this.id = id;
-        this.products = products;
+        this.product = product;
         this.quantity = quantity;
         this.ammount = ammount;
     }
@@ -59,19 +54,17 @@ public class ProductItem {
 
         if (quantity != that.quantity) return false;
         if (!id.equals(that.id)) return false;
-        if (!products.equals(that.products)) return false;
         if (!ammount.equals(that.ammount)) return false;
-        if (!cart.equals(that.cart)) return false;
+        if (!carts.equals(that.carts)) return false;
         return orders.equals(that.orders);
     }
 
     @Override
     public int hashCode() {
         int result = id.hashCode();
-        result = 31 * result + products.hashCode();
         result = 31 * result + quantity;
         result = 31 * result + ammount.hashCode();
-        result = 31 * result + cart.hashCode();
+        result = 31 * result + carts.hashCode();
         result = 31 * result + orders.hashCode();
         return result;
     }

@@ -21,7 +21,12 @@ public class Cart {
     @GeneratedValue
     private Long id;
 
-    @OneToMany(mappedBy = "cart")
+    @ManyToMany
+    @JoinTable(
+            name = "productItems_and_cart",
+            joinColumns = @JoinColumn(name = "cart_id",referencedColumnName = "id"),
+            inverseJoinColumns = @JoinColumn(name = "product_idem_id",referencedColumnName = "id")
+    )
     private List<ProductItem> productItems;
 
     @Setter
