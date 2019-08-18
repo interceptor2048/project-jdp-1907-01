@@ -1,10 +1,12 @@
 package com.kodilla.ecommercee.service;
 
 import com.kodilla.ecommercee.domain.Group;
+import com.kodilla.ecommercee.domain.GroupType;
 import com.kodilla.ecommercee.repository.GroupRepository;
 import com.kodilla.ecommercee.repository.ProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
 import java.util.List;
 import java.util.Optional;
 
@@ -37,16 +39,23 @@ public class GroupService {
     }
 
     public void deleteGroupAndMoveProductToUnassignedGroup(long id) {
-        Optional<Group> unassignedGroup = Optional.of(getGroupByName("Unassigned product.").orElse(new Group("Unassigned product.")));
-        groupRepository.save(unassignedGroup.get());
+        Optional<Group> unassignedGroup = getUnassignedProductGroup();
+        //groupRepository.save(unassignedGroup.get());
+
         Optional<Group> groupToRemove = getGroup(id);
         groupToRemove.ifPresent(group -> group.getProducts().forEach(p -> p.setGroup(unassignedGroup.get())));
-        groupToRemove.ifPresent(group -> group.getProducts().forEach(p-> unassignedGroup.get().getProducts().add(p)));
-        groupToRemove.ifPresent(group ->  productRepository.saveAll(group.getProducts()));
+        groupToRemove.ifPresent(group -> group.getProducts().forEach(p -> unassignedGroup.get().getProducts().add(p)));
+        groupToRemove.ifPresent(group -> productRepository.saveAll(group.getProducts()));
+
         saveGroup(unassignedGroup.get());
         deleteGroup(id);
     }
 
+    public Optional<Group> getUnassignedProductGroup() {
+        Optional<Group> group = Optional.of(getGroupByName(GroupType.UNASSIGNED_PRODUCT.name()).orElse(new Group(GroupType.UNASSIGNED_PRODUCT.name())));
+        Group savedGroup = groupRepository.save(group.get());
+        return Optional.of(savedGroup);
+    }
 }
 
 
