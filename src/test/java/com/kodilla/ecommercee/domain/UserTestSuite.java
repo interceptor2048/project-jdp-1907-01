@@ -29,7 +29,7 @@ public class UserTestSuite {
     private UserRepository userRepository;
 
     private User createContent() {
-        return new User("Jessie","busy",2345L, "123456789", new Cart());
+        return new User("Jessie","busy",2345L, "Ul. Nowa 13a, Warszawa 22-131", "jan@kowalski.wp.pl","123456789", new Cart());
     }
 
     @Test
@@ -75,7 +75,7 @@ public class UserTestSuite {
         //Given
         User user = createContent();
         userRepository.save(user);
-        User updateUser = new User(user.getId(),"UpdateJessie","updateBusy",567L, "123456789", new Cart());
+        User updateUser = new User(user.getId(),"UpdateJessie","updateBusy",567L, "Ul. Nowa 13a, Warszawa 22-131", "jan@kowalski.wp.pl","123456789", new Cart());
         userRepository.save(updateUser);
         //When
         User resultUser = userRepository.findById(updateUser.getId()).orElseThrow(UserNotFoundException::new);

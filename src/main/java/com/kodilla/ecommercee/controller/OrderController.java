@@ -4,43 +4,63 @@ import com.kodilla.ecommercee.client.TrelloClient;
 import com.kodilla.ecommercee.controller.exceptions.CartNotFoundException;
 import com.kodilla.ecommercee.controller.exceptions.OrderNotFoundException;
 import com.kodilla.ecommercee.controller.exceptions.UserNotFoundException;
-import com.kodilla.ecommercee.domain.*;
+import com.kodilla.ecommercee.domain.Cart;
+import com.kodilla.ecommercee.domain.Order;
+import com.kodilla.ecommercee.domain.ProductItem;
+import com.kodilla.ecommercee.domain.User;
 import com.kodilla.ecommercee.domain.dto.OrderDto;
+import com.kodilla.ecommercee.mapper.OrderMapper;
+import com.kodilla.ecommercee.mapper.UserMapper;
 import com.kodilla.ecommercee.service.CartService;
+import com.kodilla.ecommercee.service.Html2PdfService;
+import com.kodilla.ecommercee.service.OrderService;
 import com.kodilla.ecommercee.service.UserService;
+import lombok.RequiredArgsConstructor;
+import lombok.extern.java.Log;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.web.bind.annotation.*;
-import com.kodilla.ecommercee.mapper.OrderMapper;
-import com.kodilla.ecommercee.service.OrderService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.InputStreamResource;
+import org.springframework.core.io.ResourceLoader;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.ModelAndView;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/v1/ecommercee/order/")
 @CrossOrigin("*")
+@RequiredArgsConstructor(onConstructor = @__(@Autowired))
+@Log()
 public class OrderController {
 
     public static Logger LOGGER = LoggerFactory.getLogger(OrderController.class);
 
     @Autowired
-    OrderMapper orderMapper;
-
+    private OrderMapper orderMapper;
     @Autowired
-    OrderService orderService;
-
+    private OrderService orderService;
     @Autowired
-    UserService userService;
-
+    ResourceLoader resourceLoader;
     @Autowired
-    TrelloClient trelloClient;
-
+    private final Html2PdfService documentGeneratorService;
     @Autowired
-    CartService cartService;
+    private UserService userService;
+    @Autowired
+    private UserMapper userMapper;
+    @Autowired
+    private TrelloClient trelloClient;
+    @Autowired
+    private CartService cartService;
 
 
     @GetMapping("getOrders")
@@ -67,6 +87,34 @@ public class OrderController {
         trelloClient.deleteOrder(id);
     }
 
+
+    @GetMapping("{id}/confirmation")
+    public ModelAndView createPdf(HttpServletRequest request, HttpServletResponse response, @PathVariable Long id, Model model) throws OrderNotFoundException {
+        ModelAndView modelAndView = new ModelAndView();
+        OrderDto orderDto = orderMapper.mapToOrderDto(orderService.getOrder(id));
+        Optional<User> user = userService.getUser(orderDto.getUserId());
+        if(user.isPresent()){
+            model.addAttribute("address", user.get().getAddress());
+            model.addAttribute("email", user.get().getEmail());
+            model.addAttribute("username", user.get().getUsername());
+        }
+        model.addAttribute("date", orderDto.getDate());
+        model.addAttribute("orderList", orderDto.getProductList());
+        modelAndView.setViewName("confirmation");
+        return modelAndView;
+    }
+    @RequestMapping(value = "{id}/confirmation/download", method = RequestMethod.GET, produces = "application/pdf")
+    public ResponseEntity downloadFile(@PathVariable Long id) throws OrderNotFoundException {
+        Order order = orderService.getOrder(id);
+        InputStreamResource resource = documentGeneratorService.html2PdfGenerator(order);
+        if (resource != null) {
+            return ResponseEntity
+                    .ok()
+                    .body(resource);
+        } else {
+            return new ResponseEntity(HttpStatus.SERVICE_UNAVAILABLE);
+        }
+    }
 
     @PostMapping(value = "orderProcessor")
     public Order orderProcessor(long cartId) throws CartNotFoundException,OrderNotFoundException {
