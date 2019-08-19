@@ -57,9 +57,4 @@ public class CartController {
     public CartDto removeItemFromCard(@RequestParam long cartId, @RequestParam long itemId) throws CartNotFoundException{
         return cartMapper.mapToCartDto(cartService.removeItemFromCard(cartId, itemId));
     }
-
-    @PostMapping(value = "createOrder", consumes = MediaType.APPLICATION_JSON_VALUE)
-    public OrderDto createOrder(@RequestParam long cartId) throws OrderNotFoundException {
-        return orderMapper.mapToOrderDto(orderService.createOrder(cartId));
-    }
 }

@@ -29,7 +29,7 @@ public class UserService {
         userRepository.deleteById(id);
     }
 
-    public User returnUserById(long id) {
-        return userRepository.returnUserById(id);
+    public Optional<User> returnUserById(long id) {
+        return userRepository.findById(id);
     }
 }
