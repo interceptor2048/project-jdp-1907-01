@@ -30,7 +30,6 @@ public class Group {
 
     public Group(Long id, String name) {
         this.id = id;
-
         this.name = name;
     }
 

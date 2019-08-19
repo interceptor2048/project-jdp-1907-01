@@ -1,5 +1,6 @@
 package com.kodilla.ecommercee.controller;
 import com.kodilla.ecommercee.controller.exceptions.ProductNotFoundException;
+import com.kodilla.ecommercee.domain.Product;
 import com.kodilla.ecommercee.domain.dto.ProductDto;
 import com.kodilla.ecommercee.mapper.ProductMapper;
 import com.kodilla.ecommercee.service.ProductService;
@@ -7,6 +8,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 import java.util.List;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/v1/ecommercee/product/")
@@ -20,8 +23,10 @@ public class ProductController {
     private ProductMapper productMapper;
 
     @GetMapping(value = "getAllProducts")
-    public List<ProductDto> getAllProducts() {
-        return productMapper.mapToProductDtoList(productService.getAllProducts());
+    public Set<ProductDto> getAllProducts() {
+        Set<Product> resultSet = productService.getAllProducts().stream()
+                .collect(Collectors.toSet());
+        return productMapper.mapToProductDtoSet(resultSet);
     }
 
     @GetMapping(value = "getProduct")

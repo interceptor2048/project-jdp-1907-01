@@ -1,6 +1,9 @@
 package com.kodilla.ecommercee.service;
 import com.kodilla.ecommercee.controller.exceptions.ProductNotFoundException;
+import com.kodilla.ecommercee.domain.Group;
+import com.kodilla.ecommercee.domain.GroupType;
 import com.kodilla.ecommercee.domain.Product;
+import com.kodilla.ecommercee.repository.GroupRepository;
 import com.kodilla.ecommercee.repository.ProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -13,6 +16,9 @@ public class ProductService {
     @Autowired
     private ProductRepository productRepository;
 
+    @Autowired
+    private GroupService groupService;
+
     public List<Product> getAllProducts() {
         return productRepository.findAll();
     }
@@ -22,6 +28,8 @@ public class ProductService {
     }
 
     public Product saveProduct(final Product product) {
+        Optional<Group> groupOptional = groupService.getUnassignedProductGroup();
+        groupOptional.ifPresent(product::setGroup);
         return productRepository.save(product);
     }
 
@@ -32,5 +40,4 @@ public class ProductService {
     public Optional<Product> findProductByName(final String name) {
         return productRepository.findProductByName(name);
     }
-
 }
