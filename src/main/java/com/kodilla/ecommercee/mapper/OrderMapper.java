@@ -1,7 +1,8 @@
 package com.kodilla.ecommercee.mapper;
+import com.kodilla.ecommercee.controller.exceptions.UserNotFoundException;
 import com.kodilla.ecommercee.domain.Order;
 import com.kodilla.ecommercee.domain.dto.OrderDto;
-import com.kodilla.ecommercee.repository.UserRepository;
+import com.kodilla.ecommercee.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import java.util.List;
@@ -11,13 +12,11 @@ import java.util.stream.Collectors;
 public class OrderMapper {
 
     @Autowired
-    UserRepository userRepository;
+    UserService userService;
 
-    public Order mapToOrder(OrderDto orderDto) {
-        return new Order(orderDto.getId(),
-                orderDto.getDate(),
-                orderDto.isCompleted(),
-                userRepository.returnUserById(orderDto.getUserId()));
+
+    public Order mapToOrder(OrderDto orderDto) throws UserNotFoundException {
+        return new Order(orderDto.getId(),orderDto.getDate(),orderDto.isCompleted(),userService.returnUserById(orderDto.getUserId()).orElseThrow(UserNotFoundException::new));
     }
 
     public OrderDto mapToOrderDto(Order order) {

@@ -21,6 +21,9 @@ public class UserMapper {
                 userDto.getUsername(),
                 userDto.getStatus(),
                 userDto.getUserKey(),
+                userDto.getAddress(),
+                userDto.getEmail(),
+                userDto.getPhoneNumber(),
                 getCartWithId(userDto.getCartId()));
     }
 
@@ -30,6 +33,9 @@ public class UserMapper {
                 user.getUsername(),
                 user.getStatus(),
                 user.getUserKey(),
+                user.getAddress(),
+                user.getEmail(),
+                user.getPhoneNumber(),
                 user.getCart().getId());
     }
 
@@ -40,6 +46,9 @@ public class UserMapper {
                         u.getUsername(),
                         u.getStatus(),
                         u.getUserKey(),
+                        u.getAddress(),
+                        u.getEmail(),
+                        u.getPhoneNumber(),
                         u.getCart().getId()))
                 .collect(Collectors.toList());
     }
