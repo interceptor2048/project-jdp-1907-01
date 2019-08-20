@@ -9,6 +9,11 @@ import com.kodilla.ecommercee.domain.Order;
 import com.kodilla.ecommercee.domain.ProductItem;
 import com.kodilla.ecommercee.domain.User;
 import com.kodilla.ecommercee.domain.dto.OrderDto;
+import com.kodilla.ecommercee.facade.OrderFacade;
+import com.kodilla.ecommercee.service.SimpleEmailService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.web.bind.annotation.*;
 import com.kodilla.ecommercee.mapper.OrderMapper;
 import com.kodilla.ecommercee.mapper.UserMapper;
 import com.kodilla.ecommercee.service.CartService;
@@ -43,8 +48,11 @@ import java.util.Optional;
 @Log()
 public class OrderController {
 
-    public static Logger LOGGER = LoggerFactory.getLogger(OrderController.class);
 
+    private static final Logger LOGGER = LoggerFactory.getLogger(OrderController.class);
+
+    @Autowired
+    OrderMapper orderMapper;
     @Autowired
     private OrderMapper orderMapper;
     @Autowired
@@ -62,6 +70,9 @@ public class OrderController {
     @Autowired
     private CartService cartService;
 
+
+    @Autowired
+    OrderFacade orderFacade;
 
     @GetMapping("getOrders")
     public List<OrderDto> getOrders() {
