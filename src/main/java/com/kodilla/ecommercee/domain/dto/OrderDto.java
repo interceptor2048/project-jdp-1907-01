@@ -5,7 +5,9 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -14,7 +16,7 @@ public class OrderDto {
     private Long id;
     private LocalDate date;
     private boolean isCompleted;
-    private List<ProductDto> productList;
+    private Set<ProductItemDto> productItemDtos;
     private Long userId;
     private String status = Order.AWAITING;
 
@@ -23,7 +25,7 @@ public class OrderDto {
         this.date = date;
         this.isCompleted = isCompleted;
         this.userId = userId;
-        this.productList = new ArrayList<>();
+        this.productItemDtos = new HashSet<>();
     }
 }
 

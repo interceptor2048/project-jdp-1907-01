@@ -1,6 +1,4 @@
 package com.kodilla.ecommercee.client;
-
-
 import com.kodilla.ecommercee.client.clientDto.TrelloOrder;
 import com.kodilla.ecommercee.controller.exceptions.OrderNotFoundException;
 import com.kodilla.ecommercee.domain.Order;
@@ -9,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.UriComponentsBuilder;
+
 import java.net.URI;
 
 @Component
@@ -23,6 +22,7 @@ public class TrelloClient {
     public static String NEW_ORDER_LIST = "5d4d3da71a092c6120273bfc";
     public static String IN_PROGRESS_LIST = "5d4d4dc2b7c993299d4fb9b9";
     public static String SEND_LIST = "5d4d4dd18fdfdd70d375c0ff";
+
     public void updateOrder(long orderId) throws OrderNotFoundException {
         Order order = orderRepository.findById(orderId).orElseThrow(OrderNotFoundException::new);
 

@@ -3,16 +3,10 @@ package com.kodilla.ecommercee.mapper;
 import com.kodilla.ecommercee.controller.exceptions.ProductNotFoundException;
 import com.kodilla.ecommercee.domain.Product;
 import com.kodilla.ecommercee.domain.ProductItem;
-import com.kodilla.ecommercee.domain.dto.ProductDto;
 import com.kodilla.ecommercee.domain.dto.ProductItemDto;
-import com.kodilla.ecommercee.repository.ProductItemRepository;
 import com.kodilla.ecommercee.repository.ProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-
-import java.util.List;
-import java.util.Set;
-import java.util.stream.Collectors;
 
 @Component
 public class ProductItemMapper {
@@ -23,14 +17,14 @@ public class ProductItemMapper {
     @Autowired
     private ProductRepository productRepository;
 
-    public ProductItem mapToProductItem(final ProductItemDto productItemDto) throws  ProductNotFoundException{
+    public ProductItem mapToProductItem(final ProductItemDto productItemDto) throws ProductNotFoundException{
         Product product = productRepository.findById(productItemDto.getProductId()).orElseThrow(ProductNotFoundException::new);
 
         return new ProductItem(
                 productItemDto.getId(),
                 product,
                 productItemDto.getQuantity(),
-                productItemDto.getAmmount());
+                productItemDto.getAmount());
     }
 
     public ProductItemDto mapToProductItemDto(final ProductItem productItem) {
@@ -40,7 +34,7 @@ public class ProductItemMapper {
                 productItem.getId(),
                 productId,
                 productItem.getQuantity(),
-                productItem.getAmmount());
+                productItem.getAmount());
     }
 
 //    public List<ProductItem> mapToProductItemList(List<ProductItemDto> productItemDtoList) {

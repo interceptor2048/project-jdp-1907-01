@@ -29,7 +29,6 @@ public class Cart {
     )
     private List<ProductItem> productItems;
 
-    @Setter
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "userId")
     private User user;

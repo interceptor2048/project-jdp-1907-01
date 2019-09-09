@@ -1,15 +1,12 @@
 package com.kodilla.ecommercee.domain;
 
-import com.kodilla.ecommercee.domain.dto.ProductDto;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -25,7 +22,7 @@ public class ProductItem {
    @JoinColumn(name = "product_id")
     private Product product;
     private int quantity;
-    private BigDecimal ammount;
+    private BigDecimal amount;
 
     @ManyToMany(mappedBy = "productItems")
     private List<Cart> carts;
@@ -38,11 +35,11 @@ public class ProductItem {
     )
     private List<Order> orders;
 
-    public ProductItem(Long id, Product product, int quantity, BigDecimal ammount) {
+    public ProductItem(Long id, Product product, int quantity, BigDecimal amount) {
         this.id = id;
         this.product = product;
         this.quantity = quantity;
-        this.ammount = ammount;
+        this.amount = amount;
     }
 
     @Override
@@ -54,7 +51,7 @@ public class ProductItem {
 
         if (quantity != that.quantity) return false;
         if (!id.equals(that.id)) return false;
-        if (!ammount.equals(that.ammount)) return false;
+        if (!amount.equals(that.amount)) return false;
         if (!carts.equals(that.carts)) return false;
         return orders.equals(that.orders);
     }
@@ -63,7 +60,7 @@ public class ProductItem {
     public int hashCode() {
         int result = id.hashCode();
         result = 31 * result + quantity;
-        result = 31 * result + ammount.hashCode();
+        result = 31 * result + amount.hashCode();
         result = 31 * result + carts.hashCode();
         result = 31 * result + orders.hashCode();
         return result;

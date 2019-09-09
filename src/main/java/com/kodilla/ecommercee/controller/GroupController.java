@@ -9,7 +9,6 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-//@RequestMapping("/v1/ecommercee/productGroup/")
 @RequestMapping("/v1/ecommercee/group/")
 @CrossOrigin("*")
 public class GroupController {
@@ -26,7 +25,6 @@ public class GroupController {
     }
 
     @GetMapping(value = "getGroup")
-
     public GroupDto getGroup(@RequestParam long id) throws GroupNotFoundException {
         return groupMapper.mapToGroupDto(groupService.getGroup(id).orElseThrow(GroupNotFoundException::new));
     }
@@ -43,7 +41,6 @@ public class GroupController {
 
     @DeleteMapping(value = "deleteGroup")
     public void deleteGroup(@RequestParam long id) {
-        //groupService.deleteGroup(id);
         groupService.deleteGroupAndMoveProductToUnassignedGroup(id);
     }
 }

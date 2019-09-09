@@ -30,7 +30,7 @@ public class GroupTestSuite {
         //When
         Optional<Group> shoesGroup = groupRepository.findGroupByName("Shoes");
         //Then
-        assertEquals("Shoes",shoesGroup.get().getName());
+        assertEquals("Shoes", shoesGroup.get().getName());
         //Clean Up
         groupRepository.deleteById(group.getId());
     }

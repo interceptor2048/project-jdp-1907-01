@@ -32,7 +32,7 @@ public class CartController {
     private CartMapper cartMapper;
 
     @PostMapping(value = "createCart", consumes = MediaType.APPLICATION_JSON_VALUE)
-    public  CartDto createCart(@RequestParam long userId) {
+    public CartDto createCart(@RequestParam long userId) {
         Cart cart = cartService.createCart(userId);
         CartDto cartDto = cartMapper.mapToCartDto(cart);
         return cartDto;

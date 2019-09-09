@@ -67,9 +67,9 @@ public class OrderController {
         trelloClient.deleteOrder(id);
     }
 
-
     @PostMapping(value = "orderProcessor")
-    public Order orderProcessor(long cartId) throws CartNotFoundException,OrderNotFoundException {
+    public OrderDto orderProcessor(@RequestParam("cartId") long cartId) throws CartNotFoundException, OrderNotFoundException {
+        LOGGER.info("Test");
         Cart userCart = cartService.getCart(cartId).orElseThrow(CartNotFoundException::new);
         User user = userCart.getUser();
         LOGGER.info("We proceesing order for:" + user.getUsername() + " with userKey:" + user.getUserKey());
@@ -78,7 +78,7 @@ public class OrderController {
         List<ProductItem> productsItems = new ArrayList<>();
         for (ProductItem productItem : userCart.getProductItems()) {
             productCount += productItem.getQuantity();
-            priceOfProducts.add(productItem.getAmmount());
+            priceOfProducts.add(productItem.getAmount());
             productsItems.add(productItem);
         }
         LOGGER.info(user.getUsername() + " have " + productCount + "product in cart");
@@ -88,6 +88,6 @@ public class OrderController {
         orderService.saveOrder(resultOrder);
         LOGGER.info("Amound to pay: " + priceOfProducts.toString());
         userCart.getProductItems().clear();
-        return resultOrder;
+        return orderMapper.mapToOrderDto(resultOrder);
     }
 }

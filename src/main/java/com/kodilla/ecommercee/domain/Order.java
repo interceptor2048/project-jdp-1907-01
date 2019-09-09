@@ -1,17 +1,14 @@
 package com.kodilla.ecommercee.domain;
-
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+
 import javax.persistence.*;
 import java.math.BigDecimal;
 import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
-
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -30,7 +27,6 @@ public class Order {
     private LocalDate date;
     private boolean isCompleted;
 
-
     @ManyToMany(mappedBy = "orders")
     private Set<ProductItem> productItems;
 
@@ -46,9 +42,6 @@ public class Order {
 
     @Setter
     private String status = AWAITING;
-
-
-
 
     public Order(Long id, LocalDate date, boolean isCompleted, User user) {
         this.id = id;
